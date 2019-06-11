@@ -12,6 +12,9 @@
 
 <body>
     <div class="container">
+
+        <div id="msg"></div>
+
         <form> <br>
             <h5>Username: <input type="text" name="username"
                     style="background:#bfbfbf;color:#212121;border-color:#212121;"
@@ -29,7 +32,7 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 <script src="scripts/c-auth.js"></script>
-<script>
+<script>   
     function login(form) {
         username = form.username.value;
         pass = hash(form.password.value);
@@ -39,6 +42,8 @@
                 if (data !== 'fail') {
                     localStorage.setItem('token', data);
                     window.location.href = 'sites';
+                } else {
+                    document.getElementById("msg").innerHTML = 'Wrong username or password';
                 }
         
             });
