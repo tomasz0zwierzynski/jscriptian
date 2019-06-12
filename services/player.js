@@ -10,6 +10,12 @@ module.exports = {
         return player;
     },
 
+    getAllPlayers: function (db) {
+        const players = db.getCollection('players');
+        
+        return players.data;
+    },
+
     updatePlayer: function (db, player) {
         const players = db.getCollection('players');
 
@@ -47,6 +53,27 @@ module.exports = {
             ironProd: ironProd,
             cropProd: cropProd
         };
+    },
+
+    registerPlayer: function(db, name, password) {
+        const players = db.getCollection('players');
+
+        // TODO: check player already in database
+        const newPlayer = {
+            name: name,
+            password: password,
+            resources: { wood: 750, clay: 750, iron: 750, crop: 750 },
+            sites: [
+                { id: 0, buildingId: 0, level: 0 },
+                { id: 1, buildingId: 1, level: 0 },
+                { id: 2, buildingId: 2, level: 0 },
+                { id: 3, buildingId: 3, level: 0 }
+            ]
+        };
+
+        players.insert(newPlayer);
+
+        db.saveDatabase();
     }
 
 };

@@ -3,6 +3,7 @@ const initService = require('./services/init/init');
 const playerService = require('./services/player');
 const buildingService = require('./services/building');
 const gameLoop = require('./services/gameLoop');
+const authService = require('./services/auth');
 const path = require('path');
 
 const app = express();
@@ -10,8 +11,6 @@ const port = 3000;
 
 // Prepare game database
 const db = initService.createDatabase();
-
-const temporaryToken =  't' + new Date().toString();
 
 app.use( express.static(__dirname + '/resources') );
 app.use( express.urlencoded({
@@ -25,11 +24,19 @@ app.get('/login', (req, res) => {
 
 app.post('/auth', (req, res) => {
     // logika otrzymywania tokena
-    if (req.body.user === 'test' && req.body.password === 'test' ) {
-        res.send(temporaryToken);
+    const token = authService.getPlayerToken(db, req.body.user, req.body.password);
+    if (token) {
+        res.send(token);
     } else {
         res.send('fail');
     }
+});
+
+app.get('/logout', (req, res) => {
+    const token = req.query.token;
+    authService.removePlayerToken(db, token);
+    // temporaryToken = 't' + new Date().toString();
+    res.json( { msg: 'logged out' } );
 });
 
 app.get('/', (req, res) => {
@@ -46,13 +53,10 @@ app.get('/site', (req, res) => {
 });
 
 app.get('/sites-params', (req, res) => {
-    console.log('sites-params');
-    if ( isAuth(req) ) {
-        const player = playerService.getPlayerByName(db, 'test');
-    
-        // console.log( req.headers );
-        // console.log( req.header('custom-header') );
 
+    const player = authService.getPlayerByToken(db, req.query.token);
+
+    if ( player ) {
         const production = playerService.getPlayerProduction(db, player);
 
         const json = {
@@ -80,7 +84,9 @@ app.get('/sites-params', (req, res) => {
 
 app.get('/site-params/:id', (req, res) => {
 
-    const player = playerService.getPlayerByName(db, 'test');
+    const player = authService.getPlayerByToken(db, req.query.token);
+
+    if ( player ) {
     
     let building = buildingService.getBuildingById(db, +req.params.id)[0];
     let level = player.sites[+req.params.id].level;
@@ -98,7 +104,10 @@ app.get('/site-params/:id', (req, res) => {
         production: building.levels[level].prod
     };
 
-    res.json(json);
+        res.json(json);
+    } else {
+       // TODO; something 
+    }
 } );
 
 app.get('/upgrade', (req, res) => {
@@ -106,7 +115,8 @@ app.get('/upgrade', (req, res) => {
 
     const siteId = req.query.id; // id w player.site[id]
 
-    const player = playerService.getPlayerByName(db, 'test');
+    const player = authService.getPlayerByToken(db, req.query.token);
+    if (player) { 
     const buildingId = player.sites[siteId].buildingId;
     let building = buildingService.getBuildingById(db, buildingId)[0];
     let level = player.sites[siteId].level;
@@ -123,14 +133,20 @@ app.get('/upgrade', (req, res) => {
     }
 
     res.redirect('/sites');
+    }
 } );
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 setInterval(() => {
-    const player = playerService.getPlayerByName(db, 'test');
+    const allPlayers = playerService.getAllPlayers(db);
+    allPlayers.forEach(p => {
+        gameLoop.process( db, p);
+    });
 
-    gameLoop.process( db, player );
+    // const player = playerService.getPlayerByName(db, 'test');
+
+    // gameLoop.process( db, player );
 }, 20);
 
 function isAuth(req) {

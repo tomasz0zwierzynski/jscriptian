@@ -1,9 +1,13 @@
+const playerService = require('../player');
+
 module.exports = {
     prepareData: function (db) {
 
         createBuildingData(db)
 
         createPlayerData(db);
+
+        createTokenStore(db);
 
         db.saveDatabase();
     }
@@ -49,18 +53,11 @@ function createBuildingData(db) {
 function createPlayerData(db) {
     const players = db.addCollection('players');
 
-    const testPlayer = {
-        name: 'test',
-        resources: { wood: 750, clay: 750, iron: 750, crop: 750 },
-        sites: [
-            { id: 0, buildingId: 0, level: 0 },
-            { id: 1, buildingId: 1, level: 0 },
-            { id: 2, buildingId: 2, level: 0 },
-            { id: 3, buildingId: 3, level: 0 }
-        ]
-    };
-
-    players.insert(testPlayer);
+    playerService.registerPlayer(db, 'test', 'test');
+    playerService.registerPlayer(db, 'test2', 'test2');
 }
 
-// sites: { woodcutter: 0, clayPit: 0, ironMine: 0, cropField: 0 },
+function createTokenStore(db) {
+    const tokens = db.addCollection('tokens');
+
+}

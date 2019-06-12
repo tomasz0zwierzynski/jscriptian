@@ -5,7 +5,9 @@ $.urlParam = function(name) {
 
 const id = $.urlParam('id');
 
-$.getJSON('/site-params/' + id, res => {
+const token = localStorage.getItem('token');
+
+$.getJSON('/site-params/' + id, { token: token }, res => {
 
     const { name, cost, production } = res;
 
@@ -21,6 +23,6 @@ $.getJSON('/site-params/' + id, res => {
 
 function build() {
     setTimeout(() => {
-        window.location.href = 'upgrade?id=' + id;
+        window.location.href = 'upgrade?id=' + id + '&token=' + token;
     }, 30);
 }

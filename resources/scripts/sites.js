@@ -5,15 +5,6 @@ var crop = 0;
 
 const token = localStorage.getItem('token');
 
-// console.log('token from storage: ' + token);
-// // if (token) {
-//     $.ajaxSetup({
-//         headers: {
-//             'token': token.toString()
-//         }
-//     });
-// // }
-
 $.getJSON('/sites-params', { token: token }, res => { 
     console.log('site-params res: ' + res);
 
@@ -80,6 +71,15 @@ function field(num) {
     setTimeout(() => {
         window.location.href = 'site?id=' + num;
     }, 30);
+}
+
+function logout() {
+    $.getJSON('/logout', { token: token }, data => {
+        localStorage.removeItem('token');
+        setTimeout(() => {
+            window.location.href = 'login';
+        }, 30);
+    });
 }
 
 function getSiteName(id) {
