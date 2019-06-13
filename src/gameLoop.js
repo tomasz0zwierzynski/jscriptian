@@ -1,4 +1,4 @@
-const playerService = require('./player');
+const playerService = require('./database/player');
 
 module.exports = {
     

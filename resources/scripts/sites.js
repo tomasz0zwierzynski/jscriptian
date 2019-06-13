@@ -73,15 +73,6 @@ function field(num) {
     }, 30);
 }
 
-function logout() {
-    $.getJSON('/logout', { token: token }, data => {
-        localStorage.removeItem('token');
-        setTimeout(() => {
-            window.location.href = 'login';
-        }, 30);
-    });
-}
-
 function getSiteName(id) {
     if ( id === 0 ) {
         return "Woodcutter";
