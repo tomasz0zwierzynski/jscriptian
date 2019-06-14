@@ -25,9 +25,9 @@ $.getJSON('/sites-params', { token: token }, res => {
             + getSiteName(site.buildingId) 
             + ': '
             + site.level
-            + ' level </p> <button onclick="field('
+            + ' level </p> <button type="button" class="btn btn-info" onclick="field('
             + site.id 
-            + ')"> Upgrade </button>';
+            + ')"> Upgrade </button> <br> <br>';
 
         let container = document.getElementById("site-list");
         container.appendChild(div);
