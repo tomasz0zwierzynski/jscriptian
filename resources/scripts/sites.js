@@ -8,7 +8,7 @@ const token = localStorage.getItem('token');
 $.getJSON('/sites-params', { token: token }, res => { 
     console.log('site-params res: ' + res);
 
-    const { resources, sites, production } = res;
+    const { resources, sites, production, buildQueue } = res;
 
     const woodInterval = 0.02 * production.wood / 3600;
     const clayInterval = 0.02 * production.clay / 3600;
@@ -16,10 +16,6 @@ $.getJSON('/sites-params', { token: token }, res => {
     const cropInterval = 0.02 * production.crop / 3600;
 
     sites.forEach( site => {
-        site.id;
-        site.buildingId;
-        site.level;
-
         let div = document.createElement("div");
         div.innerHTML = '<p> ' 
             + getSiteName(site.buildingId) 
@@ -32,6 +28,19 @@ $.getJSON('/sites-params', { token: token }, res => {
         let container = document.getElementById("site-list");
         container.appendChild(div);
     });
+
+    buildQueue.forEach( build => {
+        let div = document.createElement("div");
+        div.innerHTML = '<p>'
+            + build.timeLeft
+            + ' - '
+            + getSiteName(build.buildingId)
+            + ' - '
+            + build.level // użyc building.siteId do zaznaczenia co się buduje wizualnie
+            + '</p>';
+        let container = document.getElementById("build-queue");
+        container.appendChild(div);    
+    })
 
     document.getElementById("woodProd").innerHTML = production.wood;
     document.getElementById("clayProd").innerHTML = production.clay;

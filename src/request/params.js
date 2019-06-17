@@ -25,7 +25,8 @@ module.exports = {
                         clay: production.clayProd,
                         iron: production.ironProd,
                         crop: production.cropProd
-                    }
+                    },
+                    buildQueue: player.buildQueue
                 };
 
                 res.json(json);

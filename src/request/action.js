@@ -29,13 +29,22 @@ module.exports = {
 
             const player = authService.getPlayerByToken(db, req.query.token);
             if (player) {
+
                 const buildingId = player.sites[siteId].buildingId;
                 let building = buildingService.getBuildingById(db, buildingId)[0];
                 let level = player.sites[siteId].level;
 
-                if (level < 2) { // TODO: na sztywno nie można bardziej rozbudować
-                    player.sites[siteId].level++;
+                if (level < 2) {
+                    player.buildQueue.push( {
+                        buildingId: buildingId,
+                        siteId: siteId,
+                        level: level + 1,
+                        timeLeft: building.levels[level].time    
+                    });
 
+                    // TODO: sprawdzic czy juz sie nie buduje ten budynek, bo wtedy trzeba drozej albo zablokowac
+                 // TODO: na sztywno nie można bardziej rozbudować
+                  
                     player.resources.wood -= building.levels[level].wood;
                     player.resources.clay -= building.levels[level].clay;
                     player.resources.iron -= building.levels[level].iron;

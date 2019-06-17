@@ -33,6 +33,11 @@
                 </li>
             </ul>
         </div>
+
+        <div class="pull-right">        
+          <button type="button" class="btn btn-primary" onclick="logout()"> Log out </button>
+        </div>
+
     </nav>
   <div class="container">
     <div class="row justify-content-md-center mt-3">
@@ -91,12 +96,13 @@
     <div id="site-list">
     </div>
 
+    <div id="build-queue">
+    </div>
+
     <p> Wood production: <span id="woodProd">0</span></p>
     <p> Clay production: <span id="clayProd">0</span></p>
     <p> Iron production: <span id="ironProd">0</span></p>
     <p> Crop production: <span id="cropProd">0</span></p>
-
-    <button type="button" class="btn btn-primary" onclick="logout()"> Log out </button>
 
   </div>
 </body>

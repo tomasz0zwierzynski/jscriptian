@@ -68,7 +68,8 @@ module.exports = {
                 { id: 1, buildingId: 1, level: 0 },
                 { id: 2, buildingId: 2, level: 0 },
                 { id: 3, buildingId: 3, level: 0 }
-            ]
+            ],
+            buildQueue: [ ]
         };
 
         players.insert(newPlayer);

@@ -1,6 +1,5 @@
 const express = require('express');
 const initService = require('./src/init/init');
-const playerService = require('./src/database/player');
 const gameLoop = require('./src/gameLoop');
 
 const paramsEndpoints = require('./src/request/params');
@@ -28,15 +27,6 @@ actionsEndpoints.build(app, db);
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 setInterval(() => {
-    // TODO: zrobić to in game Loop zeby tutaj serwisów nie requiarowac
-    
-    const allPlayers = playerService.getAllPlayers(db);
-    allPlayers.forEach(p => {
-        gameLoop.process( db, p);
-    });
-
-    // const player = playerService.getPlayerByName(db, 'test');
-
-    // gameLoop.process( db, player );
+    gameLoop.process( db );
 }, 20);
 
