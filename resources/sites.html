@@ -55,7 +55,7 @@
               </div>
             </div>
           </div>
-          <div class="col">
+          <div class="col-3">
             <div class="card" style="width: 8rem;">
               <div class="card-body">
                 <p class="card-text">
@@ -91,19 +91,27 @@
       </div>
     </div>
 
-    <h1> Resource sites </h1>
+    <div class="row mt-4">
+      <div class="col-8">
+        <h1> Resource sites </h1>
 
-    <div id="site-list">
+        <div id="site-list">
+        </div>        
+      </div>
+      <div class="col-4">
+        <h3> Production per hour: </h3>
+          <p> Wood: <span id="woodProd">0</span></p>
+          <p> Clay: <span id="clayProd">0</span></p>
+          <p> Iron: <span id="ironProd">0</span></p>
+          <p> Crop: <span id="cropProd">0</span></p>
+      </div>
     </div>
 
-    <div id="build-queue">
+    <div class="row mt-4">
+      <div id="build-queue">
+      </div>
     </div>
-
-    <p> Wood production: <span id="woodProd">0</span></p>
-    <p> Clay production: <span id="clayProd">0</span></p>
-    <p> Iron production: <span id="ironProd">0</span></p>
-    <p> Crop production: <span id="cropProd">0</span></p>
-
+    
   </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>

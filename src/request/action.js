@@ -34,16 +34,19 @@ module.exports = {
                 let building = buildingService.getBuildingById(db, buildingId)[0];
                 let level = player.sites[siteId].level;
 
-                if (level < 2) {
+                
+                const buildQueueSameBuilding = player.buildQueue.filter( b => +b.siteId === +siteId );
+                const alreadyInConstruction = buildQueueSameBuilding.length;
+                
+                // TODO: na sztywno nie można bardziej rozbudować
+                if (level + alreadyInConstruction < 2) {
+
                     player.buildQueue.push( {
                         buildingId: buildingId,
                         siteId: siteId,
-                        level: level + 1,
-                        timeLeft: building.levels[level].time    
+                        level: level + 1 + alreadyInConstruction,
+                        timeLeft: building.levels[level + alreadyInConstruction].time    
                     });
-
-                    // TODO: sprawdzic czy juz sie nie buduje ten budynek, bo wtedy trzeba drozej albo zablokowac
-                 // TODO: na sztywno nie można bardziej rozbudować
                   
                     player.resources.wood -= building.levels[level].wood;
                     player.resources.clay -= building.levels[level].clay;

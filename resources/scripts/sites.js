@@ -3,6 +3,8 @@ var clay = 0;
 var iron = 0;
 var crop = 0;
 
+var queue = [];
+
 const token = localStorage.getItem('token');
 
 $.getJSON('/sites-params', { token: token }, res => { 
@@ -29,15 +31,28 @@ $.getJSON('/sites-params', { token: token }, res => {
         container.appendChild(div);
     });
 
-    buildQueue.forEach( build => {
+    let comutativeTime = 1;
+    buildQueue.forEach( (build, idx) => {
+
+        comutativeTime += build.timeLeft;
+        queue.push( {
+            timeLeft: comutativeTime,
+            siteName: getSiteName(build.buildingId),
+            level: build.level 
+        } )
+
         let div = document.createElement("div");
-        div.innerHTML = '<p>'
-            + build.timeLeft
-            + ' - '
+        div.innerHTML = '<p> '
             + getSiteName(build.buildingId)
-            + ' - '
-            + build.level // użyc building.siteId do zaznaczenia co się buduje wizualnie
-            + '</p>';
+            + ' Level '
+            + build.level
+            + ' <span id="queue' + idx + '">0</span></p>';
+            // + build.timeLeft
+            // + ' - '
+            // + getSiteName(build.buildingId)
+            // + ' - '
+            // + build.level // użyc building.siteId do zaznaczenia co się buduje wizualnie
+            // + '</p>';
         let container = document.getElementById("build-queue");
         container.appendChild(div);    
     })
@@ -54,20 +69,40 @@ $.getJSON('/sites-params', { token: token }, res => {
 
     updateResources();
 
-    setInterval(() => { // TODO: dorobić pamięc, zeby oddzielic prezentacje od stanu faktycznego
+    setInterval( () => {
         wood += woodInterval;
         clay += clayInterval;
         iron += ironInterval;
         crop += cropInterval;
-
+    
         updateResources();
-    }, 20);
+    }, 20 );
+
+    buildQueueInterval();
+    setInterval( buildQueueInterval, 1000 );
 
 } ).fail( (msg) => {
     console.log('site-params fail: ' + msg);
 
     window.location.href = 'login';
 } );
+
+function buildQueueInterval() {
+    queue.forEach( build => {
+        build.timeLeft -= 1;
+        if (build.timeLeft < 0) {
+            location.reload();
+        }
+    } );
+
+    updateBuildingQueue();
+}
+
+function updateBuildingQueue() {
+    queue.forEach( (build, idx) =>{
+        document.getElementById("queue" + idx.toString()).innerHTML = Math.round(build.timeLeft);
+    } );
+}
 
 function updateResources() {
     document.getElementById("wood").innerHTML = Math.round(wood);
