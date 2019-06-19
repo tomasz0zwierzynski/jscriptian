@@ -59,5 +59,17 @@ module.exports = {
                 res.redirect('/sites');
             }
         });
+
+        app.get('/village', (req, res) => {
+            
+            const villageId = req.query.id;
+
+            const player = authService.getPlayerByToken(db, req.query.token);
+            if (player) {
+                player.activeVillage = villageId;
+
+                res.redirect('/sites');
+            }
+        });
     }
 }

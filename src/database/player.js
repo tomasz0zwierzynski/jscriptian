@@ -74,6 +74,17 @@ module.exports = {
                         { id: 3, buildingId: 3, level: 0 }
                     ],
                     buildQueue: [ ]
+                },
+                {
+                    name: name + "'s VILLAGE",
+                    resources: { wood: 7500, clay: 7500, iron: 7500, crop: 7500 },
+                    sites: [
+                        { id: 0, buildingId: 3, level: 1 },
+                        { id: 1, buildingId: 3, level: 1 },
+                        { id: 2, buildingId: 3, level: 1 },
+                        { id: 3, buildingId: 3, level: 1 }
+                    ],
+                    buildQueue: [ ]
                 }
             ],
         };

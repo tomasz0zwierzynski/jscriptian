@@ -14,6 +14,8 @@ module.exports = {
 
                 const json = {
                     name: player.name,
+                    villageName: player.villages[player.activeVillage].name,
+                    villagesNames: player.villages.map( v => v.name ),
                     resources: {
                         wood: player.villages[player.activeVillage].resources.wood,
                         clay: player.villages[player.activeVillage].resources.clay,

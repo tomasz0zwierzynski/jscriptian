@@ -9,7 +9,9 @@ const token = localStorage.getItem('token');
 
 $.getJSON('/sites-params', { token: token }, res => { 
 
-    const { name, resources, sites, production, buildQueue } = res;
+    const { name, villageName, villagesNames, resources, sites, production, buildQueue } = res;
+
+    document.getElementById("village-name").innerHTML = villageName;
 
     const woodInterval = 0.02 * production.wood / 3600;
     const clayInterval = 0.02 * production.clay / 3600;
@@ -28,6 +30,19 @@ $.getJSON('/sites-params', { token: token }, res => {
 
         let container = document.getElementById("site-list");
         container.appendChild(div);
+    });
+
+    villagesNames.forEach( (village, idx) => {
+        let div = document.createElement("div");
+        div.innerHTML = '<p><a href="#" class="text-secondary" onclick="village('
+            + idx
+            + ')">'
+            + village
+            + '</a></p>';
+
+        let container = document.getElementById("villages-list");
+        container.appendChild(div);
+
     });
 
     let comutativeTime = 1;
@@ -117,6 +132,12 @@ function field(num) {
     setTimeout(() => {
         window.location.href = 'site?id=' + num;
     }, 30);
+}
+
+function village(idx) {
+    setTimeout(() => {
+        window.location.href = 'village?id=' + idx + '&token=' + token;;
+    }, 30)
 }
 
 function getSiteName(id) {
