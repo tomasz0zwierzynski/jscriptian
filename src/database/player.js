@@ -24,7 +24,7 @@ module.exports = {
         db.saveDatabase();
     },
 
-    getPlayerProduction: function (db, player) {
+    getPlayerProductionByVillage: function ( db, player, village) {
         let woodProd = 0;
         let clayProd = 0;
         let ironProd = 0;
@@ -35,7 +35,7 @@ module.exports = {
         const ironMineBuilding = buildingService.getBuildingById(db, 2)[0];
         const cropFieldBuilding = buildingService.getBuildingById(db, 3)[0];
 
-        player.villages[player.activeVillage].sites.forEach( site => {
+        player.villages[village].sites.forEach( site => {
             if (site.buildingId === 0) {
                 woodProd += woodcutterBuilding.levels[site.level].prod;
             } else if (site.buildingId === 1) {
@@ -53,6 +53,10 @@ module.exports = {
             ironProd: ironProd,
             cropProd: cropProd
         };
+    },
+
+    getPlayerProduction: function (db, player) {
+        return this.getPlayerProductionByVillage(db, player, player.activeVillage);
     },
 
     registerPlayer: function(db, name, password) {
