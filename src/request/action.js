@@ -30,28 +30,28 @@ module.exports = {
             const player = authService.getPlayerByToken(db, req.query.token);
             if (player) {
 
-                const buildingId = player.sites[siteId].buildingId;
+                const buildingId = player.villages[player.activeVillage].sites[siteId].buildingId;
                 let building = buildingService.getBuildingById(db, buildingId)[0];
-                let level = player.sites[siteId].level;
+                let level = player.villages[player.activeVillage].sites[siteId].level;
 
                 
-                const buildQueueSameBuilding = player.buildQueue.filter( b => +b.siteId === +siteId );
+                const buildQueueSameBuilding = player.villages[player.activeVillage].buildQueue.filter( b => +b.siteId === +siteId );
                 const alreadyInConstruction = buildQueueSameBuilding.length;
                 
                 // TODO: na sztywno nie można bardziej rozbudować
                 if (level + alreadyInConstruction < 2) {
 
-                    player.buildQueue.push( {
+                    player.villages[player.activeVillage].buildQueue.push( {
                         buildingId: buildingId,
                         siteId: siteId,
                         level: level + 1 + alreadyInConstruction,
                         timeLeft: building.levels[level + alreadyInConstruction].time    
                     });
                   
-                    player.resources.wood -= building.levels[level].wood;
-                    player.resources.clay -= building.levels[level].clay;
-                    player.resources.iron -= building.levels[level].iron;
-                    player.resources.crop -= building.levels[level].crop;
+                    player.villages[player.activeVillage].resources.wood -= building.levels[level].wood;
+                    player.villages[player.activeVillage].resources.clay -= building.levels[level].clay;
+                    player.villages[player.activeVillage].resources.iron -= building.levels[level].iron;
+                    player.villages[player.activeVillage].resources.crop -= building.levels[level].crop;
 
                     playerService.updatePlayer(db, player);
                 }

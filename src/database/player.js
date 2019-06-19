@@ -35,7 +35,7 @@ module.exports = {
         const ironMineBuilding = buildingService.getBuildingById(db, 2)[0];
         const cropFieldBuilding = buildingService.getBuildingById(db, 3)[0];
 
-        player.sites.forEach( site => {
+        player.villages[player.activeVillage].sites.forEach( site => {
             if (site.buildingId === 0) {
                 woodProd += woodcutterBuilding.levels[site.level].prod;
             } else if (site.buildingId === 1) {
@@ -62,14 +62,20 @@ module.exports = {
         const newPlayer = {
             name: name,
             password: password,
-            resources: { wood: 750, clay: 750, iron: 750, crop: 750 },
-            sites: [
-                { id: 0, buildingId: 0, level: 0 },
-                { id: 1, buildingId: 1, level: 0 },
-                { id: 2, buildingId: 2, level: 0 },
-                { id: 3, buildingId: 3, level: 0 }
+            activeVillage: 0,
+            villages: [
+                {
+                    name: name + "'s village",
+                    resources: { wood: 750, clay: 750, iron: 750, crop: 750 },
+                    sites: [
+                        { id: 0, buildingId: 0, level: 0 },
+                        { id: 1, buildingId: 1, level: 0 },
+                        { id: 2, buildingId: 2, level: 0 },
+                        { id: 3, buildingId: 3, level: 0 }
+                    ],
+                    buildQueue: [ ]
+                }
             ],
-            buildQueue: [ ]
         };
 
         players.insert(newPlayer);

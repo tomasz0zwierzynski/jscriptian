@@ -8,9 +8,8 @@ var queue = [];
 const token = localStorage.getItem('token');
 
 $.getJSON('/sites-params', { token: token }, res => { 
-    console.log('site-params res: ' + res);
 
-    const { resources, sites, production, buildQueue } = res;
+    const { name, resources, sites, production, buildQueue } = res;
 
     const woodInterval = 0.02 * production.wood / 3600;
     const clayInterval = 0.02 * production.clay / 3600;
@@ -57,6 +56,8 @@ $.getJSON('/sites-params', { token: token }, res => {
         container.appendChild(div);    
     })
 
+    document.getElementById("player-name").innerHTML = name;
+
     document.getElementById("woodProd").innerHTML = production.wood;
     document.getElementById("clayProd").innerHTML = production.clay;
     document.getElementById("ironProd").innerHTML = production.iron;
@@ -99,8 +100,9 @@ function buildQueueInterval() {
 }
 
 function updateBuildingQueue() {
-    queue.forEach( (build, idx) =>{
-        document.getElementById("queue" + idx.toString()).innerHTML = Math.round(build.timeLeft);
+    queue.forEach( (build, idx) => {
+        const left = new Date( Math.round(build.timeLeft) * 1000).toISOString().substr(11, 8);
+        document.getElementById("queue" + idx.toString()).innerHTML = left;
     } );
 }
 

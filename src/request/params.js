@@ -13,20 +13,21 @@ module.exports = {
                 const production = playerService.getPlayerProduction(db, player);
 
                 const json = {
+                    name: player.name,
                     resources: {
-                        wood: player.resources.wood,
-                        clay: player.resources.clay,
-                        iron: player.resources.iron,
-                        crop: player.resources.crop,
+                        wood: player.villages[player.activeVillage].resources.wood,
+                        clay: player.villages[player.activeVillage].resources.clay,
+                        iron: player.villages[player.activeVillage].resources.iron,
+                        crop: player.villages[player.activeVillage].resources.crop,
                     },
-                    sites: player.sites,
+                    sites: player.villages[player.activeVillage].sites,
                     production: {
                         wood: production.woodProd,
                         clay: production.clayProd,
                         iron: production.ironProd,
                         crop: production.cropProd
                     },
-                    buildQueue: player.buildQueue
+                    buildQueue: player.villages[player.activeVillage].buildQueue
                 };
 
                 res.json(json);
@@ -43,7 +44,7 @@ module.exports = {
             if (player) {
 
                 let building = buildingService.getBuildingById(db, +req.params.id)[0];
-                let level = player.sites[+req.params.id].level;
+                let level = player.villages[player.activeVillage].sites[+req.params.id].level;
 
                 const json = {
                     name: building.name,
@@ -60,11 +61,10 @@ module.exports = {
 
                 res.json(json);
             } else {
-                // TODO; something 
+                res.status(401);
+                res.send('Unauthenticated');
             }
         });
-
-
 
     }
 

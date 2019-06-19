@@ -59,5 +59,4 @@ function createPlayerData(db) {
 
 function createTokenStore(db) {
     const tokens = db.addCollection('tokens');
-
 }
