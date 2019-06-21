@@ -5,8 +5,6 @@ $.urlParam = function(name) {
 
 const id = $.urlParam('id');
 
-const token = localStorage.getItem('token');
-
 $.getJSON('/site-params/' + id, { token: token }, res => {
 
     const { name, cost, production } = res;

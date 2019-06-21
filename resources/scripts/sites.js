@@ -5,11 +5,9 @@ var crop = 0;
 
 var queue = [];
 
-const token = localStorage.getItem('token');
-
 $.getJSON('/sites-params', { token: token }, res => { 
 
-    const { name, villageName, villagesNames, resources, capacity, sites, production, buildQueue } = res;
+    const { villageName, villagesNames, resources, capacity, sites, production, buildQueue } = res;
 
     document.getElementById("village-name").innerHTML = villageName;
 
@@ -75,8 +73,6 @@ $.getJSON('/sites-params', { token: token }, res => {
         let container = document.getElementById("build-queue");
         container.appendChild(div);    
     })
-
-    document.getElementById("player-name").innerHTML = name;
 
     document.getElementById("woodProd").innerHTML = production.wood;
     document.getElementById("clayProd").innerHTML = production.clay;

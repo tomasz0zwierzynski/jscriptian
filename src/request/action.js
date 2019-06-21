@@ -42,10 +42,10 @@ module.exports = {
                 if (level + alreadyInConstruction < 2) {
 
                     // TODO: sprawdzic czy mozna rozbudowac
-                    const woodLeft = player.villages[player.activeVillage].resources.wood - building.levels[level].wood;
-                    const clayLeft = player.villages[player.activeVillage].resources.clay - building.levels[level].clay;
-                    const ironLeft = player.villages[player.activeVillage].resources.iron - building.levels[level].iron;
-                    const cropLeft = player.villages[player.activeVillage].resources.crop - building.levels[level].crop;
+                    const woodLeft = player.villages[player.activeVillage].resources.wood - building.levels[level + alreadyInConstruction].wood;
+                    const clayLeft = player.villages[player.activeVillage].resources.clay - building.levels[level + alreadyInConstruction].clay;
+                    const ironLeft = player.villages[player.activeVillage].resources.iron - building.levels[level + alreadyInConstruction].iron;
+                    const cropLeft = player.villages[player.activeVillage].resources.crop - building.levels[level + alreadyInConstruction].crop;
 
                     if (woodLeft < 0 || clayLeft < 0 || ironLeft < 0 || cropLeft < 0 ) {
                         // message ze nie mozna zbudować

@@ -111,7 +111,7 @@ module.exports = {
             villages: [
                 {
                     name: name + "'s village",
-                    resources: { wood: 50, clay: 50, iron: 50, crop: 50 },
+                    resources: { wood: 750, clay: 750, iron: 750, crop: 750 },
                     sites: [
                         { id: 0, buildingId: 0, level: 0 },
                         { id: 1, buildingId: 1, level: 0 },
