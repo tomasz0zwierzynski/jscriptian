@@ -81,7 +81,7 @@ module.exports = {
 
                     buildingProduction: building.levels[level].prod
                 };
-
+                // TODO: pokazać jeszcze czas
                 res.json(json);
             } else {
                 res.status(401);

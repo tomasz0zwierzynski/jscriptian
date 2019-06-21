@@ -33,7 +33,6 @@ module.exports = {
                 const buildingId = player.villages[player.activeVillage].sites[siteId].buildingId;
                 let building = buildingService.getBuildingById(db, buildingId)[0];
                 let level = player.villages[player.activeVillage].sites[siteId].level;
-
                 
                 const buildQueueSameBuilding = player.villages[player.activeVillage].buildQueue.filter( b => +b.siteId === +siteId );
                 const alreadyInConstruction = buildQueueSameBuilding.length;
@@ -51,11 +50,14 @@ module.exports = {
                         // message ze nie mozna zbudować
                     } else {
 
+                        const reduction = playerService.getPlayerMainBuildingReduction(db, player).reduction;
+                        const timeLeft = Math.round( building.levels[level + alreadyInConstruction].time * ( ( 100 - reduction ) / 100 ) );
+
                         player.villages[player.activeVillage].buildQueue.push( {
                             buildingId: buildingId,
                             siteId: siteId,
                             level: level + 1 + alreadyInConstruction,
-                            timeLeft: building.levels[level + alreadyInConstruction].time    
+                            timeLeft: timeLeft   
                         });
                   
                         player.villages[player.activeVillage].resources.wood = woodLeft;

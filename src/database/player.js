@@ -100,6 +100,25 @@ module.exports = {
         return this.getPlayerProductionByVillage(db, player, player.activeVillage);
     },
 
+    getPlayerMainBuildingReductionByVillage: function (db, player, village) {
+        let reduction = 0;
+
+        const mainBuilding = buildingService.getBuildingById(db, 4)[0];
+
+        const mainBuildings = player.villages[village].buildings.filter( building => building.buildingId === 4 );
+        if (mainBuildings.length === 1 ) {
+            reduction = mainBuilding.levels[mainBuildings[0].level].reduction;
+        }
+        
+        return {
+            reduction: reduction
+        }
+    },
+
+    getPlayerMainBuildingReduction: function (db, player) {
+        return this.getPlayerMainBuildingReductionByVillage(db, player, player.activeVillage);
+    },
+
     registerPlayer: function(db, name, password) {
         const players = db.getCollection('players');
 
@@ -128,14 +147,15 @@ module.exports = {
                     name: name + "'s VILLAGE",
                     resources: { wood: 7500, clay: 7500, iron: 7500, crop: 7500 },
                     sites: [
-                        { id: 0, buildingId: 3, level: 2 },
-                        { id: 1, buildingId: 3, level: 2 },
-                        { id: 2, buildingId: 3, level: 2 },
-                        { id: 3, buildingId: 3, level: 2 }
+                        { id: 0, buildingId: 3, level: 0 },
+                        { id: 1, buildingId: 3, level: 0 },
+                        { id: 2, buildingId: 3, level: 0 },
+                        { id: 3, buildingId: 3, level: 0 }
                     ],
                     buildQueue: [ ],
                     buildings: [
-                        { id: 0, buildingId: 5, level: 1 }
+                        { id: 0, buildingId: 5, level: 1 },
+                        { id: 1, buildingId: 4, level: 1 }
                     ],
                     constructQueue: [ ]
                 }

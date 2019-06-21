@@ -64,12 +64,6 @@ $.getJSON('/sites-params', { token: token }, res => {
             + ' Level '
             + build.level
             + ' <span id="queue' + idx + '">0</span></p>';
-            // + build.timeLeft
-            // + ' - '
-            // + getSiteName(build.buildingId)
-            // + ' - '
-            // + build.level // użyc building.siteId do zaznaczenia co się buduje wizualnie
-            // + '</p>';
         let container = document.getElementById("build-queue");
         container.appendChild(div);    
     })
