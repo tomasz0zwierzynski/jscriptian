@@ -9,9 +9,14 @@ const token = localStorage.getItem('token');
 
 $.getJSON('/sites-params', { token: token }, res => { 
 
-    const { name, villageName, villagesNames, resources, sites, production, buildQueue } = res;
+    const { name, villageName, villagesNames, resources, capacity, sites, production, buildQueue } = res;
 
     document.getElementById("village-name").innerHTML = villageName;
+
+    document.getElementById("wood-capacity").innerHTML = capacity.warehouseCapacity;
+    document.getElementById("clay-capacity").innerHTML = capacity.warehouseCapacity;
+    document.getElementById("iron-capacity").innerHTML = capacity.warehouseCapacity;
+    document.getElementById("crop-capacity").innerHTML = capacity.granaryCapacity;
 
     const woodInterval = 0.02 * production.wood / 3600;
     const clayInterval = 0.02 * production.clay / 3600;
@@ -86,11 +91,16 @@ $.getJSON('/sites-params', { token: token }, res => {
     updateResources();
 
     setInterval( () => {
-        wood += woodInterval;
-        clay += clayInterval;
-        iron += ironInterval;
-        crop += cropInterval;
-    
+        const newWood = wood + woodInterval;
+        const newClay = clay + clayInterval;
+        const newIron = iron + ironInterval;
+        const newCrop = crop + cropInterval;
+
+        if (newWood <= capacity.warehouseCapacity) wood = newWood; 
+        if (newClay <= capacity.warehouseCapacity) clay = newClay;
+        if (newIron <= capacity.warehouseCapacity) iron = newIron;
+        if (newCrop <= capacity.granaryCapacity) crop = newCrop;
+
         updateResources();
     }, 20 );
 

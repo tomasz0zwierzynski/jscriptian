@@ -24,6 +24,47 @@ module.exports = {
         db.saveDatabase();
     },
 
+    getPlayerCapacityByVillage: function ( db, player, village ) {
+        let warehouseCapacity = 0;
+        let granaryCapacity = 0;
+
+        const warehouseBuilding = buildingService.getBuildingById(db, 5)[0];
+        const granaryBuilding = buildingService.getBuildingById(db, 6)[0];
+
+        const warehouses = player.villages[village].buildings.filter( building => building.buildingId === 5 );
+        if (warehouses.length > 0) {
+            warehouses.forEach( warehouse => {
+                warehouseCapacity += warehouseBuilding.levels[ warehouse.level ].capacity;
+            })
+        } else {
+            warehouseCapacity = 8000;
+        }
+        if (warehouseCapacity < 8000) {
+            warehouseCapacity = 8000;
+        }
+
+        const granaries = player.villages[village].buildings.filter( building => building.buildingId === 6 );
+        if (granaries.length > 0) {
+            granaries.forEach( granary => {
+                granaryCapacity += granaryBuilding.levels[ granary.level ].capacity;
+            })
+        } else {
+            granaryCapacity = 8000;
+        }
+        if (granaryCapacity < 8000) {
+            granaryCapacity = 8000;
+        }
+
+        return {
+            warehouseCapacity: warehouseCapacity,
+            granaryCapacity: granaryCapacity
+        }
+    },
+
+    getPlayerCapacity: function ( db, player ) {
+        return this.getPlayerCapacityByVillage( db, player, player.activeVillage );
+    },
+
     getPlayerProductionByVillage: function ( db, player, village) {
         let woodProd = 0;
         let clayProd = 0;
@@ -70,25 +111,33 @@ module.exports = {
             villages: [
                 {
                     name: name + "'s village",
-                    resources: { wood: 750, clay: 750, iron: 750, crop: 750 },
+                    resources: { wood: 50, clay: 50, iron: 50, crop: 50 },
                     sites: [
                         { id: 0, buildingId: 0, level: 0 },
                         { id: 1, buildingId: 1, level: 0 },
                         { id: 2, buildingId: 2, level: 0 },
                         { id: 3, buildingId: 3, level: 0 }
                     ],
-                    buildQueue: [ ]
+                    buildQueue: [ ],
+                    buildings: [
+
+                    ],
+                    constructQueue: [ ]
                 },
                 {
                     name: name + "'s VILLAGE",
                     resources: { wood: 7500, clay: 7500, iron: 7500, crop: 7500 },
                     sites: [
-                        { id: 0, buildingId: 3, level: 1 },
-                        { id: 1, buildingId: 3, level: 1 },
-                        { id: 2, buildingId: 3, level: 1 },
-                        { id: 3, buildingId: 3, level: 1 }
+                        { id: 0, buildingId: 3, level: 2 },
+                        { id: 1, buildingId: 3, level: 2 },
+                        { id: 2, buildingId: 3, level: 2 },
+                        { id: 3, buildingId: 3, level: 2 }
                     ],
-                    buildQueue: [ ]
+                    buildQueue: [ ],
+                    buildings: [
+                        { id: 0, buildingId: 5, level: 1 }
+                    ],
+                    constructQueue: [ ]
                 }
             ],
         };

@@ -41,19 +41,30 @@ module.exports = {
                 // TODO: na sztywno nie można bardziej rozbudować
                 if (level + alreadyInConstruction < 2) {
 
-                    player.villages[player.activeVillage].buildQueue.push( {
-                        buildingId: buildingId,
-                        siteId: siteId,
-                        level: level + 1 + alreadyInConstruction,
-                        timeLeft: building.levels[level + alreadyInConstruction].time    
-                    });
-                  
-                    player.villages[player.activeVillage].resources.wood -= building.levels[level].wood;
-                    player.villages[player.activeVillage].resources.clay -= building.levels[level].clay;
-                    player.villages[player.activeVillage].resources.iron -= building.levels[level].iron;
-                    player.villages[player.activeVillage].resources.crop -= building.levels[level].crop;
+                    // TODO: sprawdzic czy mozna rozbudowac
+                    const woodLeft = player.villages[player.activeVillage].resources.wood - building.levels[level].wood;
+                    const clayLeft = player.villages[player.activeVillage].resources.clay - building.levels[level].clay;
+                    const ironLeft = player.villages[player.activeVillage].resources.iron - building.levels[level].iron;
+                    const cropLeft = player.villages[player.activeVillage].resources.crop - building.levels[level].crop;
 
-                    playerService.updatePlayer(db, player);
+                    if (woodLeft < 0 || clayLeft < 0 || ironLeft < 0 || cropLeft < 0 ) {
+                        // message ze nie mozna zbudować
+                    } else {
+
+                        player.villages[player.activeVillage].buildQueue.push( {
+                            buildingId: buildingId,
+                            siteId: siteId,
+                            level: level + 1 + alreadyInConstruction,
+                            timeLeft: building.levels[level + alreadyInConstruction].time    
+                        });
+                  
+                        player.villages[player.activeVillage].resources.wood = woodLeft;
+                        player.villages[player.activeVillage].resources.clay = clayLeft;
+                        player.villages[player.activeVillage].resources.iron = ironLeft;
+                        player.villages[player.activeVillage].resources.crop = cropLeft;
+
+                        playerService.updatePlayer(db, player);
+                    }
                 }
 
                 res.redirect('/sites');

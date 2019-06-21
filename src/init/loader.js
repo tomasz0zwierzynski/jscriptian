@@ -48,6 +48,30 @@ function createBuildingData(db) {
         ]
     });
 
+    buildings.insert({
+        id: 4, name: 'Main Building', levels: [
+            { reduction: 0, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300 },
+            { reduction: 50, wood: 300, clay: 300, iron: 300, crop: 200, pop: 3, cp: 2, time: 600 }, 
+            { reduction: 75, wood: 900, clay: 900, iron: 900, crop: 700, pop: 7, cp: 5, time: 1200 },
+        ]
+    });
+
+    buildings.insert({
+        id: 5, name: 'Warehouse', levels: [
+            { capacity: 0, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300 },
+            { capacity: 12000, wood: 300, clay: 300, iron: 300, crop: 200, pop: 3, cp: 2, time: 600 }, 
+            { capacity: 17000, wood: 900, clay: 900, iron: 900, crop: 700, pop: 7, cp: 5, time: 1200 },
+        ]
+    });
+
+    buildings.insert({
+        id: 6, name: 'Granary', levels: [
+            { capacity: 0, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300 },
+            { capacity: 12000, wood: 300, clay: 300, iron: 300, crop: 200, pop: 3, cp: 2, time: 600 }, 
+            { capacity: 17000, wood: 900, clay: 900, iron: 900, crop: 700, pop: 7, cp: 5, time: 1200 },
+        ]
+    })
+
 }
 
 function createPlayerData(db) {
