@@ -1,29 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Resource site</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    </head>
-    <body>
-        <h1> <span id="site-name">Unnamed</span> </h1>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <p> Current production: <span id="production">0</span> </p>
+    <title>Resource site</title>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+</head>
 
-        <p> Next level cost: </p>
-        <p> Wood: <span id="wood">0</span> </p>
-        <p> Clay: <span id="clay">0</span> </p>
-        <p> Iron: <span id="iron">0</span> </p>
-        <p> Crop: <span id="crop">0</span> </p>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Jscriptian 0.1</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+            aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <button onclick="build()">Upgrade</button> 
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Player</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Sites <span class="sr-only">(current)</span> </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Center</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Map</a>
+                </li>
+            </ul>
+        </div>
 
-    </body>
+        <div class="pull-right">
+            <p class="d-inline text-muted"><span id="player-name"></span></p>
+            <button type="button" class="ml-4 d-inline btn btn-primary" onclick="logout()"> Log out </button>
+        </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-    <script src="scripts/commons.js"></script>
-    <script src="scripts/site.js"></script>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-md-center mt-3">
+            <div class="col">
+            </div>
+            <div class="col-md-auto">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="card" style="width: 10rem;">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <img src="images/wood.png" width="30" height="30">
+                                    <span id="wood">0</span> / <span id="wood-capacity">0</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" style="width: 10rem;">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <img src="images/clay.png" width="30" height="30">
+                                    <span id="clay">0</span> / <span id="clay-capacity">0</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" style="width: 10rem;">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <img src="images/iron.png" width="30" height="30">
+                                    <span id="iron">0</span> / <span id="iron-capacity">0</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" style="width: 10rem;">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <img src="images/crop.png" width="30" height="30">
+                                    <span id="crop">0</span> / <span id="crop-capacity">0</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col">
+                <h1><span id="site-name"></span></h1>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+
+            </div>
+            <div class="col-8">
+
+                <p> Current production: <span id="production">0</span> </p>
+
+                <p> Next level cost: </p>
+                <p> Wood: <span id="wood-cost">0</span> </p>
+                <p> Clay: <span id="clay-cost">0</span> </p>
+                <p> Iron: <span id="iron-cost">0</span> </p>
+                <p> Crop: <span id="crop-cost">0</span> </p>
+
+                <button onclick="build()">Upgrade</button>
+
+
+            </div>
+            <div class="col">
+                <div id="villages-list">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+<script src="scripts/commons.js"></script>
+<script src="scripts/site.js"></script>
 
 </html>

@@ -79,7 +79,7 @@ module.exports = {
                         crop: building.levels[level + sameBuildingInQueue].crop
                     },
 
-                    production: building.levels[level].prod
+                    buildingProduction: building.levels[level].prod
                 };
 
                 res.json(json);

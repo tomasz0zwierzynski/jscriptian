@@ -104,7 +104,7 @@ $.getJSON('/sites-params', { token: token }, res => {
     setInterval( buildQueueInterval, 1000 );
 
 } ).fail( (msg) => {
-    console.log('site-params fail: ' + msg);
+    console.log('sites-params fail: ' + msg);
 
     window.location.href = 'login';
 } );
