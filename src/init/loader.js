@@ -18,9 +18,17 @@ function createBuildingData(db) {
 
     buildings.insert({
         id: 0, name: 'Woodcutter', levels: [
-            { prod: 2000, wood: 30, clay: 50, iron: 25, crop: 15, pop: 2, cp: 0, time: 30 },
-            { prod: 5000, wood: 75, clay: 110, iron: 60, crop: 45, pop: 3, cp: 1, time: 70 },
-            { prod: 12000, wood: 125, clay: 165, iron: 130, crop: 80, pop: 4, cp: 1, time: 130 }
+            { prod: 2000, wood: 40, clay: 100, iron: 50, crop: 60, pop: 0, cp: 0, time: 260 },
+            { prod: 5000, wood: 65, clay: 165, iron: 85, crop: 100, pop: 2, cp: 1, time: 520 },
+            { prod: 9000, wood: 110, clay: 280, iron: 140, crop: 165, pop: 3, cp: 1, time: 1040 },
+            { prod: 15000, wood: 185, clay: 465, iron: 235, crop: 280, pop: 4, cp: 2, time: 2080 },
+            { prod: 22000, wood: 310, clay: 780, iron: 390, crop: 465, pop: 5, cp: 2, time: 4160 },
+            { prod: 33000, wood: 520, clay: 1300, iron: 650, crop: 780, pop: 6, cp: 2, time: 8320 },
+            { prod: 50000, wood: 870, clay: 2170, iron: 1085, crop: 1300, pop: 8, cp: 3, time: 16640 },
+            { prod: 70000, wood: 1450, clay: 3625, iron: 1810, crop: 2175, pop: 10, cp: 4, time: 33280 },
+            { prod: 100000, wood: 2420, clay: 6050, iron: 3025, crop: 3630, pop: 12, cp: 4, time: 66560 },
+            { prod: 145000, wood: 4040, clay: 10105, iron: 5050, crop: 6060, pop: 14, cp: 5, time: 133120 },
+            { prod: 200000, wood: 9999999999, clay: 9999999999, iron: 9999999999, crop: 9999999999, pop: 16, cp: 6, time: 9999999999 } // 10 level
         ]
     });
 

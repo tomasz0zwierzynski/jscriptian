@@ -40,7 +40,6 @@ module.exports = {
                 // TODO: na sztywno nie można bardziej rozbudować
                 if (level + alreadyInConstruction < 2) {
 
-                    // TODO: sprawdzic czy mozna rozbudowac
                     const woodLeft = player.villages[player.activeVillage].resources.wood - building.levels[level + alreadyInConstruction].wood;
                     const clayLeft = player.villages[player.activeVillage].resources.clay - building.levels[level + alreadyInConstruction].clay;
                     const ironLeft = player.villages[player.activeVillage].resources.iron - building.levels[level + alreadyInConstruction].iron;
