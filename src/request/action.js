@@ -25,7 +25,7 @@ module.exports = {
         app.get('/upgrade', (req, res) => {
             // Upgrade logic
 
-            const siteId = req.query.id; // id w player.site[id]
+            const siteId = +req.query.id; // id w player.site[id]
 
             const player = authService.getPlayerByToken(db, req.query.token);
             if (player) {
@@ -80,7 +80,12 @@ module.exports = {
             if (player) {
                 player.activeVillage = villageId;
 
-                res.redirect('/sites');
+                if ( req.query.place === 'sites' ) {
+                    res.redirect('/sites');
+                } else if ( req.query.place === 'center' ) {
+                    res.redirect('/center');
+                }
+                
             }
         });
     }

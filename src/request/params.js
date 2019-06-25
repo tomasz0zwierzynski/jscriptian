@@ -6,7 +6,7 @@ module.exports = {
 
     build: function (app, db) {
 
-        app.get('/user-info', (req, res) => {
+        app.get('/user-info-params', (req, res) => {
 
             const player = authService.getPlayerByToken(db, req.query.token);
             if (player) {
@@ -23,8 +23,8 @@ module.exports = {
 
         });
 
-        app.get('/sites-params', (req, res) => {
-
+        app.get('/production-params', (req, res) => {
+            
             const player = authService.getPlayerByToken(db, req.query.token);
 
             if (player) {
@@ -32,8 +32,6 @@ module.exports = {
                 const capacity = playerService.getPlayerCapacity(db, player);
 
                 const json = {
-                    villageName: player.villages[player.activeVillage].name,
-                    villagesNames: player.villages.map( v => v.name ),
                     resources: {
                         wood: player.villages[player.activeVillage].resources.wood,
                         clay: player.villages[player.activeVillage].resources.clay,
@@ -41,13 +39,47 @@ module.exports = {
                         crop: player.villages[player.activeVillage].resources.crop,
                     },
                     capacity: capacity,
-                    sites: player.villages[player.activeVillage].sites,
                     production: {
                         wood: production.woodProd,
                         clay: production.clayProd,
                         iron: production.ironProd,
                         crop: production.cropProd
-                    },
+                    }
+                }
+
+                res.json(json);
+            } else {
+                res.status(401);
+                res.send('Unauthenticated');
+            }
+        } );
+
+        app.get('/villages-params', (req, res) => {
+
+            const player = authService.getPlayerByToken(db, req.query.token);
+
+            if (player) {
+                const json = {
+                    villageName: player.villages[player.activeVillage].name,
+                    villagesNames: player.villages.map( v => v.name )
+                };
+
+                res.json(json);
+            } else {
+                res.status(401);
+                res.send('Unauthenticated');
+            }
+
+        } );
+
+        app.get('/sites-params', (req, res) => {
+
+            const player = authService.getPlayerByToken(db, req.query.token);
+
+            if (player) {
+
+                const json = {
+                    sites: player.villages[player.activeVillage].sites,
                     buildQueue: player.villages[player.activeVillage].buildQueue
                 };
 
@@ -64,7 +96,8 @@ module.exports = {
 
             if (player) {
 
-                let building = buildingService.getBuildingById(db, +req.params.id)[0];
+                const buildingId = player.villages[player.activeVillage].sites[+req.params.id].buildingId;
+                let building = buildingService.getBuildingById(db, buildingId)[0];
                 let level = player.villages[player.activeVillage].sites[+req.params.id].level;
 
                 const sameBuildingInQueue = player.villages[player.activeVillage].buildQueue.filter(b => +b.siteId === +req.params.id ).length;
@@ -87,6 +120,24 @@ module.exports = {
                 res.status(401);
                 res.send('Unauthenticated');
             }
+        });
+
+        app.get('/center-params', (req, res) => {
+
+            const player = authService.getPlayerByToken(db, req.query.token)
+
+            if (player) {
+                const json = {
+                    buildings: player.villages[player.activeVillage].buildings,
+                    constructQueue: player.villages[player.activeVillage].constructQueue
+                };
+
+                res.json(json);
+            } else {
+                res.status(401);
+                res.send('Unauthenticated');
+            }
+
         });
 
     }

@@ -1,3 +1,8 @@
+var wood = 0;
+var clay = 0;
+var iron = 0;
+var crop = 0;
+
 $.urlParam = function(name) {
     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
     return results[1] || 0;
@@ -23,7 +28,7 @@ $.getJSON('/site-params/' + id, { token: token }, res => {
     window.location.href = 'login';
 } );;
 
-$.getJSON('/sites-params', { token: token }, res => { 
+$.getJSON('/production-params', { token: token }, res => { 
 
     const { resources, capacity, production } = res;
 
@@ -73,5 +78,11 @@ function updateResources() {
 function build() {
     setTimeout(() => {
         window.location.href = 'upgrade?id=' + id + '&token=' + token;
+    }, 30);
+}
+
+function back() {
+    setTimeout(() => {
+        window.location.href = "sites";
     }, 30);
 }

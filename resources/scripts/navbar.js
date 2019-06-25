@@ -1,4 +1,4 @@
-$.getJSON('/user-info', { token: token }, res => {
+$.getJSON('/user-info-params', { token: token }, res => {
 
     const { name } = res;
 
