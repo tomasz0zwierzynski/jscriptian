@@ -20,10 +20,12 @@ module.exports = {
 
     getPlayerByToken: function (db, playerToken) {
 
-        const token = tokenService.getToken(db, playerToken);
-        if (token) {
-            return playerService.getPlayerByName(db, token.name);
-        } 
+        if (playerToken) {
+            const token = tokenService.getToken(db, playerToken);
+            if (token) {
+                return playerService.getPlayerByName(db, token.name);
+            } 
+        }
         return null;
     },
 

@@ -5,7 +5,7 @@ var crop = 0;
 
 var queue = [];
 
-$.getJSON('/production', { token: token }, res => {
+$.getJSON('/production-params', { token: token }, res => {
     const { resources, capacity, production } = res;
 
     document.getElementById("wood-capacity").innerHTML = capacity.warehouseCapacity;
@@ -46,11 +46,30 @@ $.getJSON('/production', { token: token }, res => {
 
 } );
 
-$.getJSON('/sites-params', { token: token }, res => { 
+$.getJSON('/villages-params', { token : token }, res => {
 
-    const { villageName, villagesNames, sites, buildQueue } = res;
+    const { villageName, villagesNames } = res;
 
     document.getElementById("village-name").innerHTML = villageName;
+
+    villagesNames.forEach( (village, idx) => {
+        let div = document.createElement("div");
+        div.innerHTML = '<p><a href="#" class="text-secondary" onclick="village('
+            + idx
+            + ')">'
+            + village
+            + '</a></p>';
+
+        let container = document.getElementById("villages-list");
+        container.appendChild(div);
+
+    });
+
+} );
+
+$.getJSON('/sites-params', { token: token }, res => { 
+
+    const { sites, buildQueue } = res;
 
     sites.forEach( site => {
         let div = document.createElement("div");
@@ -64,19 +83,6 @@ $.getJSON('/sites-params', { token: token }, res => {
 
         let container = document.getElementById("site-list");
         container.appendChild(div);
-    });
-
-    villagesNames.forEach( (village, idx) => {
-        let div = document.createElement("div");
-        div.innerHTML = '<p><a href="#" class="text-secondary" onclick="village('
-            + idx
-            + ')">'
-            + village
-            + '</a></p>';
-
-        let container = document.getElementById("villages-list");
-        container.appendChild(div);
-
     });
 
     let comutativeTime = 1;

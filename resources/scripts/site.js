@@ -23,7 +23,7 @@ $.getJSON('/site-params/' + id, { token: token }, res => {
     window.location.href = 'login';
 } );;
 
-$.getJSON('/production', { token: token }, res => { 
+$.getJSON('/production-params', { token: token }, res => { 
 
     const { resources, capacity, production } = res;
 
@@ -73,5 +73,11 @@ function updateResources() {
 function build() {
     setTimeout(() => {
         window.location.href = 'upgrade?id=' + id + '&token=' + token;
+    }, 30);
+}
+
+function back() {
+    setTimeout(() => {
+        window.location.href = "sites";
     }, 30);
 }

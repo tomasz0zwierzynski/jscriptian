@@ -6,7 +6,7 @@ module.exports = {
 
     build: function (app, db) {
 
-        app.get('/user-info', (req, res) => {
+        app.get('/user-info-params', (req, res) => {
 
             const player = authService.getPlayerByToken(db, req.query.token);
             if (player) {
@@ -23,7 +23,7 @@ module.exports = {
 
         });
 
-        app.get('/production', (req, res) => {
+        app.get('/production-params', (req, res) => {
             
             const player = authService.getPlayerByToken(db, req.query.token);
 
@@ -54,6 +54,24 @@ module.exports = {
             }
         } );
 
+        app.get('/villages-params', (req, res) => {
+
+            const player = authService.getPlayerByToken(db, req.query.token);
+
+            if (player) {
+                const json = {
+                    villageName: player.villages[player.activeVillage].name,
+                    villagesNames: player.villages.map( v => v.name )
+                };
+
+                res.json(json);
+            } else {
+                res.status(401);
+                res.send('Unauthenticated');
+            }
+
+        } );
+
         app.get('/sites-params', (req, res) => {
 
             const player = authService.getPlayerByToken(db, req.query.token);
@@ -61,8 +79,6 @@ module.exports = {
             if (player) {
 
                 const json = {
-                    villageName: player.villages[player.activeVillage].name,
-                    villagesNames: player.villages.map( v => v.name ),
                     sites: player.villages[player.activeVillage].sites,
                     buildQueue: player.villages[player.activeVillage].buildQueue
                 };
@@ -104,6 +120,26 @@ module.exports = {
                 res.status(401);
                 res.send('Unauthenticated');
             }
+        });
+
+        app.get('/center-params/:id', (req, res) => {
+
+            const player = authService.getPlayerByToken(db, req.query.token)
+
+            if (player) {
+                const json = {
+                    villageName: player.villages[player.activeVillage].name,
+                    villagesNames: player.villages.map( v => v.name ),
+                    buildings: player.villages[player.activeVillage].buildings,
+                    constructQueue: player.villages[player.activeVillage].constructQueue
+                };
+
+                res.json(json);
+            } else {
+                res.status(401);
+                res.send('Unauthenticated');
+            }
+
         });
 
     }

@@ -23,7 +23,7 @@
                     <a class="nav-link" href="#">Player</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Sites <span class="sr-only">(current)</span> </a>
+                    <a class="nav-link" href="/sites">Sites <span class="sr-only">(current)</span> </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Center</a>
@@ -112,7 +112,10 @@
                 <p> Iron: <span id="iron-cost">0</span> </p>
                 <p> Crop: <span id="crop-cost">0</span> </p>
 
-                <button type="button" class="btn btn-info" onclick="build()">Upgrade</button>
+                <div class="btn-toolbar">
+                    <button type="button" class="btn btn-secondary" onclick="back()">Return</button>
+                    <button type="button" class="btn btn-info" onclick="build()">Upgrade</button>
+                </div>
 
             </div>
             <div class="col">
