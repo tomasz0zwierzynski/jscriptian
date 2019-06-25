@@ -5,11 +5,8 @@ var crop = 0;
 
 var queue = [];
 
-$.getJSON('/sites-params', { token: token }, res => { 
-
-    const { villageName, villagesNames, resources, capacity, sites, production, buildQueue } = res;
-
-    document.getElementById("village-name").innerHTML = villageName;
+$.getJSON('/production', { token: token }, res => {
+    const { resources, capacity, production } = res;
 
     document.getElementById("wood-capacity").innerHTML = capacity.warehouseCapacity;
     document.getElementById("clay-capacity").innerHTML = capacity.warehouseCapacity;
@@ -20,6 +17,40 @@ $.getJSON('/sites-params', { token: token }, res => {
     const clayInterval = 0.02 * production.clay / 3600;
     const ironInterval = 0.02 * production.iron / 3600;
     const cropInterval = 0.02 * production.crop / 3600;
+
+    document.getElementById("woodProd").innerHTML = production.wood;
+    document.getElementById("clayProd").innerHTML = production.clay;
+    document.getElementById("ironProd").innerHTML = production.iron;
+    document.getElementById("cropProd").innerHTML = production.crop;
+
+    wood = resources.wood;
+    clay = resources.clay;
+    iron = resources.iron;
+    crop = resources.crop;
+
+    updateResources();
+
+    setInterval( () => {
+        const newWood = wood + woodInterval;
+        const newClay = clay + clayInterval;
+        const newIron = iron + ironInterval;
+        const newCrop = crop + cropInterval;
+
+        if (newWood <= capacity.warehouseCapacity) wood = newWood; 
+        if (newClay <= capacity.warehouseCapacity) clay = newClay;
+        if (newIron <= capacity.warehouseCapacity) iron = newIron;
+        if (newCrop <= capacity.granaryCapacity) crop = newCrop;
+
+        updateResources();
+    }, 20 );
+
+} );
+
+$.getJSON('/sites-params', { token: token }, res => { 
+
+    const { villageName, villagesNames, sites, buildQueue } = res;
+
+    document.getElementById("village-name").innerHTML = villageName;
 
     sites.forEach( site => {
         let div = document.createElement("div");
@@ -66,33 +97,7 @@ $.getJSON('/sites-params', { token: token }, res => {
             + ' <span id="queue' + idx + '">0</span></p>';
         let container = document.getElementById("build-queue");
         container.appendChild(div);    
-    })
-
-    document.getElementById("woodProd").innerHTML = production.wood;
-    document.getElementById("clayProd").innerHTML = production.clay;
-    document.getElementById("ironProd").innerHTML = production.iron;
-    document.getElementById("cropProd").innerHTML = production.crop;
-
-    wood = resources.wood;
-    clay = resources.clay;
-    iron = resources.iron;
-    crop = resources.crop;
-
-    updateResources();
-
-    setInterval( () => {
-        const newWood = wood + woodInterval;
-        const newClay = clay + clayInterval;
-        const newIron = iron + ironInterval;
-        const newCrop = crop + cropInterval;
-
-        if (newWood <= capacity.warehouseCapacity) wood = newWood; 
-        if (newClay <= capacity.warehouseCapacity) clay = newClay;
-        if (newIron <= capacity.warehouseCapacity) iron = newIron;
-        if (newCrop <= capacity.granaryCapacity) crop = newCrop;
-
-        updateResources();
-    }, 20 );
+    });
 
     buildQueueInterval();
     setInterval( buildQueueInterval, 1000 );

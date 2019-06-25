@@ -25,7 +25,7 @@ module.exports = {
         app.get('/upgrade', (req, res) => {
             // Upgrade logic
 
-            const siteId = req.query.id; // id w player.site[id]
+            const siteId = +req.query.id; // id w player.site[id]
 
             const player = authService.getPlayerByToken(db, req.query.token);
             if (player) {

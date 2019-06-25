@@ -23,7 +23,7 @@ $.getJSON('/site-params/' + id, { token: token }, res => {
     window.location.href = 'login';
 } );;
 
-$.getJSON('/sites-params', { token: token }, res => { 
+$.getJSON('/production', { token: token }, res => { 
 
     const { resources, capacity, production } = res;
 
