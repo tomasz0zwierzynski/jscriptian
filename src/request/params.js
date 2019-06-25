@@ -122,14 +122,12 @@ module.exports = {
             }
         });
 
-        app.get('/center-params/:id', (req, res) => {
+        app.get('/center-params', (req, res) => {
 
             const player = authService.getPlayerByToken(db, req.query.token)
 
             if (player) {
                 const json = {
-                    villageName: player.villages[player.activeVillage].name,
-                    villagesNames: player.villages.map( v => v.name ),
                     buildings: player.villages[player.activeVillage].buildings,
                     constructQueue: player.villages[player.activeVillage].constructQueue
                 };

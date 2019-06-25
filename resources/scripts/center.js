@@ -43,7 +43,6 @@ $.getJSON('/production-params', { token: token }, res => {
 
         updateResources();
     }, 20 );
-
 } ).fail( (msg) => {
     console.log('production-params fail: ' + msg);
 
@@ -75,37 +74,37 @@ $.getJSON('/villages-params', { token : token }, res => {
     window.location.href = 'login';
 } );
 
-$.getJSON('/sites-params', { token: token }, res => { 
+$.getJSON('/center-params', { token: token }, res => {
 
-    const { sites, buildQueue } = res;
+    const { buildings, constructQueue } = res;
 
-    sites.forEach( site => {
+    buildings.forEach( building => {
         let div = document.createElement("div");
         div.innerHTML = '<p> ' 
-            + getSiteName(site.buildingId) 
+            + getBuildingName(building.buildingId) 
             + ': '
-            + site.level
-            + ' level </p> <button type="button" class="btn btn-info" onclick="field('
-            + site.id 
+            + building.level
+            + ' level </p> <button type="button" class="btn btn-info" onclick="building('
+            + building.id 
             + ')"> Upgrade </button> <br> <br>';
 
-        let container = document.getElementById("site-list");
+        let container = document.getElementById("building-list");
         container.appendChild(div);
     });
 
     let comutativeTime = 1;
-    buildQueue.forEach( (build, idx) => {
+    constructQueue.forEach( (build, idx) => {
 
         comutativeTime += build.timeLeft;
         queue.push( {
             timeLeft: comutativeTime,
-            siteName: getSiteName(build.buildingId),
+            siteName: getBuildingName(build.buildingId),
             level: build.level 
         } )
 
         let div = document.createElement("div");
         div.innerHTML = '<p> '
-            + getSiteName(build.buildingId)
+            + getBuildingName(build.buildingId)
             + ' Level '
             + build.level
             + ' <span id="queue' + idx + '">0</span></p>';
@@ -117,7 +116,7 @@ $.getJSON('/sites-params', { token: token }, res => {
     setInterval( buildQueueInterval, 1000 );
 
 } ).fail( (msg) => {
-    console.log('sites-params fail: ' + msg);
+    console.log('center-params fail: ' + msg);
 
     window.location.href = 'login';
 } );
@@ -147,14 +146,14 @@ function updateResources() {
     document.getElementById("crop").innerHTML = Math.round(crop);
 }
 
-function field(num) {
+function building(num) {
     setTimeout(() => {
-        window.location.href = 'site?id=' + num;
+        // window.location.href = 'site?id=' + num;
     }, 30);
 }
 
 function village(idx) {
     setTimeout(() => {
-        window.location.href = 'village?id=' + idx + '&place=sites' + '&token=' + token;;
+        window.location.href = 'village?id=' + idx + '&place=center' + '&token=' + token;;
     }, 30)
 }

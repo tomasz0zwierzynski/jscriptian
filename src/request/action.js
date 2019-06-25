@@ -80,7 +80,12 @@ module.exports = {
             if (player) {
                 player.activeVillage = villageId;
 
-                res.redirect('/sites');
+                if ( req.query.place === 'sites' ) {
+                    res.redirect('/sites');
+                } else if ( req.query.place === 'center' ) {
+                    res.redirect('/center');
+                }
+                
             }
         });
     }
