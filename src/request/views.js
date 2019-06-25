@@ -22,6 +22,10 @@ module.exports = {
 
         app.get('/center', (req, res) => {
             res.sendFile(path.join(dirname, 'resources', 'center.html'));
+        });
+
+        app.get('/map', (req, res) => {
+            res.sendFile(path.join(dirname, 'resources', 'map.html'));
         })
 
     }
