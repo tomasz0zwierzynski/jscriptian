@@ -176,11 +176,39 @@ module.exports = {
     },
 
     getPlayerTotalCulturePoints: function (db, player) {
+        let cp = 0;
+        player.villages.forEach( village => {
+            cp += village.culturePoints;
+        });
 
+        return {
+            culturePoints: cp
+        };
     },
 
-    getPlayerCulturePointsByVillage: function (db, player, village) {
+    getPlayerCulturePointsByVillage: function (db, player, villageId) {
+        return {
+            culturePoints: player.villages[villageId].culturePoints
+        };
+    },
 
+    getPlayerCultureProductionByVillage: function (db, player, villageId) {
+        
+        const buildingMap = buildingService.getAllBuildingsMap(db);
+        let production = 0;
+
+        player.villages[villageId].sites.forEach( site => {
+            production += buildingMap.get(site.buildingId).levels[site.level].cp;
+        });
+        player.villages[villageId].buildings.forEach( building => {
+            production += buildingMap.get(building.buildingId).levels[building.level].cp;
+        });
+
+        return production;
+    },
+
+    getPlayerCultureProduction: function (db, player) {
+        return this.getPlayerCultureProductionByVillage(db, player, player.activeVillage);
     },
 
     registerPlayer: function(db, name, password) {
@@ -205,7 +233,8 @@ module.exports = {
                     buildings: [
 
                     ],
-                    constructQueue: [ ]
+                    constructQueue: [ ],
+                    culturePoints: 0
                 },
                 {
                     name: name + "'s VILLAGE",
@@ -221,7 +250,8 @@ module.exports = {
                         { id: 0, buildingId: 5, level: 1 },
                         { id: 1, buildingId: 4, level: 1 }
                     ],
-                    constructQueue: [ ]
+                    constructQueue: [ ],
+                    culturePoints: 0
                 }
             ],
         };

@@ -28,5 +28,5 @@ app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 setInterval(() => {
     gameLoop.process( db );
-}, 20);
+}, 50);
 

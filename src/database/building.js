@@ -15,5 +15,18 @@ module.exports = {
         const building = buildings.find( {id: buildingId} );
         
         return building;
+    },
+
+    getAllBuildingsMap: function (db) {
+
+        const buildings = db.getCollection('buildings').data;
+
+        const map = new Map();
+
+        buildings.forEach( building => {
+            map.set(building.id, building);
+        });
+
+        return map;
     }
 };

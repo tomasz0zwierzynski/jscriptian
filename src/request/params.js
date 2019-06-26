@@ -147,9 +147,13 @@ module.exports = {
             if (player) {
 
                 const population = playerService.getPlayerTotalPopulation(db, player);
+                const culturePoints = playerService.getPlayerTotalCulturePoints(db, player);
+                const cultureProduction = playerService.getPlayerCultureProduction(db, player);
 
                 const json = {
-                    population: population.population
+                    population: population.population,
+                    culturePoints: culturePoints.culturePoints,
+                    cultureProduction: cultureProduction
                 };
 
                 res.json(json);
