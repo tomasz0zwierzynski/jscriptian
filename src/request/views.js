@@ -26,7 +26,11 @@ module.exports = {
 
         app.get('/map', (req, res) => {
             res.sendFile(path.join(dirname, 'resources', 'map.html'));
-        })
+        });
+
+        app.get('/player', (req, res) => {
+            res.sendFile(path.join(dirname, 'resources', 'player.html'));
+        });
 
     }
 

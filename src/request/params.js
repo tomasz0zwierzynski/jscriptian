@@ -140,6 +140,25 @@ module.exports = {
 
         });
 
+        app.get('/player-params', (req, res) => {
+
+            const player = authService.getPlayerByToken(db, req.query.token)
+
+            if (player) {
+
+                const population = playerService.getPlayerTotalPopulation(db, player);
+
+                const json = {
+                    population: population.population
+                };
+
+                res.json(json);
+            } else {
+                res.status(401);
+                res.send('Unauthenticated');
+            }
+        });
+
     }
 
 }

@@ -24,14 +24,14 @@ module.exports = {
         db.saveDatabase();
     },
 
-    getPlayerCapacityByVillage: function ( db, player, village ) {
+    getPlayerCapacityByVillage: function ( db, player, villageId ) {
         let warehouseCapacity = 0;
         let granaryCapacity = 0;
 
         const warehouseBuilding = buildingService.getBuildingById(db, 5)[0];
         const granaryBuilding = buildingService.getBuildingById(db, 6)[0];
 
-        const warehouses = player.villages[village].buildings.filter( building => building.buildingId === 5 );
+        const warehouses = player.villages[villageId].buildings.filter( building => building.buildingId === 5 );
         if (warehouses.length > 0) {
             warehouses.forEach( warehouse => {
                 warehouseCapacity += warehouseBuilding.levels[ warehouse.level ].capacity;
@@ -43,7 +43,7 @@ module.exports = {
             warehouseCapacity = 8000;
         }
 
-        const granaries = player.villages[village].buildings.filter( building => building.buildingId === 6 );
+        const granaries = player.villages[villageId].buildings.filter( building => building.buildingId === 6 );
         if (granaries.length > 0) {
             granaries.forEach( granary => {
                 granaryCapacity += granaryBuilding.levels[ granary.level ].capacity;
@@ -65,7 +65,7 @@ module.exports = {
         return this.getPlayerCapacityByVillage( db, player, player.activeVillage );
     },
 
-    getPlayerProductionByVillage: function ( db, player, village) {
+    getPlayerProductionByVillage: function ( db, player, villageId) {
         let woodProd = 0;
         let clayProd = 0;
         let ironProd = 0;
@@ -76,7 +76,7 @@ module.exports = {
         const ironMineBuilding = buildingService.getBuildingById(db, 2)[0];
         const cropFieldBuilding = buildingService.getBuildingById(db, 3)[0];
 
-        player.villages[village].sites.forEach( site => {
+        player.villages[villageId].sites.forEach( site => {
             if (site.buildingId === 0) {
                 woodProd += woodcutterBuilding.levels[site.level].prod;
             } else if (site.buildingId === 1) {
@@ -100,12 +100,12 @@ module.exports = {
         return this.getPlayerProductionByVillage(db, player, player.activeVillage);
     },
 
-    getPlayerMainBuildingReductionByVillage: function (db, player, village) {
+    getPlayerMainBuildingReductionByVillage: function (db, player, villageId) {
         let reduction = 0;
 
         const mainBuilding = buildingService.getBuildingById(db, 4)[0];
 
-        const mainBuildings = player.villages[village].buildings.filter( building => building.buildingId === 4 );
+        const mainBuildings = player.villages[villageId].buildings.filter( building => building.buildingId === 4 );
         if (mainBuildings.length === 1 ) {
             reduction = mainBuilding.levels[mainBuildings[0].level].reduction;
         }
@@ -117,6 +117,70 @@ module.exports = {
 
     getPlayerMainBuildingReduction: function (db, player) {
         return this.getPlayerMainBuildingReductionByVillage(db, player, player.activeVillage);
+    },
+
+    getPlayerTotalPopulation: function (db, player) {
+        let loadedBuildings = new Map();
+        let totalPopulation = 0;
+
+        player.villages.forEach( village => {
+            village.sites.forEach( site => {
+                if ( !loadedBuildings.has( site.buildingId ) ) {
+                    const current = buildingService.getBuildingById(db, site.buildingId)[0];
+                    loadedBuildings.set(site.buildingId, current);
+                }
+                const building = loadedBuildings.get(site.buildingId);
+                totalPopulation += building.levels[site.level].pop;
+            });
+            village.buildings.forEach( building => {
+                if ( !loadedBuildings.has( building.buildingId ) ) {
+                    const current = buildingService.getBuildingById(db, building.buildingId)[0];
+                    loadedBuildings.set(building.buildingId, current);
+                }
+                const building0 = loadedBuildings.get(building.buildingId);
+                totalPopulation += building0.levels[building.level].pop;
+            });
+        });
+
+        return {
+            population: totalPopulation
+        };
+    },
+
+    getPlayerPopulationByVillage: function (db, player, villageId) {
+        let loadedBuildings = new Map();
+        let population = 0;
+
+        const village = player.villages[villageId];
+
+        village.sites.forEach( site => {
+            if ( !loadedBuildings.has( site.buildingId ) ) {
+                const current = buildingService.getBuildingById(db, site.buildingId)[0];
+                loadedBuildings.set(site.buildingId, current);
+            }
+            const building = loadedBuildings.get(site.buildingId);
+            population += building.levels[site.level].pop;
+        });
+        village.buildings.forEach( building => {
+            if ( !loadedBuildings.has( building.buildingId ) ) {
+                const current = buildingService.getBuildingById(db, building.buildingId)[0];
+                loadedBuildings.set(building.buildingId, current);
+            }
+            const building0 = loadedBuildings.get(building.buildingId);
+            population += building0.levels[building.level].pop;
+        });
+
+        return {
+            population: population
+        };
+    },
+
+    getPlayerTotalCulturePoints: function (db, player) {
+
+    },
+
+    getPlayerCulturePointsByVillage: function (db, player, village) {
+
     },
 
     registerPlayer: function(db, name, password) {
