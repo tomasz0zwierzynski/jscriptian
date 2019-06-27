@@ -32,6 +32,10 @@ module.exports = {
             res.sendFile(path.join(dirname, 'resources', 'player.html'));
         });
 
+        app.get('/construction', (req, res) => {
+            res.sendFile(path.join(dirname, 'resources', 'construction.html'));
+        });
+
     }
 
 }

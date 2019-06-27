@@ -97,8 +97,8 @@ module.exports = {
             if (player) {
 
                 const buildingId = player.villages[player.activeVillage].sites[+req.params.id].buildingId;
-                let building = buildingService.getBuildingById(db, buildingId)[0];
-                let level = player.villages[player.activeVillage].sites[+req.params.id].level;
+                const building = buildingService.getBuildingById(db, buildingId)[0];
+                const level = player.villages[player.activeVillage].sites[+req.params.id].level;
 
                 const sameBuildingInQueue = player.villages[player.activeVillage].buildQueue.filter(b => +b.siteId === +req.params.id ).length;
 
@@ -122,6 +122,39 @@ module.exports = {
             }
         });
 
+        app.get('/center-params/:id', (req, res) => {
+
+            const player = authService.getPlayerByToken(db, req.query.token);
+
+            if (player) {
+
+                const buildingId = player.villages[player.activeVillage].buildings[+req.params.id].buildingId;
+                const building = buildingService.getBuildingById(db, buildingId)[0];
+                const level = player.villages[player.activeVillage].buildings[+req.params.id].level;
+
+                const sameBuildingInQueue = player.villages[player.activeVillage].constructQueue.filter(b => +b.constructionId === +req.params.id ).length;
+                
+                const json = {
+                    name: building.name,
+
+                    cost: {
+                        wood: building.levels[level + sameBuildingInQueue].wood,
+                        clay: building.levels[level + sameBuildingInQueue].clay,
+                        iron: building.levels[level + sameBuildingInQueue].iron,
+                        crop: building.levels[level + sameBuildingInQueue].crop
+                    },
+
+                    buildingData: building.levels[level].reduction,
+                };
+
+                res.json(json);
+            } else {
+                res.status(401);
+                res.send('Unauthenticated');
+            }
+
+        });
+
         app.get('/center-params', (req, res) => {
 
             const player = authService.getPlayerByToken(db, req.query.token)
@@ -139,6 +172,8 @@ module.exports = {
             }
 
         });
+
+
 
         app.get('/player-params', (req, res) => {
 

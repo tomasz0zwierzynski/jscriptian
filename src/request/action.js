@@ -24,15 +24,14 @@ module.exports = {
 
         app.get('/upgrade', (req, res) => {
             // Upgrade logic
-
             const siteId = +req.query.id; // id w player.site[id]
 
             const player = authService.getPlayerByToken(db, req.query.token);
             if (player) {
 
                 const buildingId = player.villages[player.activeVillage].sites[siteId].buildingId;
-                let building = buildingService.getBuildingById(db, buildingId)[0];
-                let level = player.villages[player.activeVillage].sites[siteId].level;
+                const building = buildingService.getBuildingById(db, buildingId)[0];
+                const level = player.villages[player.activeVillage].sites[siteId].level;
                 
                 const buildQueueSameBuilding = player.villages[player.activeVillage].buildQueue.filter( b => +b.siteId === +siteId );
                 const alreadyInConstruction = buildQueueSameBuilding.length;
@@ -71,6 +70,56 @@ module.exports = {
                 res.redirect('/sites');
             }
         });
+
+        app.get('/construct', (req, res)=> {
+          
+            const constructionId = +req.query.id;
+
+            const player = authService.getPlayerByToken(db, req.query.token);
+            if (player) {
+
+                const buildingId = player.villages[player.activeVillage].buildings[constructionId].buildingId;
+                const building = buildingService.getBuildingById(db, buildingId)[0];
+                const level = player.villages[player.activeVillage].buildings[constructionId].level;
+
+                const constructQueueSameBuilding = player.villages[player.activeVillage].constructQueue.filter( b => +b.constructionId === constructionId);
+                const alreadyInConstruction = constructQueueSameBuilding.length;
+
+                if (level + alreadyInConstruction < 2) {
+                    
+                    const woodLeft = player.villages[player.activeVillage].resources.wood - building.levels[level + alreadyInConstruction].wood;
+                    const clayLeft = player.villages[player.activeVillage].resources.clay - building.levels[level + alreadyInConstruction].clay;
+                    const ironLeft = player.villages[player.activeVillage].resources.iron - building.levels[level + alreadyInConstruction].iron;
+                    const cropLeft = player.villages[player.activeVillage].resources.crop - building.levels[level + alreadyInConstruction].crop;
+
+                    if (woodLeft < 0 || clayLeft < 0 || ironLeft < 0 || cropLeft < 0 ) {
+                        // message ze nie mozna zbudować
+                    } else {
+
+                        const reduction = playerService.getPlayerMainBuildingReduction(db, player).reduction;
+                        const timeLeft = Math.round( building.levels[level + alreadyInConstruction].time * ( ( 100 - reduction ) / 100 ) );
+
+                        player.villages[player.activeVillage].constructQueue.push( {
+                            buildingId: buildingId,
+                            constructionId: constructionId,
+                            level: level + 1 + alreadyInConstruction,
+                            timeLeft: timeLeft   
+                        });
+                  
+                        player.villages[player.activeVillage].resources.wood = woodLeft;
+                        player.villages[player.activeVillage].resources.clay = clayLeft;
+                        player.villages[player.activeVillage].resources.iron = ironLeft;
+                        player.villages[player.activeVillage].resources.crop = cropLeft;
+
+                        playerService.updatePlayer(db, player);
+                    }
+
+                }
+
+                res.redirect('/center');
+            }
+
+        } );
 
         app.get('/village', (req, res) => {
             

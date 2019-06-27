@@ -10,20 +10,20 @@ $.urlParam = function(name) {
 
 const id = $.urlParam('id');
 
-$.getJSON('/site-params/' + id, { token: token }, res => {
-
-    const { name, cost, buildingProduction } = res;
+$.getJSON('/center-params/' + id, { token: token }, res => {
+    const { name, cost, buildingData } = res;
 
     document.getElementById("wood-cost").innerHTML = cost.wood;
     document.getElementById("clay-cost").innerHTML = cost.clay;
     document.getElementById("iron-cost").innerHTML = cost.iron;
     document.getElementById("crop-cost").innerHTML = cost.crop;
 
-    document.getElementById("production").innerHTML = buildingProduction;
+    document.getElementById("data").innerHTML = buildingData;
 
-    document.getElementById("site-name").innerHTML = name;
-} ).fail( (msg) => {
-    console.log('site-params?id=' + id + ' fail: ' + msg);
+    document.getElementById("building-name").innerHTML = name;
+
+}).fail( (msg) => {
+    console.log('center-params?id=' + id + ' fail: ' + msg);
 
     window.location.href = 'login';
 } );
@@ -77,12 +77,12 @@ function updateResources() {
 
 function build() {
     setTimeout(() => {
-        window.location.href = 'upgrade?id=' + id + '&token=' + token;
+        window.location.href = 'construct?id=' + id + '&token=' + token;
     }, 30);
 }
 
 function back() {
     setTimeout(() => {
-        window.location.href = "sites";
+        window.location.href = "center";
     }, 30);
 }

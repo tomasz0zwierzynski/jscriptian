@@ -148,7 +148,7 @@ function updateResources() {
 
 function building(num) {
     setTimeout(() => {
-        // window.location.href = 'site?id=' + num;
+        window.location.href = 'construction?id=' + num;
     }, 30);
 }
 

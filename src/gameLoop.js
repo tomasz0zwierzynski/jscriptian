@@ -56,6 +56,21 @@ module.exports = {
             playerService.updatePlayer( db, player );
         });
 
+        allPlayers.forEach( player => {
+            player.villages.forEach( village => {
+                if ( village.constructQueue.length > 0 ) {
+                    village.constructQueue[0].timeLeft -= 0.05;
+
+                    if ( village.constructQueue[0].timeLeft <= 0 ) {
+                        const completed = village.constructQueue.shift();
+                        village.buildings[completed.constructionId].level++;
+                    }
+                }
+            })
+
+            playerService.updatePlayer( db, player );
+        });
+
 
     }
 }
