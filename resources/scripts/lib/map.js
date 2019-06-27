@@ -51,7 +51,54 @@ var IsometricMap = {
     "images/tiles/roadTEast.png",		// 46
     "images/tiles/roadTNorth.png",		// 47
     "images/tiles/roadTSouth.png",		// 48
-    "images/tiles/roadTWest.png"],		// 49
+    "images/tiles/roadTWest.png", // 49
+    
+    "images/map/t0.gif",  // 50
+    "images/map/t1.gif",  // 51
+    "images/map/t2.gif", // 52
+    "images/map/t3.gif",  // 53
+    "images/map/t4.gif",  // 54
+    "images/map/t5.gif",  // 55
+    "images/map/t6.gif",  // 56
+    "images/map/t7.gif",  // 57
+    "images/map/t8.gif",  // 58
+    "images/map/t9.gif",  // 59
+
+    "images/map/o1.gif", // 60
+    "images/map/o2.gif", // 61
+    "images/map/o3.gif", // 62
+    "images/map/o4.gif", // 63
+    "images/map/o5.gif", // 64
+    "images/map/o6.gif", // 65
+    "images/map/o7.gif", // 66
+    "images/map/o8.gif", // 67
+    "images/map/o9.gif", // 68
+    "images/map/o10.gif", // 69
+    "images/map/o11.gif", // 70
+    "images/map/o12.gif", // 71
+
+    "images/map/d10.gif", // 72
+    "images/map/d11.gif", // 73
+    "images/map/d12.gif", // 74
+    "images/map/d13.gif", // 75
+    "images/map/d14.gif", // 76
+    "images/map/d15.gif", // 77
+
+    "images/map/d20.gif", // 78
+    "images/map/d21.gif", // 79
+    "images/map/d22.gif", // 80
+    "images/map/d23.gif", // 81
+    "images/map/d24.gif", // 82
+    "images/map/d25.gif", // 83
+
+    "images/map/d30.gif", // 84
+    "images/map/d31.gif", // 85
+    "images/map/d32.gif", // 86
+    "images/map/d33.gif", // 87
+    "images/map/d34.gif", // 88
+    "images/map/d35.gif" // 89
+
+    ],		
   map: [
          [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
          [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
