@@ -1,6 +1,6 @@
 const express = require('express');
 const initService = require('./src/init/init');
-const gameLoop = require('./src/gameLoop');
+const gameLoop = require('./src/game-loop');
 
 const paramsEndpoints = require('./src/request/params');
 const viewsEndpoints = require('./src/request/views');
