@@ -112,7 +112,7 @@ module.exports = {
                         crop: building.levels[level + sameBuildingInQueue].crop
                     },
 
-                    buildingProduction: building.levels[level].prod
+                    buildingProduction: building.levels[level].attr.prod
                 };
                 // TODO: pokazać jeszcze czas
                 res.json(json);
@@ -144,7 +144,7 @@ module.exports = {
                         crop: building.levels[level + sameBuildingInQueue].crop
                     },
 
-                    buildingData: building.levels[level].reduction,
+                    buildingAttributes: building.levels[level].attr,
                 };
 
                 res.json(json);

@@ -34,7 +34,7 @@ module.exports = {
         const warehouses = player.villages[villageId].buildings.filter( building => building.buildingId === 5 );
         if (warehouses.length > 0) {
             warehouses.forEach( warehouse => {
-                warehouseCapacity += warehouseBuilding.levels[ warehouse.level ].capacity;
+                warehouseCapacity += warehouseBuilding.levels[ warehouse.level ].attr.capacity;
             })
         } else {
             warehouseCapacity = 8000;
@@ -46,7 +46,7 @@ module.exports = {
         const granaries = player.villages[villageId].buildings.filter( building => building.buildingId === 6 );
         if (granaries.length > 0) {
             granaries.forEach( granary => {
-                granaryCapacity += granaryBuilding.levels[ granary.level ].capacity;
+                granaryCapacity += granaryBuilding.levels[ granary.level ].attr.capacity;
             })
         } else {
             granaryCapacity = 8000;
@@ -78,13 +78,13 @@ module.exports = {
 
         player.villages[villageId].sites.forEach( site => {
             if (site.buildingId === 0) {
-                woodProd += woodcutterBuilding.levels[site.level].prod;
+                woodProd += woodcutterBuilding.levels[site.level].attr.prod;
             } else if (site.buildingId === 1) {
-                clayProd += clayPitBuilding.levels[site.level].prod;
+                clayProd += clayPitBuilding.levels[site.level].attr.prod;
             } else if (site.buildingId === 2) {
-                ironProd += ironMineBuilding.levels[site.level].prod;
+                ironProd += ironMineBuilding.levels[site.level].attr.prod;
             } else if (site.buildingId === 3) {
-                cropProd += cropFieldBuilding.levels[site.level].prod;
+                cropProd += cropFieldBuilding.levels[site.level].attr.prod;
             }
         });
 
@@ -107,7 +107,7 @@ module.exports = {
 
         const mainBuildings = player.villages[villageId].buildings.filter( building => building.buildingId === 4 );
         if (mainBuildings.length === 1 ) {
-            reduction = mainBuilding.levels[mainBuildings[0].level].reduction;
+            reduction = mainBuilding.levels[mainBuildings[0].level].attr.reduction;
         }
         
         return {
