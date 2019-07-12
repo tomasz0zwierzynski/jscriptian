@@ -23,3 +23,31 @@ function getBuildingName(id) {
         default: return "Undefined";
     }
 }
+
+function getBuildingDescription(id, attr) {
+    switch (id) {
+        case 4: 
+            return `In main building are living organisms reducing building time by <b>${attr.reduction}</b>`;
+        case 5: 
+            return `In werehouse are stored important resources other than crop. Capacity: ${attr.capacity}`;
+        case 6: 
+            return `In granary are stored crop. Capacity: ${attr.capacity}`;
+        default: 
+            return "Undefined building";
+    }
+}
+
+function getSiteDescription(id, attr) {
+    switch (id) {
+        case 0:
+            return `In woodcutter (...) production: ${attr.prod}`;
+        case 1:
+            return `In clay pit (...) production: ${attr.prod}`;
+        case 2:
+            return `In iron mine (...) production: ${attr.prod}`;
+        case 3:
+            return `In crop field (...) production: ${attr.prod}`;
+        default:
+            return "Undefined site";
+    }
+}

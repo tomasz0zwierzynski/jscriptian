@@ -11,14 +11,14 @@ $.urlParam = function(name) {
 const id = $.urlParam('id');
 
 $.getJSON('/center-params/' + id, { token: token }, res => {
-    const { name, cost, buildingAttributes } = res;
+    const { name, buildingId, cost, buildingAttributes } = res;
 
     document.getElementById("wood-cost").innerHTML = cost.wood;
     document.getElementById("clay-cost").innerHTML = cost.clay;
     document.getElementById("iron-cost").innerHTML = cost.iron;
     document.getElementById("crop-cost").innerHTML = cost.crop;
 
-    document.getElementById("data").innerHTML = buildingAttributes;
+    document.getElementById("data").innerHTML = getBuildingDescription(buildingId, buildingAttributes)
 
     document.getElementById("building-name").innerHTML = name;
 

@@ -105,6 +105,8 @@ module.exports = {
                 const json = {
                     name: building.name,
 
+                    buildingId: buildingId,
+
                     cost: {
                         wood: building.levels[level + sameBuildingInQueue].wood,
                         clay: building.levels[level + sameBuildingInQueue].clay,
@@ -112,7 +114,7 @@ module.exports = {
                         crop: building.levels[level + sameBuildingInQueue].crop
                     },
 
-                    buildingProduction: building.levels[level].attr.prod
+                    buildingAttributes: building.levels[level].attr
                 };
                 // TODO: pokazać jeszcze czas
                 res.json(json);
@@ -137,6 +139,8 @@ module.exports = {
                 const json = {
                     name: building.name,
 
+                    buildingId: building.id,
+
                     cost: {
                         wood: building.levels[level + sameBuildingInQueue].wood,
                         clay: building.levels[level + sameBuildingInQueue].clay,
@@ -144,7 +148,7 @@ module.exports = {
                         crop: building.levels[level + sameBuildingInQueue].crop
                     },
 
-                    buildingAttributes: building.levels[level].attr,
+                    buildingAttributes: building.levels[level].attr
                 };
 
                 res.json(json);

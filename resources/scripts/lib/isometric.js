@@ -1,7 +1,7 @@
 // A simple isometric tile renderer
 var Isometric = {
-  tileColumnOffset: 85, // pixels 100
-  tileRowOffset: 40, // pixels 50
+  tileColumnOffset: 100, // pixels 100
+  tileRowOffset: 50, // pixels 50
 
   originX: 0, // offset from left
   originY: 0, // offset from top
