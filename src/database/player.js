@@ -224,6 +224,24 @@ module.exports = {
         return availableSites;
     },
 
+    getPlayerAvailableBuildingsByVillage: function (db, player, villageId) {
+        const buildingMap = buildingService.getAllBuildingsMap(db);
+
+        // TODO: add builgings requirement logic here
+        const availableBuildings = [];
+        buildingMap.forEach( (v, k) => {
+            if ( k > 3) {
+                availableBuildings.push(v)
+            }
+        });
+
+        return availableBuildings;
+    },
+
+    getPlayerAvailableBuildings: function (db, player) {
+        return this.getPlayerAvailableBuildingsByVillage(db, player, player.activeVillage);
+    },
+
     getPlayerAvailableSites: function (db, player) {
         return this.getPlayerAvailableSitesByVillage(db, player, player.activeVillage);
     },

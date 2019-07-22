@@ -68,6 +68,8 @@ module.exports = {
                 }
 
                 res.redirect('/sites');
+            } else {
+                res.redirect('login');
             }
         });
 
@@ -117,6 +119,8 @@ module.exports = {
                 }
 
                 res.redirect('/center');
+            } else {
+                res.redirect('login');
             }
 
         } );
@@ -136,13 +140,35 @@ module.exports = {
                 });
 
                 res.redirect('/sites');
+            } else {
+                res.redirect('login');
             }
 
         });
 
+        app.get('/construct-new', (req, res) => {
+            const buildingId = +req.query.id;
+
+            const player = authService.getPlayerByToken(db, req.query.token);
+            if (player) {
+
+                //TODO: dodac logike, jesli mozna w ogole to postawic
+
+                player.villages[player.activeVillage].buildings.push({
+                    id: player.villages[player.activeVillage].buildings.length,
+                    buildingId: buildingId,
+                    level: 0
+                });
+
+                res.redirect('/center');
+            } else {
+                res.redirect('login');
+            }
+        });
+
         app.get('/village', (req, res) => {
             
-            const villageId = req.query.id;
+            const villageId = +req.query.id;
 
             const player = authService.getPlayerByToken(db, req.query.token);
             if (player) {
@@ -154,6 +180,8 @@ module.exports = {
                     res.redirect('/center');
                 }
                 
+            } else {
+                res.redirect('login');
             }
         });
     }

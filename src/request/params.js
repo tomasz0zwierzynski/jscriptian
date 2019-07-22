@@ -221,6 +221,26 @@ module.exports = {
             }
         });
 
+        app.get('/new-construction-params', (req, res) => {
+
+            const player = authService.getPlayerByToken(db, req.query.token);
+
+            if (player) {
+             
+                const availableBuildings = playerService.getPlayerAvailableBuildings(db, player);
+                
+                const json = {
+                    availableBuildings: availableBuildings
+                }
+                
+                res.json(json);
+            } else {
+                res.status(401);
+                res.send('Unauthenticated');
+            }
+
+        });
+
     }
 
 }
