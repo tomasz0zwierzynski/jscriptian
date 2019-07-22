@@ -36,6 +36,10 @@ module.exports = {
             res.sendFile(path.join(dirname, 'resources', 'construction.html'));
         });
 
+        app.get('/new-site', (req, res) => {
+            res.sendFile(path.join(dirname, 'resources', 'new-site.html'));
+        });
+
     }
 
 }

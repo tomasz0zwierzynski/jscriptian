@@ -158,3 +158,9 @@ function village(idx) {
         window.location.href = 'village?id=' + idx + '&place=sites' + '&token=' + token;;
     }, 30)
 }
+
+function newSite() {
+    setTimeout(() => {
+        window.location.href = 'new-site';
+    }, 30);
+}

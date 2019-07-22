@@ -202,6 +202,25 @@ module.exports = {
             }
         });
 
+        app.get('/new-site-params', (req, res) => {
+
+            const player = authService.getPlayerByToken(db, req.query.token);
+
+            if (player) {
+
+                const availableSites = playerService.getPlayerAvailableSites(db, player);
+
+                const json = {
+                    availableSites: availableSites
+                }
+
+                res.json(json);
+            } else {
+                res.status(401);
+                res.send('Unauthenticated');
+            }
+        });
+
     }
 
 }

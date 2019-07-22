@@ -211,6 +211,23 @@ module.exports = {
         return this.getPlayerCultureProductionByVillage(db, player, player.activeVillage);
     },
 
+    getPlayerAvailableSitesByVillage: function (db, player, villageId) {
+        const buildingMap = buildingService.getAllBuildingsMap(db);
+
+        // TODO: add site requirenment logic here
+        const availableSites = [];
+        availableSites.push(buildingMap.get(0));
+        availableSites.push(buildingMap.get(1));
+        availableSites.push(buildingMap.get(2));
+        availableSites.push(buildingMap.get(3));
+
+        return availableSites;
+    },
+
+    getPlayerAvailableSites: function (db, player) {
+        return this.getPlayerAvailableSitesByVillage(db, player, player.activeVillage);
+    },
+
     registerPlayer: function(db, name, password) {
         const players = db.getCollection('players');
 

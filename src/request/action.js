@@ -121,6 +121,25 @@ module.exports = {
 
         } );
 
+        app.get('/upgrade-new', (req, res) => {
+            const buildingId = +req.query.id;
+
+            const player = authService.getPlayerByToken(db, req.query.token);
+            if (player) {
+                // TODO: dodac logikę, jesli mozna w ogole upgradnac
+
+                // const building = buildingService.getBuildingById(db, buildingId);
+                player.villages[player.activeVillage].sites.push({
+                    id: player.villages[player.activeVillage].sites.length,
+                    buildingId: buildingId,
+                    level: 0
+                });
+
+                res.redirect('/sites');
+            }
+
+        });
+
         app.get('/village', (req, res) => {
             
             const villageId = req.query.id;
