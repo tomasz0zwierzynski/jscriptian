@@ -1,4 +1,5 @@
 const playerService = require('./database/player');
+const villageService = require('./database/village');
 
 module.exports = {
     
@@ -11,9 +12,9 @@ module.exports = {
         allPlayers.forEach( player => {
             
             player.villages.forEach( (village, idx) => {
-                const production = playerService.getPlayerProductionByVillage(db, player, idx);
-                const capacity = playerService.getPlayerCapacityByVillage(db, player, idx);
-
+                const production = villageService.getProductionByVillage(db, player, idx);
+                const capacity = villageService.getResourcesCapacityByVillage(db, player, idx);
+                
                 const wood = village.resources.wood + 0.05 * production.woodProd / 3600;
                 const clay = village.resources.clay + 0.05 * production.clayProd / 3600;
                 const iron = village.resources.iron + 0.05 * production.ironProd / 3600;

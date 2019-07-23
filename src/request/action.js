@@ -1,6 +1,7 @@
 const authService = require('../auth');
 const playerService = require('../database/player');
 const buildingService = require('../database/building');
+const villageService = require('../database/village');
 
 module.exports = {
 
@@ -48,7 +49,7 @@ module.exports = {
                         // message ze nie mozna zbudować
                     } else {
 
-                        const reduction = playerService.getPlayerMainBuildingReduction(db, player).reduction;
+                        const reduction = villageService.getMainBuildingReduction(db, player).reduction;
                         const timeLeft = Math.round( building.levels[level + alreadyInConstruction].time * ( ( 100 - reduction ) / 100 ) );
 
                         player.villages[player.activeVillage].buildQueue.push( {
@@ -98,7 +99,7 @@ module.exports = {
                         // message ze nie mozna zbudować
                     } else {
 
-                        const reduction = playerService.getPlayerMainBuildingReduction(db, player).reduction;
+                        const reduction = villageService.getMainBuildingReduction(db, player).reduction;
                         const timeLeft = Math.round( building.levels[level + alreadyInConstruction].time * ( ( 100 - reduction ) / 100 ) );
 
                         player.villages[player.activeVillage].constructQueue.push( {

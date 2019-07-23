@@ -1,6 +1,7 @@
 const authService = require('../auth');
 const playerService = require('../database/player');
 const buildingService = require('../database/building');
+const villageService = require('../database/village');
 
 module.exports = {
 
@@ -28,8 +29,8 @@ module.exports = {
             const player = authService.getPlayerByToken(db, req.query.token);
 
             if (player) {
-                const production = playerService.getPlayerProduction(db, player);
-                const capacity = playerService.getPlayerCapacity(db, player);
+                const production = villageService.getProduction(db, player);
+                const capacity = villageService.getResourceCapacity(db, player);
 
                 const json = {
                     resources: {
