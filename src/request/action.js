@@ -74,7 +74,7 @@ module.exports = {
         });
 
         app.get('/construct', (req, res)=> {
-          
+          // TODO: refactor - to samo co wyzej i jeszcze sprawdzic requirenments
             const constructionId = +req.query.id;
 
             const player = authService.getPlayerByToken(db, req.query.token);

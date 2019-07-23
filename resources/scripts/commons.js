@@ -20,6 +20,11 @@ function getBuildingName(id) {
         case 4: return "Main Building";
         case 5: return "Warehouse";
         case 6: return "Granary";
+        case 7: return "Sawmill";
+        case 8: return "Brickyard";
+        case 9: return "Iron Foundry";
+        case 10: return "Grain Mill";
+        case 11: return "Bakery";
         default: return "Undefined";
     }
 }

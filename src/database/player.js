@@ -227,11 +227,47 @@ module.exports = {
     getPlayerAvailableBuildingsByVillage: function (db, player, villageId) {
         const buildingMap = buildingService.getAllBuildingsMap(db);
 
-        // TODO: add builgings requirement logic here
+        const playerSites = player.villages[villageId].sites;
+        const playerBuildings = player.villages[villageId].buildings;
+
+        const allBuildings = [ ...playerSites, ...playerBuildings ];
+
+        // TODO: add buildings requirement logic here
         const availableBuildings = [];
-        buildingMap.forEach( (v, k) => {
-            if ( k > 3) {
-                availableBuildings.push(v)
+        buildingMap.forEach( (building, id) => {
+            if ( id > 3) {
+                
+                const requirenmentsArray = building.levels[0].requirements;
+
+                let singletonPass = true;
+                // czy mozna drugi raz ten sam budynek postawic
+                if ( building.singleton ) {
+                    for ( let i = 0; i < allBuildings.length; i++ ) {
+                        if (allBuildings[i].buildingId === building.id ) {
+                            singletonPass = false;
+                        }  
+                    }
+                }
+
+                let pass = true;
+                // sprawdzic czy wszystkie sa spelnione wymagania dla 0 poziomu
+                requirenmentsArray.forEach( (requirenment) => {
+                    let found = false;
+                    for ( let i = 0; i < allBuildings.length; i++ ) {
+                        if (allBuildings[i].buildingId === requirenment.buildingId) {
+                            if (allBuildings[i].level >= requirenment.level) {
+                                found = true;
+                            }
+                        }
+                    }
+                    if (!found) {
+                        pass = false;
+                    }
+                });
+
+                if ( pass && singletonPass ) {
+                    availableBuildings.push(building);
+                }
             }
         });
 
@@ -259,14 +295,14 @@ module.exports = {
                     name: name + "'s village",
                     resources: { wood: 750, clay: 750, iron: 750, crop: 750 },
                     sites: [
-                        { id: 0, buildingId: 0, level: 0 },
+                        { id: 0, buildingId: 0, level: 2 },
                         { id: 1, buildingId: 1, level: 0 },
                         { id: 2, buildingId: 2, level: 0 },
                         { id: 3, buildingId: 3, level: 0 }
                     ],
                     buildQueue: [ ],
                     buildings: [
-
+                        { id: 0, buildingId: 4, level: 1 }
                     ],
                     constructQueue: [ ],
                     culturePoints: 0

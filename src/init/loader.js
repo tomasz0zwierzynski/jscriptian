@@ -17,7 +17,7 @@ function createBuildingData(db) {
     const buildings = db.addCollection('buildings');
 
     buildings.insert({
-        id: 0, name: 'Woodcutter', levels: [
+        id: 0, name: 'Woodcutter', singleton: false, levels: [
             { attr: { prod: 2000 }, wood: 40, clay: 100, iron: 50, crop: 60, pop: 0, cp: 0, time: 260 / 1000, requirements: [] },
             { attr: { prod: 5000 }, wood: 65, clay: 165, iron: 85, crop: 100, pop: 2, cp: 1000, time: 520 / 1000, requirements: [] },
             { attr: { prod: 9000 }, wood: 110, clay: 280, iron: 140, crop: 165, pop: 3, cp: 1000, time: 1040 / 1000, requirements: [] },
@@ -33,7 +33,7 @@ function createBuildingData(db) {
     });
 
     buildings.insert({
-        id: 1, name: 'Clay Pit', levels: [
+        id: 1, name: 'Clay Pit', singleton: false, levels: [
             { attr: { prod: 2000 }, wood: 80, clay: 40, iron: 80, crop: 50, pop: 0, cp: 0, time:  220 / 1000, requirements: [] },
             { attr: { prod: 5000 }, wood: 135, clay: 65, iron: 135, crop: 85, pop: 2, cp: 1000, time: 440 / 1000, requirements: [] },
             { attr: { prod: 9000 }, wood: 225, clay: 110, iron: 225, crop: 140, pop: 3, cp: 1000, time: 880 / 1000, requirements: [] },
@@ -49,7 +49,7 @@ function createBuildingData(db) {
     });
 
     buildings.insert({
-        id: 2, name: 'Iron Mine', levels: [
+        id: 2, name: 'Iron Mine', singleton: false, levels: [
             { attr: { prod: 2000 }, wood: 230, clay: 100, iron: 60, crop: 50, pop: 5, cp: 2000, time: 90, requirements: [] },
             { attr: { prod: 5000 }, wood: 600, clay: 335, iron: 200, crop: 120, pop: 8, cp: 4000, time: 235, requirements: [] },
             { attr: { prod: 12000 }, wood: 1400, clay: 800, iron: 500, crop: 600, pop: 13, cp: 5000, time: 400, requirements: [] }
@@ -57,7 +57,7 @@ function createBuildingData(db) {
     });
 
     buildings.insert({
-        id: 3, name: 'Crop Field', levels: [
+        id: 3, name: 'Crop Field', singleton: false, levels: [
             { attr: { prod: 2000 }, wood: 10, clay: 10, iron: 10, crop: 10, pop: 0, cp: 0, time: 10, requirements: [] },
             { attr: { prod: 5000 }, wood: 30, clay: 30, iron: 30, crop: 30, pop: 0, cp: 0, time: 30, requirements: [] },
             { attr: { prod: 12000 }, wood: 50, clay: 50, iron: 50, crop: 50, pop: 1, cp: 0, time: 60, requirements: [] }
@@ -65,15 +65,15 @@ function createBuildingData(db) {
     });
 
     buildings.insert({
-        id: 4, name: 'Main Building', levels: [
-            { attr: { reduction: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [] },
-            { attr: { reduction: 50 }, wood: 300, clay: 300, iron: 300, crop: 200, pop: 3, cp: 2000, time: 600, requirements: [] }, 
-            { attr: { reduction: 75 }, wood: 900, clay: 900, iron: 900, crop: 700, pop: 7, cp: 5000, time: 1200, requirements: [] },
+        id: 4, name: 'Main Building', singleton: true, levels: [
+            { attr: { reduction: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 3, requirements: [] },
+            { attr: { reduction: 50 }, wood: 300, clay: 300, iron: 300, crop: 200, pop: 3, cp: 2000, time: 6, requirements: [] }, 
+            { attr: { reduction: 75 }, wood: 900, clay: 900, iron: 900, crop: 700, pop: 7, cp: 5000, time: 12, requirements: [] },
         ]
     });
 
     buildings.insert({
-        id: 5, name: 'Warehouse', levels: [
+        id: 5, name: 'Warehouse', singleton: false, levels: [
             { attr: { capacity: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [] },
             { attr: { capacity: 12000 }, wood: 300, clay: 300, iron: 300, crop: 200, pop: 3, cp: 2000, time: 600, requirements: [] }, 
             { attr: { capacity: 17000 }, wood: 900, clay: 900, iron: 900, crop: 700, pop: 7, cp: 5000, time: 1200, requirements: [] },
@@ -81,7 +81,7 @@ function createBuildingData(db) {
     });
 
     buildings.insert({
-        id: 6, name: 'Granary', levels: [
+        id: 6, name: 'Granary', singleton: false, levels: [
             { attr: { capacity: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [] },
             { attr: { capacity: 12000 }, wood: 300, clay: 300, iron: 300, crop: 200, pop: 3, cp: 2000, time: 600, requirements: [] }, 
             { attr: { capacity: 17000 }, wood: 900, clay: 900, iron: 900, crop: 700, pop: 7, cp: 5000, time: 1200, requirements: [] },
@@ -89,37 +89,37 @@ function createBuildingData(db) {
     });
 
     buildings.insert({
-        id: 7, name: 'Sawmill', levels: [
-            { attr: { bonus: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [ { builgingId: 0, level: 10 }, { buildingId: 4, level: 5 } ] },
-            { attr: { bonus: 5 }, wood: 600, clay: 800, iron: 500, crop: 300, pop: 2, cp: 2000, time: 400, requirements: [ { builgingId: 0, level: 10 }, { buildingId: 4, level: 5 } ] }
+        id: 7, name: 'Sawmill', singleton: true, levels: [
+            { attr: { bonus: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [ { buildingId: 0, level: 2 }, { buildingId: 4, level: 1 } ] },
+            { attr: { bonus: 5 }, wood: 600, clay: 800, iron: 500, crop: 300, pop: 2, cp: 2000, time: 400, requirements: [ { buildingId: 0, level: 10 }, { buildingId: 4, level: 5 } ] }
         ]
     });
 
     buildings.insert({
-        id: 8, name: 'Brickyard', levels: [
-            { attr: { bonus: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [ { builgingId: 1, level: 10 }, { buildingId: 4, level: 5 } ] },
-            { attr: { bonus: 5 }, wood: 600, clay: 800, iron: 500, crop: 300, pop: 2, cp: 2000, time: 400, requirements: [ { builgingId: 1, level: 10 }, { buildingId: 4, level: 5 } ] }
+        id: 8, name: 'Brickyard', singleton: true, levels: [
+            { attr: { bonus: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [ { buildingId: 1, level: 2 }, { buildingId: 4, level: 1 } ] },
+            { attr: { bonus: 5 }, wood: 600, clay: 800, iron: 500, crop: 300, pop: 2, cp: 2000, time: 400, requirements: [ { buildingId: 1, level: 10 }, { buildingId: 4, level: 5 } ] }
         ]
     });
 
     buildings.insert({
-        id: 9, name: 'Iron Foundry', levels: [
-            { attr: { bonus: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [ { builgingId: 2, level: 10 }, { buildingId: 4, level: 5 } ] },
-            { attr: { bonus: 5 }, wood: 600, clay: 800, iron: 500, crop: 300, pop: 2, cp: 2000, time: 400, requirements: [ { builgingId: 2, level: 10 }, { buildingId: 4, level: 5 } ] }
+        id: 9, name: 'Iron Foundry', singleton: true, levels: [
+            { attr: { bonus: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [ { buildingId: 2, level: 2 }, { buildingId: 4, level: 1 } ] },
+            { attr: { bonus: 5 }, wood: 600, clay: 800, iron: 500, crop: 300, pop: 2, cp: 2000, time: 400, requirements: [ { buildingId: 2, level: 10 }, { buildingId: 4, level: 5 } ] }
         ]
     });
 
     buildings.insert({
-        id: 10, name: 'Grain Mill', levels: [
-            { attr: { bonus: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [ { builgingId: 3, level: 5 }, { buildingId: 4, level: 5 } ] },
-            { attr: { bonus: 5 }, wood: 600, clay: 800, iron: 500, crop: 300, pop: 2, cp: 2000, time: 400, requirements: [ { builgingId: 3, level: 5 }, { buildingId: 4, level: 5 } ] }
+        id: 10, name: 'Grain Mill', singleton: true, levels: [
+            { attr: { bonus: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [ { buildingId: 3, level: 5 }, { buildingId: 4, level: 1 } ] },
+            { attr: { bonus: 5 }, wood: 600, clay: 800, iron: 500, crop: 300, pop: 2, cp: 2000, time: 400, requirements: [ { buildingId: 3, level: 5 }, { buildingId: 4, level: 5 } ] }
         ]
     });
 
     buildings.insert({
-        id: 11, name: 'Bakery', levels: [
-            { attr: { bonus: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [ { builgingId: 3, level: 10 }, { buildingId: 4, level: 5 } ] },
-            { attr: { bonus: 5 }, wood: 600, clay: 800, iron: 500, crop: 300, pop: 2, cp: 2000, time: 400, requirements: [ { builgingId: 3, level: 10 }, { buildingId: 4, level: 5 } ] }
+        id: 11, name: 'Bakery', singleton: true, levels: [
+            { attr: { bonus: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [ { buildingId: 3, level: 10 }, { buildingId: 4, level: 5 } ] },
+            { attr: { bonus: 5 }, wood: 600, clay: 800, iron: 500, crop: 300, pop: 2, cp: 2000, time: 400, requirements: [ { buildingId: 3, level: 10 }, { buildingId: 4, level: 5 } ] }
         ]
     });
 

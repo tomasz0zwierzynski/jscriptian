@@ -92,29 +92,6 @@ $.getJSON('/new-site-params', { token: token }, res => {
         container.appendChild(div);
     });
 
-    // let comutativeTime = 1;
-    // buildQueue.forEach( (build, idx) => {
-
-    //     comutativeTime += build.timeLeft;
-    //     queue.push( {
-    //         timeLeft: comutativeTime,
-    //         siteName: getSiteName(build.buildingId),
-    //         level: build.level 
-    //     } )
-
-    //     let div = document.createElement("div");
-    //     div.innerHTML = '<p> '
-    //         + getSiteName(build.buildingId)
-    //         + ' Level '
-    //         + build.level
-    //         + ' <span id="queue' + idx + '">0</span></p>';
-    //     let container = document.getElementById("build-queue");
-    //     container.appendChild(div);    
-    // });
-
-    // buildQueueInterval();
-    // setInterval( buildQueueInterval, 1000 );
-
 } ).fail( (msg) => {
     console.log('sites-params fail: ' + msg);
 
