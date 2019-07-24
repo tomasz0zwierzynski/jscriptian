@@ -106,6 +106,7 @@ module.exports = {
                 {
                     name: name + "'s village",
                     resources: { wood: 750, clay: 750, iron: 750, crop: 750 },
+                    resourceSync: new Date(),
                     sites: [
                         { id: 0, buildingId: 0, level: 2 },
                         { id: 1, buildingId: 1, level: 0 },
@@ -122,6 +123,7 @@ module.exports = {
                 {
                     name: name + "'s VILLAGE",
                     resources: { wood: 7500, clay: 7500, iron: 7500, crop: 7500 },
+                    resourceSync: new Date(),
                     sites: [
                         { id: 0, buildingId: 3, level: 0 },
                         { id: 1, buildingId: 3, level: 0 },

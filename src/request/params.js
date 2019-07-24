@@ -32,14 +32,10 @@ module.exports = {
             if (player) {
                 const production = villageService.getProduction(db, player);
                 const capacity = villageService.getResourceCapacity(db, player);
+                const resources = villageService.getResources(db, player);
 
                 const json = {
-                    resources: {
-                        wood: player.villages[player.activeVillage].resources.wood,
-                        clay: player.villages[player.activeVillage].resources.clay,
-                        iron: player.villages[player.activeVillage].resources.iron,
-                        crop: player.villages[player.activeVillage].resources.crop,
-                    },
+                    resources: resources,
                     capacity: capacity,
                     production: {
                         wood: production.woodProd,

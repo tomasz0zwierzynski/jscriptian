@@ -8,27 +8,30 @@ module.exports = {
 // TODO: refactor and optymalize that
 
         // production
-        const allPlayers = playerService.getAllPlayers(db);
-        allPlayers.forEach( player => {
-            
-            player.villages.forEach( (village, idx) => {
-                const production = villageService.getProductionByVillage(db, player, idx);
-                const capacity = villageService.getResourcesCapacityByVillage(db, player, idx);
-                
-                const wood = village.resources.wood + 0.05 * production.woodProd / 3600;
-                const clay = village.resources.clay + 0.05 * production.clayProd / 3600;
-                const iron = village.resources.iron + 0.05 * production.ironProd / 3600;
-                const crop = village.resources.crop + 0.05 * production.cropProd / 3600;    
 
-                if ( wood <= capacity.warehouseCapacity ) village.resources.wood = wood;    
-                if ( clay <= capacity.warehouseCapacity ) village.resources.clay = clay;    
-                if ( iron <= capacity.warehouseCapacity ) village.resources.iron = iron;    
-                if ( crop <= capacity.granaryCapacity ) village.resources.crop = crop;    
+        const allPlayers = playerService.getAllPlayers(db);
+       
+    
+        // allPlayers.forEach( player => {
             
-            });
+        //     player.villages.forEach( (village, idx) => {
+        //         const production = villageService.getProductionByVillage(db, player, idx);
+        //         const capacity = villageService.getResourcesCapacityByVillage(db, player, idx);
+                
+        //         const wood = village.resources.wood + 0.05 * production.woodProd / 3600;
+        //         const clay = village.resources.clay + 0.05 * production.clayProd / 3600;
+        //         const iron = village.resources.iron + 0.05 * production.ironProd / 3600;
+        //         const crop = village.resources.crop + 0.05 * production.cropProd / 3600;    
+
+        //         if ( wood <= capacity.warehouseCapacity ) village.resources.wood = wood;    
+        //         if ( clay <= capacity.warehouseCapacity ) village.resources.clay = clay;    
+        //         if ( iron <= capacity.warehouseCapacity ) village.resources.iron = iron;    
+        //         if ( crop <= capacity.granaryCapacity ) village.resources.crop = crop;    
             
-            playerService.updatePlayer( db, player );
-        });
+        //     });
+            
+        //     playerService.updatePlayer( db, player );
+        // });
         
         // culture points production
         allPlayers.forEach( player => {

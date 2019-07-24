@@ -127,6 +127,34 @@ module.exports = {
         return production;
     },
 
+    getResourcesByVillage: function ( db, player, villageId ) {
+        const productionPerHour = this.getProductionByVillage( db, player, villageId );
+        const capacity = this.getResourcesCapacityByVillage( db, player, villageId );
+
+        const lastResources = player.villages[villageId].resources;
+        
+        const lastSync = new Date(player.villages[villageId].resourceSync);
+        const now = new Date();
+        const timePassedMs = now.getTime() - lastSync.getTime();
+
+        const resources = {
+            wood: lastResources.wood + ( productionPerHour.woodProd / 3600000 ) * timePassedMs,
+            clay: lastResources.clay + ( productionPerHour.clayProd / 3600000 ) * timePassedMs,
+            iron: lastResources.iron + ( productionPerHour.ironProd / 3600000 ) * timePassedMs,
+            crop: lastResources.crop + ( productionPerHour.cropProd / 3600000 ) * timePassedMs
+        }
+
+        if ( resources.wood > capacity.warehouseCapacity ) resources.wood = capacity.warehouseCapacity;
+        if ( resources.clay > capacity.warehouseCapacity ) resources.clay = capacity.warehouseCapacity;
+        if ( resources.iron > capacity.warehouseCapacity ) resources.iron = capacity.warehouseCapacity;
+        if ( resources.crop > capacity.granaryCapacity ) resources.crop = capacity.granaryCapacity;
+
+        player.villages[villageId].resources = resources;
+        player.villages[villageId].resourceSync = now;
+
+        return resources;
+    },
+
     getResourceCapacity: function ( db, player ) {
         return this.getResourcesCapacityByVillage( db, player, player.activeVillage );
     },
@@ -145,6 +173,10 @@ module.exports = {
 
     getCultureProduction( db, player ) {
         return this.getCultureProductionByVillage( db, player, player.activeVillage );
+    },
+
+    getResources: function ( db, player ) {
+        return this.getResourcesByVillage( db, player, player.activeVillage );
     }
 
 }

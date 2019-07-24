@@ -40,10 +40,12 @@ module.exports = {
                 // TODO: na sztywno nie można bardziej rozbudować
                 if (level + alreadyInConstruction < 2) {
 
-                    const woodLeft = player.villages[player.activeVillage].resources.wood - building.levels[level + alreadyInConstruction].wood;
-                    const clayLeft = player.villages[player.activeVillage].resources.clay - building.levels[level + alreadyInConstruction].clay;
-                    const ironLeft = player.villages[player.activeVillage].resources.iron - building.levels[level + alreadyInConstruction].iron;
-                    const cropLeft = player.villages[player.activeVillage].resources.crop - building.levels[level + alreadyInConstruction].crop;
+                    const resources = villageService.getResources(db, player);
+
+                    const woodLeft = resources.wood - building.levels[level + alreadyInConstruction].wood;
+                    const clayLeft = resources.clay - building.levels[level + alreadyInConstruction].clay;
+                    const ironLeft = resources.iron - building.levels[level + alreadyInConstruction].iron;
+                    const cropLeft = resources.crop - building.levels[level + alreadyInConstruction].crop;
 
                     if (woodLeft < 0 || clayLeft < 0 || ironLeft < 0 || cropLeft < 0 ) {
                         // message ze nie mozna zbudować
@@ -63,6 +65,8 @@ module.exports = {
                         player.villages[player.activeVillage].resources.clay = clayLeft;
                         player.villages[player.activeVillage].resources.iron = ironLeft;
                         player.villages[player.activeVillage].resources.crop = cropLeft;
+
+                        player.villages[player.activeVillage].resourceSync = new Date();
 
                         playerService.updatePlayer(db, player);
                     }
@@ -90,10 +94,12 @@ module.exports = {
 
                 if (level + alreadyInConstruction < 2) {
                     
-                    const woodLeft = player.villages[player.activeVillage].resources.wood - building.levels[level + alreadyInConstruction].wood;
-                    const clayLeft = player.villages[player.activeVillage].resources.clay - building.levels[level + alreadyInConstruction].clay;
-                    const ironLeft = player.villages[player.activeVillage].resources.iron - building.levels[level + alreadyInConstruction].iron;
-                    const cropLeft = player.villages[player.activeVillage].resources.crop - building.levels[level + alreadyInConstruction].crop;
+                    const resources = villageService.getResources(db, player);
+
+                    const woodLeft = resources.wood - building.levels[level + alreadyInConstruction].wood;
+                    const clayLeft = resources.clay - building.levels[level + alreadyInConstruction].clay;
+                    const ironLeft = resources.iron - building.levels[level + alreadyInConstruction].iron;
+                    const cropLeft = resources.crop - building.levels[level + alreadyInConstruction].crop;
 
                     if (woodLeft < 0 || clayLeft < 0 || ironLeft < 0 || cropLeft < 0 ) {
                         // message ze nie mozna zbudować
@@ -113,6 +119,8 @@ module.exports = {
                         player.villages[player.activeVillage].resources.clay = clayLeft;
                         player.villages[player.activeVillage].resources.iron = ironLeft;
                         player.villages[player.activeVillage].resources.crop = cropLeft;
+
+                        player.villages[player.activeVillage].resourceSync = new Date();
 
                         playerService.updatePlayer(db, player);
                     }
