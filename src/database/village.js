@@ -85,6 +85,48 @@ module.exports = {
         }
     },
 
+    getPopulationByVillage: function ( db, player, villageId ) {
+        let loadedBuildings = new Map();
+        let population = 0;
+
+        const village = player.villages[villageId];
+
+        village.sites.forEach( site => {
+            if ( !loadedBuildings.has( site.buildingId ) ) {
+                const current = buildingService.getBuildingById(db, site.buildingId)[0];
+                loadedBuildings.set(site.buildingId, current);
+            }
+            const building = loadedBuildings.get(site.buildingId);
+            population += building.levels[site.level].pop;
+        });
+        village.buildings.forEach( building => {
+            if ( !loadedBuildings.has( building.buildingId ) ) {
+                const current = buildingService.getBuildingById(db, building.buildingId)[0];
+                loadedBuildings.set(building.buildingId, current);
+            }
+            const building0 = loadedBuildings.get(building.buildingId);
+            population += building0.levels[building.level].pop;
+        });
+
+        return {
+            population: population
+        };
+    },
+
+    getCultureProductionByVillage: function ( db, player, villageId ) {
+        const buildingMap = buildingService.getAllBuildingsMap(db);
+        let production = 0;
+
+        player.villages[villageId].sites.forEach( site => {
+            production += buildingMap.get(site.buildingId).levels[site.level].cp;
+        });
+        player.villages[villageId].buildings.forEach( building => {
+            production += buildingMap.get(building.buildingId).levels[building.level].cp;
+        });
+
+        return production;
+    },
+
     getResourceCapacity: function ( db, player ) {
         return this.getResourcesCapacityByVillage( db, player, player.activeVillage );
     },
@@ -95,6 +137,14 @@ module.exports = {
 
     getMainBuildingReduction: function ( db, player ) {
         return this.getMainBuildingReductionByVillage( db, player, player.activeVillage );
+    },
+
+    getPopulation: function ( db, player ) {
+        return this.getPopulationByVillage( db, player, player.activeVillage );
+    },
+
+    getCultureProduction( db, player ) {
+        return this.getCultureProductionByVillage( db, player, player.activeVillage );
     }
 
 }

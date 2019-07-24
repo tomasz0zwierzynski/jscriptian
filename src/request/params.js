@@ -2,6 +2,7 @@ const authService = require('../auth');
 const playerService = require('../database/player');
 const buildingService = require('../database/building');
 const villageService = require('../database/village');
+const cultureService = require('../database/culture');
 
 module.exports = {
 
@@ -185,11 +186,11 @@ module.exports = {
             const player = authService.getPlayerByToken(db, req.query.token)
 
             if (player) {
-
-                const population = playerService.getPlayerTotalPopulation(db, player);
-                const culturePoints = playerService.getPlayerTotalCulturePoints(db, player);
-                const cultureProduction = playerService.getPlayerCultureProduction(db, player);
-
+            
+                const population = cultureService.getTotalPopulation(db, player);
+                const culturePoints = cultureService.getTotalCulturePoints(db, player);
+                const cultureProduction = villageService.getCultureProduction(db, player)
+            
                 const json = {
                     population: population.population,
                     culturePoints: culturePoints.culturePoints,
