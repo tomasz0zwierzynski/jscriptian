@@ -2,12 +2,11 @@ const playerService = require('./database/player');
 const villageService = require('./database/village');
 
 module.exports = {
-    
+
     process: function ( db ) {
         
 // TODO: refactor and optymalize that
 
-        // production
 
         const allPlayers = playerService.getAllPlayers(db);
                
@@ -52,7 +51,6 @@ module.exports = {
 
             playerService.updatePlayer( db, player );
         });
-
 
     }
 }

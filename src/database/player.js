@@ -1,10 +1,20 @@
 const buildingService = require('./building');
 
 module.exports = {
+
+    // TODO: zrobic metody db bezpieczniejsze 
+
     getPlayerByName: function (db, playerName) {
 
         const players = db.getCollection('players');
         const player = players.find({name: playerName})[0];
+
+        return player;
+    },
+
+    getPlayerById: function (db, playerId) {
+        const players = db.getCollection('players');
+        const player = players.find({id: playerId})[0];
 
         return player;
     },
@@ -98,7 +108,9 @@ module.exports = {
         const players = db.getCollection('players');
 
         // TODO: check player already in database
+
         const newPlayer = {
+            id: generatePlayerId(),
             name: name,
             password: password,
             activeVillage: 0,
@@ -147,3 +159,10 @@ module.exports = {
     }
 
 };
+
+var playerIdSequence = 0;
+
+function generatePlayerId() {
+    // TODO: sekwencja generowanych id nowych graczy
+    return playerIdSequence++;
+}
