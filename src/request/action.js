@@ -2,6 +2,11 @@ const authService = require('../auth');
 const playerService = require('../database/player');
 const buildingService = require('../database/building');
 const villageService = require('../database/village');
+const eventQueue = require('../queue');
+
+const EventTypes = require('../model/event-type');
+
+const moment = require('../../node_modules/moment');
 
 module.exports = {
 
@@ -54,12 +59,26 @@ module.exports = {
                         const reduction = villageService.getMainBuildingReduction(db, player).reduction;
                         const timeLeft = Math.round( building.levels[level + alreadyInConstruction].time * ( ( 100 - reduction ) / 100 ) );
 
-                        player.villages[player.activeVillage].buildQueue.push( {
+                        const lastFinishBuildingDate = player.villages[player.activeVillage].buildQueue.map(e => e.eventDate).sort().reverse()[0];
+                        let timeAddBase = new Date();
+                        if (lastFinishBuildingDate) {
+                            timeAddBase = lastFinishBuildingDate;
+                        }
+
+                        const eventDate = moment(timeAddBase).add(timeLeft, 's').toDate();
+
+                        const upgradeContext = {
+                            villageId: player.activeVillage,
                             buildingId: buildingId,
                             siteId: siteId,
                             level: level + 1 + alreadyInConstruction,
-                            timeLeft: timeLeft   
-                        });
+                            eventDate: eventDate
+                            // timeLeft: timeLeft   
+                        };
+
+                        player.villages[player.activeVillage].buildQueue.push( upgradeContext );
+
+                        eventQueue.addEventToQueue(EventTypes.SITE_FINISH, player.id, eventDate, upgradeContext);                       
                   
                         player.villages[player.activeVillage].resources.wood = woodLeft;
                         player.villages[player.activeVillage].resources.clay = clayLeft;
@@ -108,13 +127,26 @@ module.exports = {
                         const reduction = villageService.getMainBuildingReduction(db, player).reduction;
                         const timeLeft = Math.round( building.levels[level + alreadyInConstruction].time * ( ( 100 - reduction ) / 100 ) );
 
-                        player.villages[player.activeVillage].constructQueue.push( {
+                        const lastFinishBuildingDate = player.villages[player.activeVillage].constructQueue.map(e => e.eventDate).sort().reverse()[0];
+                        let timeAddBase = new Date();
+                        if (lastFinishBuildingDate) {
+                            timeAddBase = lastFinishBuildingDate;
+                        }
+
+                        const eventDate = moment(timeAddBase).add(timeLeft, 's').toDate();
+
+                        const upgradeContext = {
+                            villageId: player.activeVillage,
                             buildingId: buildingId,
                             constructionId: constructionId,
                             level: level + 1 + alreadyInConstruction,
-                            timeLeft: timeLeft   
-                        });
+                            eventDate: eventDate 
+                        };
+
+                        player.villages[player.activeVillage].constructQueue.push( upgradeContext );
                   
+                        eventQueue.addEventToQueue(EventTypes.CONSTRUCTION_FINISH, player.id, eventDate, upgradeContext)
+
                         player.villages[player.activeVillage].resources.wood = woodLeft;
                         player.villages[player.activeVillage].resources.clay = clayLeft;
                         player.villages[player.activeVillage].resources.iron = ironLeft;

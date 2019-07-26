@@ -93,15 +93,18 @@ $.getJSON('/sites-params', { token: token }, res => {
         container.appendChild(div);
     });
 
-    let comutativeTime = 1;
+    // let comutativeTime = 1;
     buildQueue.forEach( (build, idx) => {
 
-        comutativeTime += build.timeLeft;
+        // comutativeTime += build.timeLeft;
         queue.push( {
-            timeLeft: comutativeTime,
+            timeLeft: (new Date(build.eventDate).getTime() - (new Date()).getTime() ) * 0.001,
+            date: build.eventDate,
             siteName: getSiteName(build.buildingId),
             level: build.level 
         } )
+
+        // queue.sort( (a, b) => a.date > b.date );
 
         let div = document.createElement("div");
         div.innerHTML = '<p> '
@@ -125,7 +128,7 @@ $.getJSON('/sites-params', { token: token }, res => {
 function buildQueueInterval() {
     queue.forEach( build => {
         build.timeLeft -= 1;
-        if (build.timeLeft < 0) {
+        if (build.timeLeft < -1) {
             location.reload();
         }
     } );
@@ -136,7 +139,7 @@ function buildQueueInterval() {
 function updateBuildingQueue() {
     queue.forEach( (build, idx) => {
         const left = new Date( Math.round(build.timeLeft) * 1000).toISOString().substr(11, 8);
-        document.getElementById("queue" + idx.toString()).innerHTML = left;
+        document.getElementById("queue" + idx.toString()).innerHTML = left + ' ' + build.date;
     } );
 }
 

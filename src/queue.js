@@ -1,9 +1,17 @@
+const eventDispatcher = require('./event-dispatcher');
+
 module.exports = {
+
+    db: null,
 
     eventQueue: [],
 
     nextEventSubscription: null,
     
+    setDatabase: function ( db ) {
+        this.db = db;
+    },
+
     addEventToQueue: function ( eventType, playerId, eventDate, eventDetails ) {
 
         console.log('(+) push event to queue: ' + eventType);
@@ -37,6 +45,7 @@ module.exports = {
     dispatchEvent: function ( event ) {
         if ( !event.completed ) {
             console.log('dispatching event ' + event.eventType + ': ' + event.eventDate);
+            eventDispatcher.dispatchEvent( this.db, event );
             event.completed = true;
         } 
     
