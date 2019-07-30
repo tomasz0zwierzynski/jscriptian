@@ -4,9 +4,6 @@ const villageService = require('./database/village');
 module.exports = {
 
     process: function ( db ) {
-        
-// TODO: refactor and optymalize that
-
 
         const allPlayers = playerService.getAllPlayers(db);
                
@@ -24,6 +21,3 @@ module.exports = {
     }
 }
 
-function production() {
-
-}
