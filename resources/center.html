@@ -5,92 +5,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Resource sites</title>
+  <title>Center</title>
   <link rel="stylesheet" href="styles/bootstrap.min.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Jscriptian 0.1</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
-            aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+  <div id="navbar-container">
+  </div>
 
-        <div class="collapse navbar-collapse" id="navbarColor02">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/player">Player</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/sites">Sites</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Center <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/map">Map</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="pull-right">
-          <p class="d-inline text-muted"><span id="player-name"></span></p>        
-          <button type="button" class="ml-4 d-inline btn btn-primary" onclick="logout()"> Log out </button>
-        </div>
-
-    </nav>
   <div class="container">
     <div class="row justify-content-md-center mt-3">
       <div class="col">
       </div>
       <div class="col-md-auto">
+
         <div id="resources-container">
-        <!-- *** 
-        <div class="row">
-          <div class="col-3">
-            <div class="card" style="width: 10rem;">
-              <div class="card-body">
-                <p class="card-text">
-                  <img src="images/wood.png" width="30" height="30">
-                  <span id="wood">0</span> / <span id="wood-capacity">0</span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="card" style="width: 10rem;">
-              <div class="card-body">
-                <p class="card-text">
-                  <img src="images/clay.png" width="30" height="30">
-                  <span id="clay">0</span> / <span id="clay-capacity">0</span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="card" style="width: 10rem;">
-              <div class="card-body">
-                <p class="card-text">
-                  <img src="images/iron.png" width="30" height="30">
-                  <span id="iron">0</span> / <span id="iron-capacity">0</span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="card" style="width: 10rem;">
-              <div class="card-body">
-                <p class="card-text">
-                  <img src="images/crop.png" width="30" height="30">
-                  <span id="crop">0</span> / <span id="crop-capacity">0</span>
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
-         *** -->
-        </div>
+
       </div>
       <div class="col">
       </div>
@@ -106,25 +37,28 @@
         <div id="building-list">
         </div> 
         <div>
-            <button class="btn btn-primary" onclick="newConstruct()">Construct new building</button>
-          </div>
-      </div>
-      <div class="col-4">
-        <h3> Production per hour: </h3>
-          <p> Wood: <span id="woodProd">0</span></p>
-          <p> Clay: <span id="clayProd">0</span></p>
-          <p> Iron: <span id="ironProd">0</span></p>
-          <p> Crop: <span id="cropProd">0</span></p>
-      </div>
-      <div class="col-4">
-        <div id="villages-list">
+          <button class="btn btn-primary" onclick="newConstruct()">Construct new building</button>
         </div>
+      </div>
+      <div class="col-4">
+
+        <div id="production-container">
+        </div>
+
+      </div>
+      <div class="col-4">
+
+        <div id="villages-container">
+        </div>
+
       </div>
     </div>
 
     <div class="row mt-4">
-      <div id="build-queue">
+
+      <div id="queue-container">
       </div>
+
     </div>
     
   </div>
@@ -132,7 +66,11 @@
 <script src="scripts/lib/jquery-3.4.0.min.js"></script>
 <script src="scripts/commons.js"></script>
 <script src="components/resources.js"></script>
-<script src="scripts/navbar.js"></script>
+<script src="components/production.js"></script>
+<script src="components/villages.js"></script>
+<script src="components/queue.js"></script>
+<script src="components/navbar.js"></script>
+<script src="scripts/component-loader.js"></script>
 <script src="scripts/center.js"></script>
 
 

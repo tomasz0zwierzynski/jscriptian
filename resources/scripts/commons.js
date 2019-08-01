@@ -5,18 +5,45 @@ function hash(input) {
     return input;
 }
 
+function logout() {
+    $.getJSON('/logout', { token: token }, data => {
+        localStorage.removeItem('token');
+        setTimeout(() => {
+            window.location.href = 'login';
+        }, 30);
+    });
+}
+
+function handleFail(msg) {
+    console.log('getJSON fail:' + msg);
+    window.location.href = 'login';
+}
+
+// TODO: merge getSiteName and getBuildingName
 function getSiteName(id) {
     switch (id) {
         case 0: return "Woodcutter";
         case 1: return "Clay Pit";
         case 2: return "Iron Mine";
         case 3: return "Crop Field";
+        case 4: return "Main Building";
+        case 5: return "Warehouse";
+        case 6: return "Granary";
+        case 7: return "Sawmill";
+        case 8: return "Brickyard";
+        case 9: return "Iron Foundry";
+        case 10: return "Grain Mill";
+        case 11: return "Bakery";
         default: return "Undefined";
     }
 }
 
 function getBuildingName(id) {
     switch (id) {
+        case 0: return "Woodcutter";
+        case 1: return "Clay Pit";
+        case 2: return "Iron Mine";
+        case 3: return "Crop Field";
         case 4: return "Main Building";
         case 5: return "Warehouse";
         case 6: return "Granary";

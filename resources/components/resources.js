@@ -39,7 +39,7 @@ var resourcesController = {
 
         self.updateResources( self );
 
-        setInterval( () => self.tickResources(self) , 20);
+        setInterval( () => self.tickResources( self ) , 20);
 
     },
 

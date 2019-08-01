@@ -1,5 +1,29 @@
-<template id="navbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Jscriptian 0.1</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+        aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li id="navbar-player" class="nav-item">
+                <a class="nav-link" href="/player">Player</a>
+            </li>
+            <li id="navbar-sites" class="nav-item">
+                <a class="nav-link" href="/sites">Sites</a>
+            </li>
+            <li id="navbar-center" class="nav-item active">
+                <a class="nav-link" href="/center">Center</a>
+            </li>
+            <li id="navbar-map" class="nav-item">
+                <a class="nav-link" href="/map">Map</a>
+            </li>
+        </ul>
+    </div>
 
-    
-</template>
+    <div class="pull-right">
+        <p class="d-inline text-muted"><span id="navbar-player-name"></span></p>
+        <button type="button" class="ml-4 d-inline btn btn-primary" onclick="logout()"> Log out </button>
+    </div>
+</nav>
