@@ -1,5 +1,5 @@
-const playerService = require('./database/player');
-const villageService = require('./database/village');
+const playerService = require('./service/player');
+const villageService = require('./service/village');
 
 module.exports = {
 

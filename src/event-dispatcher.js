@@ -1,5 +1,5 @@
 const EventTypes = require('./model/event-type');
-const playerService = require('./database/player');
+const playerService = require('./service/player');
 
 module.exports = {
 

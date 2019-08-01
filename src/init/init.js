@@ -6,6 +6,7 @@ module.exports = {
         const db = new loki('db.json');
         
         loader.prepareData(db);
+        
         return db;
     }
 };

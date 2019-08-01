@@ -1,16 +1,20 @@
 const Buildings = require('../model/buildings');
 
-const playerService = require('../database/player');
+const playerService = require('../service/player');
+
+const worldService = require('../service/world');
 
 module.exports = {
     prepareData: function (db) {
 
         createBuildingData(db)
 
+        createGameWorld(db);
+
         createPlayerData(db);
 
-        createTokenStore(db);
-
+        createTokenStore(db);       
+        
         db.saveDatabase();
     }
 };
@@ -130,8 +134,11 @@ function createBuildingData(db) {
 function createPlayerData(db) {
     const players = db.addCollection('players');
 
-    playerService.registerPlayer(db, 'test', 'test');
-    playerService.registerPlayer(db, 'test2', 'test2');
+    const testPlayer = playerService.registerPlayer(db, 'test', 'test');
+    worldService.foundNewVillage( db, testPlayer, { x: 100, y: 100} );
+
+    const test2Player = playerService.registerPlayer(db, 'test2', 'test2');
+    worldService.foundNewVillage( db, test2Player, { x: 102, y: 100} );
     // for (var i = 0; i < 1000; i++) {
     //     playerService.registerPlayer(db, `player${i}`, `player${i}`);
     // }
@@ -139,4 +146,23 @@ function createPlayerData(db) {
 
 function createTokenStore(db) {
     const tokens = db.addCollection('tokens');
+}
+
+function createGameWorld(db) {
+    const world = db.addCollection('world');
+
+    // generate world
+    for (let i = 0; i < 150; i++ ) {
+        for (let j = 0; j < 150; j++) {
+            world.insert({
+                x: i,
+                y: j,
+                tile: 1,
+                playerId: null,
+                villageId: null
+                // type: null
+            });
+        }
+    }    
+
 }

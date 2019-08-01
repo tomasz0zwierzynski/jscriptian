@@ -1,8 +1,8 @@
 const authService = require('../auth');
-const playerService = require('../database/player');
-const buildingService = require('../database/building');
-const villageService = require('../database/village');
-const cultureService = require('../database/culture');
+const playerService = require('../service/player');
+const buildingService = require('../service/building');
+const villageService = require('../service/village');
+const cultureService = require('../service/culture');
 
 module.exports = {
 

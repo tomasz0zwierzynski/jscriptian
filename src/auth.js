@@ -1,5 +1,5 @@
-const playerService = require('./database/player');
-const tokenService = require('./database/token');
+const playerService = require('./service/player');
+const tokenService = require('./service/token');
 
 module.exports = {
     getPlayerToken: function (db, username, password) {

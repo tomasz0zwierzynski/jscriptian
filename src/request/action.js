@@ -1,7 +1,7 @@
 const authService = require('../auth');
-const playerService = require('../database/player');
-const buildingService = require('../database/building');
-const villageService = require('../database/village');
+const playerService = require('../service/player');
+const buildingService = require('../service/building');
+const villageService = require('../service/village');
 const eventQueue = require('../queue');
 
 const EventTypes = require('../model/event-type');

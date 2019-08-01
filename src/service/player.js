@@ -114,48 +114,14 @@ module.exports = {
             name: name,
             password: password,
             activeVillage: 0,
-            villages: [
-                {
-                    name: name + "'s village",
-                    resources: { wood: 750, clay: 750, iron: 750, crop: 750 },
-                    resourceSync: new Date(),
-                    sites: [
-                        { id: 0, buildingId: 0, level: 2 },
-                        { id: 1, buildingId: 1, level: 0 },
-                        { id: 2, buildingId: 2, level: 0 },
-                        { id: 3, buildingId: 3, level: 0 }
-                    ],
-                    buildQueue: [ ],
-                    buildings: [
-                        { id: 0, buildingId: 4, level: 1 }
-                    ],
-                    constructQueue: [ ],
-                    culturePoints: 0
-                },
-                {
-                    name: name + "'s VILLAGE",
-                    resources: { wood: 7500, clay: 7500, iron: 7500, crop: 7500 },
-                    resourceSync: new Date(),
-                    sites: [
-                        { id: 0, buildingId: 3, level: 0 },
-                        { id: 1, buildingId: 3, level: 0 },
-                        { id: 2, buildingId: 3, level: 0 },
-                        { id: 3, buildingId: 3, level: 0 }
-                    ],
-                    buildQueue: [ ],
-                    buildings: [
-                        { id: 0, buildingId: 5, level: 1 },
-                        { id: 1, buildingId: 4, level: 1 }
-                    ],
-                    constructQueue: [ ],
-                    culturePoints: 0
-                }
-            ],
+            villages: [ ]
         };
 
         players.insert(newPlayer);
 
         db.saveDatabase();
+
+        return newPlayer;
     }
 
 };
