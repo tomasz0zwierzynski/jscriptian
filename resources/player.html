@@ -5,41 +5,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Resource sites</title>
+  <title>Player</title>
   <link rel="stylesheet" href="styles/bootstrap.min.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Jscriptian 0.1</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
-            aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    
+  <div id="navbar-container">
+  </div>
 
-        <div class="collapse navbar-collapse" id="navbarColor02">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Player <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/sites">Sites</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/center">Center</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/map">Map</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="pull-right">
-          <p class="d-inline text-muted"><span id="player-name"></span></p>        
-          <button type="button" class="ml-4 d-inline btn btn-primary" onclick="logout()"> Log out </button>
-        </div>
-
-    </nav>
   <div class="container">
       <div class="row">
         <div class="col">
@@ -54,7 +28,8 @@
 </body>
 <script src="scripts/lib/jquery-3.4.0.min.js"></script>
 <script src="scripts/commons.js"></script>
-<script src="scripts/navbar.js"></script>
+<script src="components/navbar.js"></script>
+<script src="scripts/component-loader.js"></script>
 <script src="scripts/player.js"></script>
 
 </html>

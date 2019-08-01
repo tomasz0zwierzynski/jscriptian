@@ -1,15 +1,25 @@
-$.getJSON('/player-params', { token: token }, res => {
+componentLoader.load(getJsonData);
 
-    const { population, culturePoints, cultureProduction } = res;
+function getJsonData() {
 
-    document.getElementById("pop").innerHTML = population;
+    $.getJSON('/user-info-params', { token: token }, res => {
 
-    document.getElementById("culture-points").innerHTML = culturePoints;
+        const { name } = res;
 
-    document.getElementById("culture-production").innerHTML = cultureProduction;
+        navbarController.init( name, navbarController.ID_PLAYER_ITEM );
 
-}).fail( (msg) => {
-    console.log('player-params fail: ' + msg);
+    }).fail( handleFail ); 
 
-    window.location.href = 'login';
-} );;
+    $.getJSON('/player-params', { token: token }, res => {
+
+        const { population, culturePoints, cultureProduction } = res;
+    
+        document.getElementById("pop").innerHTML = population;
+    
+        document.getElementById("culture-points").innerHTML = culturePoints;
+    
+        document.getElementById("culture-production").innerHTML = cultureProduction;
+    
+    }).fail( handleFail );
+
+}

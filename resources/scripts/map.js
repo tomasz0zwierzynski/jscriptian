@@ -1,3 +1,15 @@
+componentLoader.load(getJsonData);
+
+function getJsonData() {
+    $.getJSON('/user-info-params', { token: token }, res => {
+
+        const { name } = res;
+
+        navbarController.init( name, navbarController.ID_MAP_ITEM );
+
+    }).fail( handleFail );
+}
+
 var canvas = document.getElementById('map-canvas');
 var context = canvas.getContext('2d');
 
@@ -19,7 +31,6 @@ Isometric.load();
 Isometric.setClickHandler( (x, y) => {
     console.log(`Clicked: x=${x} y=${y}`);
 } );
-
 
 var sliderX = document.getElementById("range-x");
 var sliderY = document.getElementById("range-y");

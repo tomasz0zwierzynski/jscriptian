@@ -1,4 +1,3 @@
-
 componentLoader.load( getJsonData );
 
 function getJsonData() {
@@ -7,7 +6,7 @@ function getJsonData() {
 
         const { name } = res;
 
-        navbarController.init( name, 'navbar-center' );
+        navbarController.init( name, navbarController.ID_CENTER_ITEM );
 
     }).fail( handleFail );
 

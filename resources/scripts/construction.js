@@ -1,78 +1,61 @@
-var wood = 0;
-var clay = 0;
-var iron = 0;
-var crop = 0;
-
-$.urlParam = function(name) {
+$.urlParam = function (name) {
     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
     return results[1] || 0;
 }
 
 const id = $.urlParam('id');
 
-$.getJSON('/center-params/' + id, { token: token }, res => {
-    const { name, buildingId, cost, buildingAttributes } = res;
+componentLoader.load(getJsonData);
 
-    document.getElementById("wood-cost").innerHTML = cost.wood;
-    document.getElementById("clay-cost").innerHTML = cost.clay;
-    document.getElementById("iron-cost").innerHTML = cost.iron;
-    document.getElementById("crop-cost").innerHTML = cost.crop;
+function getJsonData() {
 
-    document.getElementById("data").innerHTML = getBuildingDescription(buildingId, buildingAttributes)
+    $.getJSON('/user-info-params', { token: token }, res => {
 
-    document.getElementById("building-name").innerHTML = name;
+        const { name } = res;
 
-}).fail( (msg) => {
-    console.log('center-params?id=' + id + ' fail: ' + msg);
+        navbarController.init( name, navbarController.ID_SITES_ITEM );
 
-    window.location.href = 'login';
-} );
+    }).fail( handleFail );
 
-$.getJSON('/production-params', { token: token }, res => { 
+    $.getJSON('/center-params/' + id, { token: token }, res => {
+        const { name, buildingId, cost, buildingAttributes } = res;
 
-    const { resources, capacity, production } = res;
+        document.getElementById("wood-cost").innerHTML = cost.wood;
+        document.getElementById("clay-cost").innerHTML = cost.clay;
+        document.getElementById("iron-cost").innerHTML = cost.iron;
+        document.getElementById("crop-cost").innerHTML = cost.crop;
 
-    document.getElementById("wood-capacity").innerHTML = capacity.warehouseCapacity;
-    document.getElementById("clay-capacity").innerHTML = capacity.warehouseCapacity;
-    document.getElementById("iron-capacity").innerHTML = capacity.warehouseCapacity;
-    document.getElementById("crop-capacity").innerHTML = capacity.granaryCapacity;
+        document.getElementById("data").innerHTML = getBuildingDescription(buildingId, buildingAttributes)
 
-    const woodInterval = 0.02 * production.wood / 3600;
-    const clayInterval = 0.02 * production.clay / 3600;
-    const ironInterval = 0.02 * production.iron / 3600;
-    const cropInterval = 0.02 * production.crop / 3600;
+        document.getElementById("building-name").innerHTML = name;
 
-    wood = resources.wood;
-    clay = resources.clay;
-    iron = resources.iron;
-    crop = resources.crop;
+    }).fail( handleFail );
 
-    updateResources();
+    $.getJSON('/production-params', { token: token }, res => {
 
-    setInterval( () => {
-        const newWood = wood + woodInterval;
-        const newClay = clay + clayInterval;
-        const newIron = iron + ironInterval;
-        const newCrop = crop + cropInterval;
+        const { resources, capacity, production } = res;
 
-        if (newWood <= capacity.warehouseCapacity) wood = newWood; 
-        if (newClay <= capacity.warehouseCapacity) clay = newClay;
-        if (newIron <= capacity.warehouseCapacity) iron = newIron;
-        if (newCrop <= capacity.granaryCapacity) crop = newCrop;
+        resourcesController.init( resources, capacity, production );
 
-        updateResources();
-    }, 20 );
-}).fail( (msg) => {
-    console.log('sites-params fail: ' + msg);
+    }).fail( handleFail );
 
-    window.location.href = 'login';
-} );
+    $.getJSON('/villages-params', { token: token }, res => {
 
-function updateResources() {
-    document.getElementById("wood").innerHTML = Math.round(wood);
-    document.getElementById("clay").innerHTML = Math.round(clay);
-    document.getElementById("iron").innerHTML = Math.round(iron);
-    document.getElementById("crop").innerHTML = Math.round(crop);
+        const { villageName, villagesNames } = res;
+
+        // TODO: ustawić coś fajnego jako layout
+        // document.getElementById("village-name").innerHTML = villageName;
+        
+        villagesController.init( villageName, villagesNames, 'village');
+
+    }).fail( handleFail );
+
+}
+
+function village(idx) {
+    setTimeout(() => {
+        window.location.href = 'village?id=' + idx + '&place=center' + '&token=' + token;;
+    }, 30)
 }
 
 function build() {
