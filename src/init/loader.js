@@ -20,7 +20,7 @@ module.exports = {
 };
 
 function createBuildingData(db) {
-    const buildings = db.addCollection('buildings');
+    const buildings = db.addCollection('buildings', { indices: ['id']} );
 
     buildings.insert({
         id: Buildings.WOODCUTTER, name: 'Woodcutter', singleton: false, levels: [
@@ -132,7 +132,7 @@ function createBuildingData(db) {
 }
 
 function createPlayerData(db) {
-    const players = db.addCollection('players');
+    const players = db.addCollection('players', { indices: ['id'] });
 
     const testPlayer = playerService.registerPlayer(db, 'test', 'test');
     worldService.foundNewVillage( db, testPlayer, { x: 100, y: 100} );
@@ -149,11 +149,11 @@ function createTokenStore(db) {
 }
 
 function createGameWorld(db) {
-    const world = db.addCollection('world');
+    const world = db.addCollection('world', { indices: ['x', 'y'] });
 
     // generate world
-    for (let i = 0; i < 150; i++ ) {
-        for (let j = 0; j < 150; j++) {
+    for (let i = 0; i < 400; i++ ) {
+        for (let j = 0; j < 400; j++) {
             world.insert({
                 x: i,
                 y: j,
