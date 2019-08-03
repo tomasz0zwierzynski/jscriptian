@@ -149,20 +149,28 @@ function createTokenStore(db) {
 }
 
 function createGameWorld(db) {
-    const world = db.addCollection('world', { indices: ['x', 'y'] });
+    const world = db.addCollection('world', { indices: ['id'] });
 
     // generate world
-    for (let i = 0; i < 400; i++ ) {
-        for (let j = 0; j < 400; j++) {
-            world.insert({
-                x: i,
-                y: j,
+    const grid = {
+        id: 0,
+        name: 'World 1',
+        tiles: []
+    }
+
+    for (let i = 0; i < 120; i++ ) {
+        const tilesY = [];
+        for (let j = 0; j < 120; j++) {
+            tilesY.push({
                 tile: 1,
                 playerId: null,
                 villageId: null
                 // type: null
             });
         }
+        grid.tiles.push(tilesY);
     }    
+
+    world.insert( grid );
 
 }

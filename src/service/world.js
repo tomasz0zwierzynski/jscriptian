@@ -1,10 +1,21 @@
 module.exports = {
 
     getWorldTileByPosition: function ( db, position ) {
-        const world = db.addCollection('world');
-        const tile = world.find(position)[0];
+        const world = db.getCollection('world');
+        const grid = world.find({id: 0})[0];
+
+        const tile = grid.tiles[position.x][position.y];
 
         return tile;
+    },
+
+    updateTile: function ( db, tile, position ) {
+        const world = db.getCollection('world');
+        const grid = world.find({id: 0})[0];
+
+        grid.tiles[position.x][position.y] = tile;
+
+        world.update(grid);
     },
 
     foundNewVillage: function ( db, player, position ) {
@@ -41,7 +52,7 @@ module.exports = {
                 }
             )
             
-            world.update(tile);
+            this.updateTile(db, tile, position);
             players.update(player);
         }
     }
