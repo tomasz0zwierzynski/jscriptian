@@ -1,9 +1,4 @@
-$.urlParam = function (name) {
-    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-    return results[1] || 0;
-}
-
-const id = $.urlParam('id');
+const id = getUrlParam('id');
 
 componentLoader.load(getJsonData);
 

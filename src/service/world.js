@@ -45,7 +45,7 @@ module.exports = {
         if (tile) {
             // TODO: weryfikacja czy mozna tutaj itd.
             
-            tile.tile = 2;
+            tile.tile = 0;
             tile.playerId = player.id;
             tile.villageId = player.villages.length;
 

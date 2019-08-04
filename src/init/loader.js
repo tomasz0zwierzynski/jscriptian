@@ -135,10 +135,10 @@ function createPlayerData(db) {
     const players = db.addCollection('players', { indices: ['id'] });
 
     const testPlayer = playerService.registerPlayer(db, 'test', 'test');
-    worldService.foundNewVillage( db, testPlayer, { x: 100, y: 100} );
+    worldService.foundNewVillage( db, testPlayer, { x: 50, y: 50} );
 
     const test2Player = playerService.registerPlayer(db, 'test2', 'test2');
-    worldService.foundNewVillage( db, test2Player, { x: 102, y: 100} );
+    worldService.foundNewVillage( db, test2Player, { x: 52, y: 50} );
     // for (var i = 0; i < 1000; i++) {
     //     playerService.registerPlayer(db, `player${i}`, `player${i}`);
     // }
