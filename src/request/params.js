@@ -3,6 +3,7 @@ const playerService = require('../service/player');
 const buildingService = require('../service/building');
 const villageService = require('../service/village');
 const cultureService = require('../service/culture');
+const worldService = require('../service/world');
 
 module.exports = {
 
@@ -59,7 +60,9 @@ module.exports = {
             if (player) {
                 const json = {
                     villageName: player.villages[player.activeVillage].name,
-                    villagesNames: player.villages.map( v => v.name )
+                    villagePosition: player.villages[player.activeVillage].position,
+                    villagesNames: player.villages.map( v => v.name ),
+                    villagesPositions: player.villages.map( v => v.position )
                 };
 
                 res.json(json);
@@ -236,6 +239,27 @@ module.exports = {
                 res.status(401);
                 res.send('Unauthenticated');
             }
+
+        });
+
+        app.get('/map-params', (req, res) => {
+            
+            const player = authService.getPlayerByToken(db, req.query.token);
+
+            if ( player ) {
+                const centerPosition = { x: req.query.x, y: req.query.y };
+
+                const tiles = worldService.getWorldTilesSquare(db, centerPosition);
+
+                const json = {
+                    tiles: tiles
+                }
+
+                res.json(json);
+            } else {
+                res.status(401);
+                res.send('Unauthenticated');
+            }         
 
         });
 

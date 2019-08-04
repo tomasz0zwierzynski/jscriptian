@@ -18,6 +18,24 @@ module.exports = {
         world.update(grid);
     },
 
+    getWorldTilesSquare: function ( db, centerPosition ) {
+        const world = db.getCollection('world');
+        const grid = world.find({id: 0})[0];
+
+        // TODO: obsluga cyklicznej mapy
+        const tiles = [];
+        for (let i = +centerPosition.x - 3; i <= +centerPosition.x + 3; i++) {
+            for (let j = +centerPosition.y - 3; j <= +centerPosition.y + 3; j++ ) {
+                const tile = grid.tiles[i][j];
+                tile.x = i;
+                tile.y = j;
+                tiles.push( tile );
+            }
+        }
+
+        return tiles;
+    },
+
     foundNewVillage: function ( db, player, position ) {
         const world = db.getCollection('world');
         const players = db.getCollection('players');
@@ -27,7 +45,7 @@ module.exports = {
         if (tile) {
             // TODO: weryfikacja czy mozna tutaj itd.
             
-            tile.tile = 1;
+            tile.tile = 2;
             tile.playerId = player.id;
             tile.villageId = player.villages.length;
 
