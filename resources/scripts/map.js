@@ -79,13 +79,13 @@ function tilesFetched( tiles ) {
         console.log(`Clicked: x=${x} y=${y}`);
 
         if ( x == 0 && y == 4 ) {
-            reloadMap( centerX + 1, centerY );
-        } else if ( x == 4 && y == 0 ) {
-            reloadMap( centerX, centerY + 1 );
-        } else if ( x == 4 && y == 8 ) {
-            reloadMap( centerX , centerY - 1 );
-        } else if ( x == 8 && y == 4 ) {
             reloadMap( centerX - 1, centerY );
+        } else if ( x == 4 && y == 0 ) {
+            reloadMap( centerX, centerY - 1 );
+        } else if ( x == 4 && y == 8 ) {
+            reloadMap( centerX , centerY + 1 );
+        } else if ( x == 8 && y == 4 ) {
+            reloadMap( centerX + 1, centerY );
         }
 
     } );
