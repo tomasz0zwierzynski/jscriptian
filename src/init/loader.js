@@ -80,7 +80,7 @@ function createBuildingData(db) {
 
     buildings.insert({
         id: Buildings.WAREHOUSE, name: 'Warehouse', singleton: false, levels: [
-            { attr: { capacity: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [] },
+            { attr: { capacity: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 3, requirements: [] },
             { attr: { capacity: 12000 }, wood: 300, clay: 300, iron: 300, crop: 200, pop: 3, cp: 2000, time: 600, requirements: [] }, 
             { attr: { capacity: 17000 }, wood: 900, clay: 900, iron: 900, crop: 700, pop: 7, cp: 5000, time: 1200, requirements: [] },
         ]
@@ -88,7 +88,7 @@ function createBuildingData(db) {
 
     buildings.insert({
         id: Buildings.GRANARY, name: 'Granary', singleton: false, levels: [
-            { attr: { capacity: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 300, requirements: [] },
+            { attr: { capacity: 0 }, wood: 60, clay: 80, iron: 50, crop: 30, pop: 0, cp: 0, time: 3, requirements: [] },
             { attr: { capacity: 12000 }, wood: 300, clay: 300, iron: 300, crop: 200, pop: 3, cp: 2000, time: 600, requirements: [] }, 
             { attr: { capacity: 17000 }, wood: 900, clay: 900, iron: 900, crop: 700, pop: 7, cp: 5000, time: 1200, requirements: [] },
         ]
@@ -128,6 +128,13 @@ function createBuildingData(db) {
             { attr: { bonus: 5 }, wood: 600, clay: 800, iron: 500, crop: 300, pop: 2, cp: 2000, time: 400, requirements: [ { buildingId: Buildings.CROP_FIELD, level: 10 }, { buildingId: Buildings.MAIN_BUILDING, level: 5 } ] }
         ]
     });
+
+    buildings.insert({
+        id: Buildings.MARKETPLACE, name: 'Marketplace', singleton: true, levels: [
+            { attr: { merchants: 0}, wood: 50, clay: 70, iron: 40, crop: 20, pop: 0, cp: 0, time: 10, requirements: [ { buildingId: Buildings.MAIN_BUILDING, level: 1 }, { buildingId: Buildings.GRANARY, level: 1 }, { buildingId: Buildings.WAREHOUSE, level: 1 } ] },
+            { attr: { merchants: 1}, wood: 100, clay: 140, iron: 80, crop: 40, pop: 0, cp: 0, time: 20, requirements: [ { buildingId: Buildings.MAIN_BUILDING, level: 1 }, { buildingId: Buildings.GRANARY, level: 1 }, { buildingId: Buildings.WAREHOUSE, level: 1 } ] }
+        ]
+    })
 
 }
 

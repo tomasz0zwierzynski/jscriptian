@@ -40,6 +40,5 @@ var componentLoader = {
             self.callback();
         }
     }
-
 }
 
