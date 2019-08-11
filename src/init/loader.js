@@ -56,17 +56,33 @@ function createBuildingData(db) {
 
     buildings.insert({
         id: Buildings.IRON_MINE, name: 'Iron Mine', singleton: false, levels: [
-            { attr: { prod: 2000 }, wood: 230, clay: 100, iron: 60, crop: 50, pop: 5, cp: 2000, time: 90, requirements: [] },
-            { attr: { prod: 5000 }, wood: 600, clay: 335, iron: 200, crop: 120, pop: 8, cp: 4000, time: 235, requirements: [] },
-            { attr: { prod: 12000 }, wood: 1400, clay: 800, iron: 500, crop: 600, pop: 13, cp: 5000, time: 400, requirements: [] }
+            { attr: { prod: 2000 }, wood: 100, clay: 80, iron: 30, crop: 60, pop: 0, cp: 0, time: 450 / 1000, requirements: [] },
+            { attr: { prod: 5000 }, wood: 165, clay: 135, iron: 50, crop: 100, pop: 3, cp: 1000, time: 900 / 1000, requirements: [] },
+            { attr: { prod: 9000 }, wood: 280, clay: 225, iron: 85, crop: 165, pop: 5, cp: 1000, time: 1800 / 1000, requirements: [] },
+            { attr: { prod: 15000 }, wood: 465, clay: 375, iron: 140, crop: 280, pop: 7, cp: 2000, time: 3600 / 1000, requirements: [] },
+            { attr: { prod: 22000 }, wood: 780, clay: 620, iron: 235, crop: 465, pop: 9, cp: 2000, time: 7200 / 1000, requirements: [] },
+            { attr: { prod: 33000 }, wood: 1300, clay: 1040, iron: 390, crop: 780, pop: 11, cp: 2000, time: 14200 / 1000, requirements: [] },
+            { attr: { prod: 50000 }, wood: 2170, clay: 1735, iron: 650, crop: 1300, pop: 13, cp: 3000, time: 28400 / 1000, requirements: [] },
+            { attr: { prod: 70000 }, wood: 3625, clay: 2900, iron: 1085, crop: 2175, pop: 15, cp: 4000, time: 56800 / 1000, requirements: [] },
+            { attr: { prod: 100000 }, wood: 6050, clay: 4840, iron: 1815, crop: 3630, pop: 17, cp: 4000, time: 11360 / 1000, requirements: [] },
+            { attr: { prod: 145000 }, wood: 10105, clay: 8080, iron: 3030, crop: 6060, pop: 19, cp: 5000, time: 22720 / 1000, requirements: [] },
+            { attr: { prod: 200000 }, wood: 9999999999, clay: 9999999999, iron: 9999999999, crop: 9999999999, pop: 21, cp: 6000, time: 9999999999, requirements: [] } // 10 level
         ]
     });
 
     buildings.insert({
         id: Buildings.CROP_FIELD, name: 'Crop Field', singleton: false, levels: [
-            { attr: { prod: 2000 }, wood: 10, clay: 10, iron: 10, crop: 10, pop: 0, cp: 0, time: 10, requirements: [] },
-            { attr: { prod: 5000 }, wood: 30, clay: 30, iron: 30, crop: 30, pop: 0, cp: 0, time: 30, requirements: [] },
-            { attr: { prod: 12000 }, wood: 50, clay: 50, iron: 50, crop: 50, pop: 1, cp: 0, time: 60, requirements: [] }
+            { attr: { prod: 2000 }, wood: 70, clay: 90, iron: 70, crop: 20, pop: 0, cp: 0, time: 150 / 1000, requirements: [] },
+            { attr: { prod: 5000 }, wood: 115, clay: 150, iron: 115, crop: 35, pop: 0, cp: 1000, time: 300 / 1000, requirements: [] },
+            { attr: { prod: 9000 }, wood: 195, clay: 250, iron: 195, crop: 55, pop: 0, cp: 1000, time: 600 / 1000, requirements: [] },
+            { attr: { prod: 15000 }, wood: 325, clay: 420, iron: 325, crop: 95, pop: 0, cp: 2000, time: 1200 / 1000, requirements: [] },
+            { attr: { prod: 22000 }, wood: 545, clay: 700, iron: 545, crop: 155, pop: 0, cp: 2000, time: 2400 / 1000, requirements: [] },
+            { attr: { prod: 33000 }, wood: 910, clay: 1170, iron: 910, crop: 260, pop: 0, cp: 2000, time: 4800 / 1000, requirements: [] },
+            { attr: { prod: 50000 }, wood: 1520, clay: 1950, iron: 1520, crop: 435, pop: 1, cp: 3000, time: 9600 / 1000, requirements: [] },
+            { attr: { prod: 70000 }, wood: 2535, clay: 3260, iron: 2535, crop: 725, pop: 2, cp: 4000, time: 19200 / 1000, requirements: [] },
+            { attr: { prod: 100000 }, wood: 4235, clay: 5445, iron: 4235, crop: 1210, pop: 3, cp: 4000, time: 38400 / 1000, requirements: [] },
+            { attr: { prod: 145000 }, wood: 7070, clay: 9095, iron: 7070, crop: 2020, pop: 4, cp: 5000, time: 76800 / 1000, requirements: [] },
+            { attr: { prod: 200000 }, wood: 9999999999, clay: 9999999999, iron: 9999999999, crop: 9999999999, pop: 5, cp: 6000, time: 9999999999, requirements: [] } // 10 level
         ]
     });
 
