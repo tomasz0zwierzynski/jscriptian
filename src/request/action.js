@@ -43,7 +43,7 @@ module.exports = {
                 const alreadyInConstruction = buildQueueSameBuilding.length;
                 
                 // TODO: na sztywno nie można bardziej rozbudować
-                if (level + alreadyInConstruction < 2) {
+                if (level + alreadyInConstruction < 20) {
 
                     const resources = villageService.getResources(db, player);
 
@@ -111,7 +111,7 @@ module.exports = {
                 const constructQueueSameBuilding = player.villages[player.activeVillage].constructQueue.filter( b => +b.constructionId === constructionId);
                 const alreadyInConstruction = constructQueueSameBuilding.length;
 
-                if (level + alreadyInConstruction < 2) {
+                if (level + alreadyInConstruction < 20) {
                     
                     const resources = villageService.getResources(db, player);
 
