@@ -15,8 +15,11 @@ module.exports = {
             if (player) {
 
                 const json = {
-                    name: player.name
+                    name: player.name,
+                    message: player.message
                 }
+
+                player.message = null;
 
                 res.json(json);
             } else {

@@ -4,9 +4,10 @@ function getJsonData() {
    
     $.getJSON('/user-info-params', { token: token }, res => {
 
-        const { name } = res;
+        const { name, message } = res;
 
         navbarController.init( name, navbarController.ID_SITES_ITEM );
+        messageController.init( message );
 
     }).fail( handleFail );
 

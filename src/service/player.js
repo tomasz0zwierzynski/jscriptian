@@ -114,7 +114,8 @@ module.exports = {
             name: name,
             password: password,
             activeVillage: 0,
-            villages: [ ]
+            villages: [ ],
+            message: null
         };
 
         players.insert(newPlayer);

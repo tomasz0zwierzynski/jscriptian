@@ -53,7 +53,7 @@ module.exports = {
                     const cropLeft = resources.crop - building.levels[level + alreadyInConstruction].crop;
 
                     if (woodLeft < 0 || clayLeft < 0 || ironLeft < 0 || cropLeft < 0 ) {
-                        // message ze nie mozna zbudować
+                        player.message = 'Za mało surowców';
                     } else {
 
                         const reduction = villageService.getMainBuildingReduction(db, player).reduction;
@@ -121,7 +121,7 @@ module.exports = {
                     const cropLeft = resources.crop - building.levels[level + alreadyInConstruction].crop;
 
                     if (woodLeft < 0 || clayLeft < 0 || ironLeft < 0 || cropLeft < 0 ) {
-                        // message ze nie mozna zbudować
+                        player.message = 'Za mało surowców';
                     } else {
 
                         const reduction = villageService.getMainBuildingReduction(db, player).reduction;
@@ -219,6 +219,8 @@ module.exports = {
                     res.redirect('/sites');
                 } else if ( req.query.place === 'center' ) {
                     res.redirect('/center');
+                } else if ( req.query.place === 'map' ) {
+                    res.redirect('/map');
                 }
                 
             } else {

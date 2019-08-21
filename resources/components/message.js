@@ -6,11 +6,12 @@ var messageController = {
     init: function ( text ) {
         const self = this;
 
-        document.getElementById( self.ID_MESSAGE_TEXT ).innerHTML = text;
-        document.getElementById( self.ID_MESSAGE_ALERT ).style.display = 'inherit';
+        if ( text ) {
+            document.getElementById( self.ID_MESSAGE_TEXT ).innerHTML = text;
+            document.getElementById( self.ID_MESSAGE_ALERT ).style.display = 'inherit';
 
-        setTimeout( () => self.hide( self ), 4000);
-
+            setTimeout( () => self.hide( self ), 4000);
+        }
     },
 
     hide: function ( self ) {
