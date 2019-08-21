@@ -9,6 +9,7 @@ var messageController = {
         if ( text ) {
             document.getElementById( self.ID_MESSAGE_TEXT ).innerHTML = text;
             document.getElementById( self.ID_MESSAGE_ALERT ).style.display = 'inherit';
+            document.getElementById( self.ID_MESSAGE_ALERT ).classList.add('alert-primary');
 
             setTimeout( () => self.hide( self ), 4000);
         }
