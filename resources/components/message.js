@@ -1,0 +1,20 @@
+var messageController = {
+
+    ID_MESSAGE_ALERT: 'message-alert',
+    ID_MESSAGE_TEXT: 'message-text',
+
+    init: function ( text ) {
+        const self = this;
+
+        document.getElementById( self.ID_MESSAGE_TEXT ).innerHTML = text;
+        document.getElementById( self.ID_MESSAGE_ALERT ).style.display = 'inherit';
+
+        setTimeout( () => self.hide( self ), 4000);
+
+    },
+
+    hide: function ( self ) {
+        document.getElementById( self.ID_MESSAGE_ALERT ).style.display = 'none';
+    }
+
+}

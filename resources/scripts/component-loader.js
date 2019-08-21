@@ -8,7 +8,8 @@ var componentLoader = {
         { name: 'PRODUCTION', src: 'components/production.html', container: 'production-container' },
         { name: 'VILLAGES', src: 'components/villages.html', container: 'villages-container' },
         { name: 'QUEUE', src: 'components/queue.html', container: 'queue-container' },
-        { name: 'NAVBAR', src: 'components/navbar.html', container: 'navbar-container' }
+        { name: 'NAVBAR', src: 'components/navbar.html', container: 'navbar-container' },
+        { name: 'MESSAGE', src: 'components/message.html', container: 'message-container' }
     ],
 
     callback: () => {},
