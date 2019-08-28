@@ -2,6 +2,7 @@ const authService = require('../auth');
 const playerService = require('../service/player');
 const buildingService = require('../service/building');
 const villageService = require('../service/village');
+const worldService = require('../service/world');
 const eventQueue = require('../queue');
 
 const EventTypes = require('../model/event-type');
@@ -20,6 +21,23 @@ module.exports = {
             } else {
                 res.send('fail');
             }
+        });
+
+        app.post('/register', (req, res) => {
+            // logika rejestrowania gracza
+            const player = playerService.getPlayerByName(db, req.body.user);
+            if (player) {
+                // gracz istnieje
+                res.send('fail');
+            } else {
+                const newPlayer = playerService.registerPlayer(db, req.body.user, req.body.password)
+                // TODO: dodać strategie wybierania startowego położenia
+                worldService.foundNewVillage( db, newPlayer, { x: Math.floor(Math.random() * 50), y: Math.floor(Math.random() * 50)} );
+                const token = authService.getPlayerToken(db, req.body.user, req.body.password);
+    
+                res.send(token);
+            }
+
         });
 
         app.get('/logout', (req, res) => {

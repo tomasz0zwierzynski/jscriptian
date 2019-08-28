@@ -19,11 +19,11 @@
 
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Register </a>
+                    <a class="nav-link" href="/register">Register <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>
@@ -35,7 +35,7 @@
             <div class="col-auto">
                 <div class="card mt-4" style="width: 22rem;">
                     <div class="card-body">
-                        <h5 class="card-title">Login</h5>
+                        <h5 class="card-title">Register</h5>
                         <form>
                             <div class="form-group">
                                 <label for="username">Username</label>
@@ -45,7 +45,11 @@
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" id="password" name="password">
                             </div>
-                            <button type="button" class="btn btn-success" onclick="login(this.form);">Login</button>
+                            <div class="form-group">
+                                <label for="password">Repeat password</label>
+                                <input type="password" class="form-control" id="repeat" name="repeat">
+                            </div>
+                            <button type="button" class="btn btn-success" onclick="register(this.form);">Register</button>
                         </form>
 
                         <div id="msg" class="mt-4 text-center">
@@ -61,20 +65,27 @@
 <script src="scripts/lib/jquery-3.4.0.min.js"></script>
 <script src="scripts/commons.js"></script>
 <script>
-    function login(form) {
+    function register(form) {
         username = form.username.value;
         pass = hash(form.password.value);
+        pass2 = hash(form.repeat.value);
 
-        $.post('/auth', { 'user': username, 'password': pass })
+        if ( pass !== pass2 ) {
+            document.getElementById("msg").innerHTML = '<div class="alert alert-danger" >Passwords are not the same</div>';
+            return;
+        }
+
+        $.post('/register', { 'user': username, 'password': pass })
             .done(data => {
                 if (data !== 'fail') {
                     localStorage.setItem('token', data);
                     window.location.href = 'sites';
                 } else {
-                    document.getElementById("msg").innerHTML = '<div class="alert alert-danger" >Wrong username or password</div>';
+                    document.getElementById("msg").innerHTML = '<div class="alert alert-danger" >Cannot register player</div>';
                 }
 
-            });
+            }
+        );
 
     } 
 </script>

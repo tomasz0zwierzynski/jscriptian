@@ -22,6 +22,8 @@ module.exports = {
 function createPlayerData(db) {
     const players = db.addCollection('players', { indices: ['id'] });
 
+
+    // TODO: remove test players
     const testPlayer = playerService.registerPlayer(db, 'test', 'test');
     worldService.foundNewVillage( db, testPlayer, { x: 50, y: 50} );
 

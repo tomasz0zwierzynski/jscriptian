@@ -12,6 +12,10 @@ module.exports = {
             res.sendFile(path.join(dirname, 'resources', 'login.html'));
         });
 
+        app.get('/register', (req, res) => {
+            res.sendFile(path.join(dirname, 'resources', 'register.html'));
+        });
+
         app.get('/sites', (req, res) => {
             res.sendFile(path.join(dirname, 'resources', 'sites.html'));
         });
