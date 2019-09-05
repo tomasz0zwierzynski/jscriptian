@@ -1,3 +1,4 @@
 Walidacja danych podczas rejestracji register.html
 Walidacja danych podczas rejestracji action.js
 Wybieranie miejsca startowego podczas rejestracji player.js
+Likwidacja gameLoop, punkty kultry obliczane w ten sam sposób co resources
