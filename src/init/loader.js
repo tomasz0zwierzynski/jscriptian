@@ -22,13 +22,12 @@ module.exports = {
 function createPlayerData(db) {
     const players = db.addCollection('players', { indices: ['id'] });
 
-
     // TODO: remove test players
     const testPlayer = playerService.registerPlayer(db, 'test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08');
     worldService.foundNewVillage( db, testPlayer, { x: 50, y: 50} );
 
-    const test2Player = playerService.registerPlayer(db, 'test2', '60303ae22b998861bce3b28f33eec1be758a213c86c93c076dbe9f558c11c752');
-    worldService.foundNewVillage( db, test2Player, { x: 52, y: 50} );
+    // const test2Player = playerService.registerPlayer(db, 'test2', '60303ae22b998861bce3b28f33eec1be758a213c86c93c076dbe9f558c11c752');
+    // worldService.foundNewVillage( db, test2Player, { x: 52, y: 50} );
     // for (var i = 0; i < 1000; i++) {
     //     playerService.registerPlayer(db, `player${i}`, `player${i}`);
     // }
