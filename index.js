@@ -31,7 +31,7 @@ app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 setInterval(() => {
     gameLoop.process( db );
-}, 50);
+}, 60000);
 
 // Testting purposes
 //const eventQueue = require('./src/queue');
