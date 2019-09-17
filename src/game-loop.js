@@ -12,7 +12,7 @@ module.exports = {
 
             player.villages.forEach( (village, idx) => {
                 const production = villageService.getCultureProductionByVillage(db, player, idx);
-                village.culturePoints += 0.05 * production / 3600;
+                village.culturePoints += 60 * production / 3600;
             });
 
             playerService.updatePlayer( db, player );
