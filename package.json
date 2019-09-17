@@ -4,7 +4,8 @@
   "description": "A small web-browser trivian like game",
   "main": "index.js",
   "scripts": {
-    "serve": "node index.js"
+    "serve": "node index.js",
+    "start": "node index.js"
   },
   "author": "Tomasz Zwierzynski",
   "license": "ISC",
