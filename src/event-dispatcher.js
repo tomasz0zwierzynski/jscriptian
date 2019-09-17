@@ -29,22 +29,39 @@ module.exports = {
     dispatchSiteFinishEvent: function ( db, event ) {
         console.log( 'dispatchSiteFinishEvent' );
         console.log( event );
-        const player = playerService.getPlayerById( db, event.playerId );
-        const villageId = event.eventDetails.villageId;
+        try {
+            const player = playerService.getPlayerById( db, event.playerId );
+            const villageId = event.eventDetails.villageId;
         
-        player.villages[villageId].buildQueue = player.villages[villageId].buildQueue.filter( el => el.eventDate !== event.eventDetails.eventDate );
-        player.villages[villageId].sites[event.eventDetails.siteId].level++;
+            player.villages[villageId].buildQueue = player.villages[villageId].buildQueue.filter( el => el.eventDate !== event.eventDetails.eventDate );
+            player.villages[villageId].sites[event.eventDetails.siteId].level++;
+        } catch ( err ) {
+            console.log( 'Error!' );
+            console.error( err );
+            console.log( 'player: ' );
+            console.log( player );
+            console.log( 'event: ' );
+            console.log( event );
+        }
     },
 
     dispatchConstructionFinishEvent: function ( db, event ) {
         console.log( 'dispatchConstructionFinishEvent' );
         console.log( event );
-
-        const player = playerService.getPlayerById( db, event.playerId );
-        const villageId = event.eventDetails.villageId;
+        try {
+            const player = playerService.getPlayerById( db, event.playerId );
+            const villageId = event.eventDetails.villageId;
         
-        player.villages[villageId].constructQueue = player.villages[villageId].constructQueue.filter( el => el.eventDate !== event.eventDetails.eventDate );
-        player.villages[villageId].buildings[event.eventDetails.constructionId].level++;
+            player.villages[villageId].constructQueue = player.villages[villageId].constructQueue.filter( el => el.eventDate !== event.eventDetails.eventDate );
+            player.villages[villageId].buildings[event.eventDetails.constructionId].level++;
+        } catch ( err ) {
+            console.log( 'Error!' );
+            console.error( err );
+            console.log( 'player: ' );
+            console.log( player );
+            console.log( 'event: ' );
+            console.log( event );
+        }
     },
 
     dispatchMerchantArrivedEvent: function (db,  event ) {
