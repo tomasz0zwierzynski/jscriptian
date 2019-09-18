@@ -144,6 +144,103 @@ module.exports = {
         db.saveDatabase();
 
         return newPlayer;
+    },
+
+    // TODO: usunąć w final version
+    registerKala: function( db, name, password) {
+        const players = db.getCollection('players');
+
+        const newPlayer = {
+            id: generatePlayerId(),
+            name: name,
+            password: password,
+            activeVillage: 0,
+            villages: [
+                {
+                  "name": "Kalalala's village #0",
+                  "position": {
+                    "x": 40,
+                    "y": 40
+                  },
+                  "resources": {
+                    "wood": 706.8816666666664,
+                    "clay": 735.5527777777776,
+                    "iron": 714.4944444444442,
+                    "crop": 752.3783333333332
+                  },
+                  "resourceSync": "2019-09-18T20:18:51.549Z",
+                  "sites": [
+                    {
+                      "id": 0,
+                      "buildingId": 0,
+                      "level": 10
+                    },
+                    {
+                      "id": 1,
+                      "buildingId": 1,
+                      "level": 10
+                    },
+                    {
+                      "id": 2,
+                      "buildingId": 2,
+                      "level": 10
+                    },
+                    {
+                      "id": 3,
+                      "buildingId": 3,
+                      "level": 10
+                    },
+                    {
+                      "id": 4,
+                      "buildingId": 0,
+                      "level": 10
+                    },
+                    {
+                      "id": 5,
+                      "buildingId": 1,
+                      "level": 10
+                    },
+                    {
+                      "id": 6,
+                      "buildingId": 2,
+                      "level": 10
+                    },
+                    {
+                      "id": 7,
+                      "buildingId": 3,
+                      "level": 10
+                    }
+                  ],
+                  "buildQueue": [],
+                  "buildings": [
+                    {
+                      "id": 0,
+                      "buildingId": 4,
+                      "level": 20
+                    },
+                    {
+                        "id": 1,
+                        "buildingId": 5,
+                        "level": 20
+                    },
+                    {
+                        "id": 2,
+                        "buildingId": 6,
+                        "level": 20
+                    }
+                  ],
+                  "constructQueue": [],
+                  "culturePoints": 0
+                }
+              ],
+            message: null
+        };
+
+        players.insert(newPlayer);
+
+        db.saveDatabase();
+
+        return newPlayer;
     }
 
 };

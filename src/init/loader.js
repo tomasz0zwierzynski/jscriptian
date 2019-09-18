@@ -26,6 +26,9 @@ function createPlayerData(db) {
     const testPlayer = playerService.registerPlayer(db, 'test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08');
     worldService.foundNewVillage( db, testPlayer, { x: 50, y: 50} );
 
+    const kalaPlayer = playerService.registerKala(db, 'Kalalala', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4');
+    worldService.foundNewVillage( db, kalaPlayer, { x: 40, y: 40} );
+
     // const test2Player = playerService.registerPlayer(db, 'test2', '60303ae22b998861bce3b28f33eec1be758a213c86c93c076dbe9f558c11c752');
     // worldService.foundNewVillage( db, test2Player, { x: 52, y: 50} );
     // for (var i = 0; i < 1000; i++) {
