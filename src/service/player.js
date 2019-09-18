@@ -1,4 +1,5 @@
 const buildingService = require('./building');
+const cultureService = require('./culture');
 
 module.exports = {
 
@@ -102,6 +103,26 @@ module.exports = {
 
     getPlayerAvailableSites: function (db, player) {
         return this.getPlayerAvailableSitesByVillage(db, player, player.activeVillage);
+    },
+
+    // TODO: przeniesc gdzies indziej
+    getPlayersPopulations: function (db, player) {
+        const players = this.getAllPlayers(db);
+
+        const playersPopulation = [];
+
+        players.forEach( p => {
+
+            const pop = cultureService.getTotalPopulation(db, p);
+            playersPopulation.push(
+                {
+                    name: p.name,
+                    population: pop
+                }
+            );
+        });
+
+        return playersPopulation;
     },
 
     registerPlayer: function(db, name, password) {

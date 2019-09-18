@@ -48,6 +48,10 @@ module.exports = {
             res.sendFile(path.join(dirname, 'resources', 'new-construction.html'));
         });
 
+        app.get('/leaderboard', (req, res) => {
+            res.sendFile(path.join(dirname, 'resources', 'leaderboard.html'))
+        })
+
     }
 
 }

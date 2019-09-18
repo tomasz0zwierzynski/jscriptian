@@ -266,6 +266,26 @@ module.exports = {
 
         });
 
+        app.get('/leaderboard-params', (req, res) => {
+
+            const player = authService.getPlayerByToken(db, req.query.token);
+
+            if ( player ) {
+
+                // TODO: posortowac po stronie serwisu
+                const playersPop = playerService.getPlayersPopulations(db, player);
+
+                const json = {
+                    playersPop: playersPop
+                }
+
+                res.json(json);
+            } else {
+                res.status(401);
+                res.send('Unauthenticated');
+            }
+        });
+
     }
 
 }

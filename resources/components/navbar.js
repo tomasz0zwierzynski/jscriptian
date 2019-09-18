@@ -5,6 +5,7 @@ var navbarController = {
     ID_SITES_ITEM: 'navbar-sites',
     ID_CENTER_ITEM: 'navbar-center',
     ID_MAP_ITEM: 'navbar-map',
+    ID_LEADERBOARD_ITEM: 'navbar-leaderboard',
 
     init: function ( name, active ) {
         const self = this;
