@@ -209,6 +209,46 @@ module.exports = {
                       "id": 7,
                       "buildingId": 3,
                       "level": 10
+                    },
+                    {
+                      "id": 8,
+                      "buildingId": 0,
+                      "level": 10
+                    },
+                    {
+                      "id": 9,
+                      "buildingId": 1,
+                      "level": 10
+                    },
+                    {
+                      "id": 10,
+                      "buildingId": 2,
+                      "level": 10
+                    },
+                    {
+                      "id": 11,
+                      "buildingId": 3,
+                      "level": 10
+                    },
+                    {
+                      "id": 12,
+                      "buildingId": 0,
+                      "level": 10
+                    },
+                    {
+                      "id": 13,
+                      "buildingId": 1,
+                      "level": 10
+                    },
+                    {
+                      "id": 14,
+                      "buildingId": 2,
+                      "level": 10
+                    },
+                    {
+                      "id": 15,
+                      "buildingId": 3,
+                      "level": 10
                     }
                   ],
                   "buildQueue": [],
@@ -225,6 +265,26 @@ module.exports = {
                     },
                     {
                         "id": 2,
+                        "buildingId": 6,
+                        "level": 20
+                    },
+                    {
+                        "id": 3,
+                        "buildingId": 5,
+                        "level": 20
+                    },
+                    {
+                        "id": 4,
+                        "buildingId": 6,
+                        "level": 20
+                    },
+                    {
+                        "id": 5,
+                        "buildingId": 5,
+                        "level": 20
+                    },
+                    {
+                        "id": 6,
                         "buildingId": 6,
                         "level": 20
                     }
