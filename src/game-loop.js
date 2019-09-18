@@ -18,6 +18,29 @@ module.exports = {
             playerService.updatePlayer( db, player );
         });
 
+        // QUICKFIX: check event locking
+        // TODO: find actual problem causing this...
+        allPlayers.forEach( player => {
+            player.villages.forEach( (village, idx) => {
+                village.buildQueue.forEach( event => {
+                    const now = new Date();
+                    const date = new Date(event.eventDate);
+                    if (date < now) {
+                        village.buildQueue = [];
+                    }
+                });
+                village.constructQueue.forEach( event => {
+                    const now = new Date();
+                    const date = new Date(event.eventDate);
+                    if (date < now) {
+                        village.constructQueue = [];
+                    }
+                });
+            });
+
+            playerService.updatePlayer( db, player );
+        });
+
     }
 }
 
