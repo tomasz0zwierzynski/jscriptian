@@ -33,19 +33,44 @@ function getJsonData() {
 
         const { sites, buildQueue } = res;
 
-        sites.forEach(site => {
-            let div = document.createElement("div");
-            div.innerHTML = '<p> '
-                + getSiteName(site.buildingId)
-                + ': '
-                + site.level
-                + ' level </p> <button type="button" class="btn btn-info" onclick="field('
-                + site.id
-                + ')"> Upgrade </button> <br> <br>';
+        let maxWood = 0;
+        let maxClay = 0;
+        let maxIron = 0;
+        let maxCrop = 0;
 
-            let container = document.getElementById("site-list");
-            container.appendChild(div);
+        sites.forEach(site => {
+
+            if ( site.level >= 10 ) {
+                if ( site.buildingId === 0 ) {
+                    maxWood++;
+                } else if ( site.buildingId === 1 ) {
+                    maxClay++;
+                } else if ( site.buildingId === 2 ) {
+                    maxIron++;
+                } else if ( site.buildingId === 3 ) {
+                    maxCrop++;
+                }
+            } else {
+                let div = document.createElement("div");
+                div.innerHTML = '<p> '
+                    + getSiteName(site.buildingId)
+                    + ': '
+                    + site.level
+                    + ' level </p> <button type="button" class="btn btn-info btn-sm" onclick="field('
+                    + site.id
+                    + ')"> Details </button> <button type="button" class="btn btn-info btn-sm" onclick="build('
+                    + site.id
+                    + ')"> Upgrade </button> <br> <br>';
+    
+                let container = document.getElementById("site-list");
+                container.appendChild(div);    
+            }
         });
+
+        document.getElementById("max-wood").innerHTML = maxWood;
+        document.getElementById("max-clay").innerHTML = maxClay;
+        document.getElementById("max-iron").innerHTML = maxIron;
+        document.getElementById("max-crop").innerHTML = maxCrop;
 
         queueController.init( buildQueue );
         
@@ -67,5 +92,11 @@ function village(idx) {
 function newSite() {
     setTimeout(() => {
         window.location.href = 'new-site';
+    }, 30);
+}
+
+function build(num) {
+    setTimeout(() => {
+        window.location.href = 'upgrade?id=' + num + '&token=' + token;
     }, 30);
 }

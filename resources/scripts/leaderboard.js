@@ -15,7 +15,6 @@ function getJsonData() {
 
         const { playersPop } = res;
 
-        console.log(playersPop);
         const leaderboards = [];
         playersPop.forEach( p => {
             leaderboards.push(

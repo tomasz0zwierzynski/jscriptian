@@ -39,8 +39,10 @@ function getJsonData() {
                 + getBuildingName(building.buildingId) 
                 + ': '
                 + building.level
-                + ' level </p> <button type="button" class="btn btn-info" onclick="building('
+                + ' level </p> <button type="button" class="btn btn-info btn-sm" onclick="building('
                 + building.id 
+                + ')"> Details </button> <button type="button" class="btn btn-info btn-sm" onclick="build('
+                + building.id
                 + ')"> Upgrade </button> <br> <br>';
     
             let container = document.getElementById("building-list");
@@ -67,5 +69,11 @@ function village(idx) {
 function newConstruct() {
     setTimeout(() => {
         window.location.href = 'new-construction';
+    }, 30);
+}
+
+function build(num) {
+    setTimeout(() => {
+        window.location.href = 'construct?id=' + num + '&token=' + token;
     }, 30);
 }
