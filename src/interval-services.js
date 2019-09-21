@@ -3,10 +3,20 @@ const villageService = require('./service/village');
 
 module.exports = {
 
-    process: function ( db ) {
+    start: function ( db ) {
+        setInterval(() => {
+            this.cultureProcess( db );
+        }, 60000);
+        setInterval(() => {
+            this.queueQuickFixProcess( db );
+        }, 60000);
+
+    },
+
+    cultureProcess: function ( db ) {
 
         const allPlayers = playerService.getAllPlayers(db);
-               
+
         // culture points production
         allPlayers.forEach( player => {
 
@@ -15,8 +25,14 @@ module.exports = {
                 village.culturePoints += 60 * production / 3600;
             });
 
-            playerService.updatePlayer( db, player );
+        playerService.updatePlayer( db, player );
         });
+
+    },
+
+    queueQuickFixProcess: function ( db ) {
+
+        const allPlayers = playerService.getAllPlayers(db);     
 
         // QUICKFIX: check event locking
         // TODO: find actual problem causing this...
