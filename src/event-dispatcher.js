@@ -1,5 +1,7 @@
 const EventTypes = require('./model/event-type');
 const playerService = require('./service/player');
+const logService = require('./service/log');
+const log = logService.getLogger('event-dispatcher.js');
 
 module.exports = {
 
@@ -22,13 +24,11 @@ module.exports = {
     },
 
     dispatchGeneralEvent: function ( db, event) {
-        console.log( 'dispatchGeneralEvent' );
-        console.log( event );
+        log.debug(`dispatchGeneralEvent: ${JSON.stringify(event)}`);
     },
 
     dispatchSiteFinishEvent: function ( db, event ) {
-        console.log( 'dispatchSiteFinishEvent' );
-        console.log( event );
+        log.debug(`dispatchSiteFinishedEvent: ${JSON.stringify(event)}`);
         try {
             const player = playerService.getPlayerById( db, event.playerId );
             const villageId = event.eventDetails.villageId;
@@ -36,18 +36,12 @@ module.exports = {
             player.villages[villageId].buildQueue = player.villages[villageId].buildQueue.filter( el => el.eventDate !== event.eventDetails.eventDate );
             player.villages[villageId].sites[event.eventDetails.siteId].level++;
         } catch ( err ) {
-            console.log( 'Error!' );
-            console.error( err );
-            console.log( 'player: ' );
-            console.log( player );
-            console.log( 'event: ' );
-            console.log( event );
+            log.error(`error: ${JSON.stringify(err)}, player: ${JSON.stringify(player)}, event: ${JSON.stringify(event)} `);
         }
     },
 
     dispatchConstructionFinishEvent: function ( db, event ) {
-        console.log( 'dispatchConstructionFinishEvent' );
-        console.log( event );
+        log.debug(`dispatchConstructionEvent: ${JSON.stringify(event)}`);
         try {
             const player = playerService.getPlayerById( db, event.playerId );
             const villageId = event.eventDetails.villageId;
@@ -55,18 +49,12 @@ module.exports = {
             player.villages[villageId].constructQueue = player.villages[villageId].constructQueue.filter( el => el.eventDate !== event.eventDetails.eventDate );
             player.villages[villageId].buildings[event.eventDetails.constructionId].level++;
         } catch ( err ) {
-            console.log( 'Error!' );
-            console.error( err );
-            console.log( 'player: ' );
-            console.log( player );
-            console.log( 'event: ' );
-            console.log( event );
+            log.error(`error: ${JSON.stringify(err)}, player: ${JSON.stringify(player)}, event: ${JSON.stringify(event)} `);
         }
     },
 
     dispatchMerchantArrivedEvent: function (db,  event ) {
-        console.log( 'dispatchMerchantArrivedEvent' );
-        console.log( event );
+        log.debug(`dispatchMerchantArrivedEvent: ${JSON.stringify(event)}`);
     }
 
 }

@@ -1,4 +1,6 @@
 const eventDispatcher = require('./event-dispatcher');
+const logService = require('./service/log');
+const log = logService.getLogger('queue.js');
 
 module.exports = {
 
@@ -14,7 +16,7 @@ module.exports = {
 
     addEventToQueue: function ( eventType, playerId, eventDate, eventDetails ) {
 
-        console.log('(+) push event to queue: ' + eventType);
+        log.debug(`push event to queue: { eventType: ${eventType}, playerId: ${playerId}, eventDate: ${eventDate}, eventDetails: ${JSON.stringify(eventDetails)} }`);
         this.eventQueue.push({
             eventType: eventType,
             playerId: playerId,
@@ -44,7 +46,6 @@ module.exports = {
 
     dispatchEvent: function ( event ) {
         if ( !event.completed ) {
-            console.log('dispatching event ' + event.eventType + ': ' + event.eventDate);
             eventDispatcher.dispatchEvent( this.db, event );
             event.completed = true;
         } 

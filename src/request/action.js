@@ -4,6 +4,8 @@ const buildingService = require('../service/building');
 const villageService = require('../service/village');
 const worldService = require('../service/world');
 const eventQueue = require('../queue');
+const logService = require('../service/log');
+const log = logService.getLogger('action.js');
 
 const EventTypes = require('../model/event-type');
 
@@ -14,6 +16,8 @@ module.exports = {
     build: function (app, db) {
 
         app.post('/auth', (req, res) => {
+            log.debug(`POST '/auth' { user: ${req.body.user}, password: ##hashed## } `);
+
             // logika otrzymywania tokena
             const token = authService.getPlayerToken(db, req.body.user, req.body.password);
             if (token) {
@@ -24,6 +28,8 @@ module.exports = {
         });
 
         app.post('/register', (req, res) => {
+            log.debug(`POST '/register' { user: ${req.body.user}, password: ##hashed## } `);
+
             // logika rejestrowania gracza
             const player = playerService.getPlayerByName(db, req.body.user);
             if (player) {
@@ -41,12 +47,16 @@ module.exports = {
         });
 
         app.get('/logout', (req, res) => {
+            log.debug(`GET '/logout' { token: ${req.query.token} } `);
+
             const token = req.query.token;
             authService.removePlayerToken(db, token);
             res.json({ msg: 'logged out' });
         });
 
         app.get('/upgrade', (req, res) => {
+            log.debug(`GET '/upgrade' { siteId: ${req.query.id}, token: ${req.query.token} } `);
+
             // Upgrade logic
             const siteId = +req.query.id; // id w player.site[id]
 
@@ -116,6 +126,8 @@ module.exports = {
         });
 
         app.get('/construct', (req, res)=> {
+            log.debug(`GET '/construct' { constructionId: ${req.query.id}, token: ${req.query.token} } `);
+
           // TODO: refactor - to samo co wyzej i jeszcze sprawdzic requirenments
             const constructionId = +req.query.id;
 
@@ -185,6 +197,8 @@ module.exports = {
         } );
 
         app.get('/upgrade-new', (req, res) => {
+            log.debug(`GET '/upgrade-new' { buildingId: ${req.query.id}, token: ${req.query.token} } `);
+
             const buildingId = +req.query.id;
 
             const player = authService.getPlayerByToken(db, req.query.token);
@@ -206,6 +220,8 @@ module.exports = {
         });
 
         app.get('/construct-new', (req, res) => {
+            log.debug(`GET '/construct-new' { buildingId: ${req.query.id}, token: ${req.query.token} } `);
+
             const buildingId = +req.query.id;
 
             const player = authService.getPlayerByToken(db, req.query.token);
@@ -226,6 +242,7 @@ module.exports = {
         });
 
         app.get('/village', (req, res) => {
+            log.debug(`GET '/village' { villageId: ${req.query.id}, token: ${req.query.token} } `);
             
             const villageId = +req.query.id;
 

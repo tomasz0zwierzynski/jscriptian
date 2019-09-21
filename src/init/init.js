@@ -8,7 +8,10 @@ module.exports = {
         
         const adapter = new lfsa();
         const db = new loki('db.json', {
-            adapter: adapter
+            adapter: adapter,
+            autoload: true,
+            autosave: true,
+            autosaveInterval: 10000
         });
         
         try {
@@ -16,7 +19,7 @@ module.exports = {
         
             db.loadDatabase();
         } catch (err) {
-        
+            // Nie ma pliku bazy danych, utworony zostanie nowy
             loader.prepareData(db);
         }
         

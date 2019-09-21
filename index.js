@@ -7,6 +7,10 @@ const paramsEndpoints = require('./src/request/params');
 const viewsEndpoints = require('./src/request/views');
 const actionsEndpoints = require('./src/request/action');
 
+const logService = require('./src/service/log');
+const log = logService.getLogger( 'index.js' );
+
+/** Uruchamianie aplikacji */
 const app = express();
 const port = 3000;
 
@@ -27,7 +31,7 @@ actionsEndpoints.build(app, db);
 
 eventQueue.setDatabase( db );
 
-app.listen(port, () => console.log(`App listening on port ${port}!`));
+app.listen(port, () => log.info(`App listening on port ${port}!`) );
 
-intervalServices.start();
+intervalServices.start( db );
 
